@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>संज्ञा-सिद्धि यन्त्रम् v8</title>
+  <title>शब्द-शास्त्र-यन्त्रम् v9</title>
   <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -23,38 +23,43 @@
       --saffron:   #B84000;
       --blue-root: #4A8ACA;
       --red-suf:   #C05040;
+      --sandhi-a:  #4A7A4A;
+      --sandhi-b:  #4A4A8A;
+      --sandhi-r:  #8A4A4A;
       --glow:      rgba(200,144,0,.1);
-
-      /* संज्ञा category colours */
-      --c-phon:  #4A7AAA;   /* phonological */
-      --c-nom:   #4A9A6A;   /* nominal */
-      --c-sandhi:#9A6ACA;   /* sandhi */
-      --c-pron:  #C06050;   /* pronoun-specific */
-      --c-deriv: #8A8A3A;   /* derivational */
+      --c-phon:    #4A7AAA;
+      --c-nom:     #4A9A6A;
+      --c-sandhi:  #9A6ACA;
+      --c-pron:    #C06050;
+      --c-deriv:   #8A8A3A;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scrollbar-width:thin;scrollbar-color:var(--border) var(--bg);}
-    body{
-      background:var(--bg);
-      background-image:radial-gradient(ellipse at 15% 0%,rgba(200,144,0,.07) 0%,transparent 55%),radial-gradient(ellipse at 85% 100%,rgba(184,64,0,.05) 0%,transparent 50%);
-      min-height:100vh;display:flex;flex-direction:column;align-items:center;
-      padding:44px 16px 96px;
-      font-family:'Cormorant Garamond',Georgia,serif;color:var(--text);
+    @media print{
+      body{background:white!important;color:#111!important;padding:0;}
+      .no-print{display:none!important;}
+      .print-only{display:block!important;}
+      .card{background:white!important;border:1px solid #ccc!important;box-shadow:none!important;break-inside:avoid;}
+      .result{display:block!important;}
+      th{background:#eee!important;color:#111!important;}
+      .form,.vsa{color:#111!important;}
+      .rt{color:#1a4a8a!important;background:rgba(26,74,138,.1)!important;}
+      .sf{color:#9a1a1a!important;background:rgba(154,26,26,.1)!important;}
+      .sc{background:#f9f9f9!important;border-left-color:#888!important;}
     }
+    .print-only{display:none;}
+    body{background:var(--bg);background-image:radial-gradient(ellipse at 15% 0%,rgba(200,144,0,.07) 0%,transparent 55%),radial-gradient(ellipse at 85% 100%,rgba(184,64,0,.05) 0%,transparent 50%);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:44px 16px 96px;font-family:'Cormorant Garamond',Georgia,serif;color:var(--text);}
     .page{width:100%;max-width:940px;}
 
-    /* ── Masthead ── */
-    header{text-align:center;margin-bottom:36px;}
+    header{text-align:center;margin-bottom:34px;}
     .mast-sa{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.9rem;color:var(--gold);letter-spacing:.28em;display:block;margin-bottom:8px;opacity:.85;}
     h1{font-family:'Tiro Devanagari Sanskrit',serif;font-size:2.7rem;font-weight:400;color:var(--text);line-height:1.1;}
     .mast-sub{font-family:'Libre Baskerville',serif;font-style:italic;font-size:.82rem;color:var(--text-soft);margin-top:5px;letter-spacing:.07em;}
     .mast-rule{display:flex;align-items:center;gap:10px;margin:16px auto 0;max-width:380px;}
     .mrl{flex:1;height:1px;background:var(--border2);}.mrd{width:5px;height:5px;transform:rotate(45deg);background:var(--gold);flex-shrink:0;}
 
-    /* ── Card ── */
     .card{background:var(--panel);border:1px solid var(--border);border-radius:2px;padding:22px 26px;margin-bottom:14px;box-shadow:0 4px 24px rgba(0,0,0,.6),0 1px 4px rgba(0,0,0,.4);}
 
-    /* ── Input ── */
     .input-row{display:flex;gap:10px;align-items:stretch;}
     .iw{flex:1;position:relative;}
     input[type=text]{width:100%;padding:12px 42px 12px 14px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.45rem;color:var(--text);background:var(--bg2);border:1px solid var(--border);border-radius:2px;outline:none;transition:border-color .2s,box-shadow .2s;line-height:1.4;}
@@ -65,7 +70,6 @@
     .go{padding:12px 22px;background:var(--saffron);color:#fff;border:none;border-radius:2px;font-family:'Libre Baskerville',serif;font-size:.88rem;font-style:italic;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 3px 12px rgba(184,64,0,.4);transition:background .2s,transform .1s;}
     .go:hover{background:#923000;}.go:active{transform:translateY(1px);}
 
-    /* pills */
     .pills{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px;align-items:center;}
     .pill-lbl{font-size:.72rem;color:var(--text-soft);font-style:italic;}
     .pill-sep{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);font-family:'Libre Baskerville',serif;}
@@ -77,8 +81,10 @@
     .pu{background:rgba(74,122,170,.1);border-color:rgba(74,122,170,.3);color:#80B0E0;}
     .ph{background:rgba(200,148,8,.1);border-color:rgba(200,148,8,.3);color:#E0B040;}
     .ps{background:rgba(192,80,80,.1);border-color:rgba(192,80,80,.3);color:#E09090;}
+    /* history chips */
+    .hist-chip{padding:3px 11px;border-radius:999px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:.9rem;cursor:pointer;border:1px solid var(--border2);background:rgba(200,144,0,.06);color:var(--text-mid);transition:opacity .15s,transform .1s;line-height:1.7;}
+    .hist-chip:hover{opacity:.7;transform:translateY(-1px);}
 
-    /* sec label */
     .sec-lbl{font-family:'Libre Baskerville',serif;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-soft);display:flex;align-items:center;gap:10px;margin-bottom:14px;}
     .sec-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
 
@@ -105,54 +111,47 @@
     .viched-iast{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.88rem;color:var(--text-soft);margin-top:8px;}
     .viched-iast span{color:var(--text-mid);font-style:normal;}
 
-    /* ── SAMJNA CARDS ── */
-    .samjna-toggle{
-      display:flex;align-items:center;justify-content:space-between;cursor:pointer;
-      padding:10px 0;border-bottom:1px solid var(--border);margin-bottom:14px;
-      user-select:none;
-    }
+    /* ── SANDHI PANEL ── */
+    .sandhi-inputs{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px;}
+    .sandhi-word{width:160px;padding:9px 12px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.2rem;color:var(--text);background:var(--bg2);border:1px solid var(--border);border-radius:2px;outline:none;transition:border-color .2s;text-align:center;}
+    .sandhi-word:focus{border-color:var(--gold-dim);background:var(--bg3);}
+    .sandhi-plus{color:var(--text-faint);font-size:1.2rem;font-family:'Libre Baskerville',serif;}
+    .sandhi-btn{padding:9px 18px;background:rgba(74,122,170,.15);border:1px solid rgba(74,122,170,.3);color:#80B0E0;font-family:'Libre Baskerville',serif;font-size:.82rem;font-style:italic;border-radius:2px;cursor:pointer;transition:all .18s;white-space:nowrap;}
+    .sandhi-btn:hover{background:rgba(74,122,170,.25);}
+    .sandhi-result{margin-top:4px;}
+    .sandhi-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+    .sandhi-row:last-child{border-bottom:none;padding-bottom:0;}
+    .sandhi-seg{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.2rem;padding:4px 10px;border-radius:2px;}
+    .seg-a{background:rgba(74,122,74,.12);color:#80C080;border:1px solid rgba(74,122,74,.3);}
+    .seg-b{background:rgba(74,74,138,.12);color:#9090E0;border:1px solid rgba(74,74,138,.3);}
+    .seg-plus{color:var(--text-faint);font-size:1rem;}
+    .seg-arrow{color:var(--text-faint);}
+    .seg-result{background:rgba(200,144,0,.1);color:var(--gold-lt);border:1px solid rgba(200,144,0,.25);font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.2rem;padding:4px 12px;border-radius:2px;}
+    .sandhi-rule{font-family:'Libre Baskerville',serif;font-size:.72rem;font-style:italic;color:var(--text-soft);}
+    .sandhi-sutra{font-size:.68rem;color:var(--gold-dim);}
+    .sandhi-none{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--text-soft);}
+
+    /* samjna cards */
+    .samjna-toggle{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:10px 0;border-bottom:1px solid var(--border);margin-bottom:14px;user-select:none;}
     .samjna-toggle-lbl{font-family:'Libre Baskerville',serif;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-soft);}
     .samjna-toggle-count{font-family:'Libre Baskerville',serif;font-size:.72rem;color:var(--gold);margin-left:auto;margin-right:10px;}
     .samjna-toggle-arr{color:var(--text-faint);font-size:.8rem;transition:transform .2s;}
     .samjna-toggle-arr.open{transform:rotate(180deg);}
-    .samjna-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
+    .samjna-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:10px;}
     .samjna-grid.collapsed{display:none;}
-
-    .sc{
-      background:var(--bg2);border:1px solid var(--border);border-radius:2px;
-      padding:12px 14px;position:relative;overflow:hidden;
-      border-left:3px solid;
-    }
-    .sc.phon{border-left-color:var(--c-phon);}
-    .sc.nom {border-left-color:var(--c-nom);}
-    .sc.sandhi{border-left-color:var(--c-sandhi);}
-    .sc.pron{border-left-color:var(--c-pron);}
-    .sc.deriv{border-left-color:var(--c-deriv);}
-
-    .sc-cat{font-family:'Libre Baskerville',serif;font-size:.57rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:4px;}
-    .sc.phon .sc-cat{color:var(--c-phon);}
-    .sc.nom .sc-cat{color:var(--c-nom);}
-    .sc.sandhi .sc-cat{color:var(--c-sandhi);}
-    .sc.pron .sc-cat{color:var(--c-pron);}
-    .sc.deriv .sc-cat{color:var(--c-deriv);}
-
-    .sc-name{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.05rem;color:var(--text);display:block;line-height:1.4;margin-bottom:2px;}
-    .sc-sutra{font-family:'Libre Baskerville',serif;font-size:.68rem;color:var(--gold-dim);display:block;margin-bottom:5px;letter-spacing:.02em;}
-    .sc-def{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.84rem;color:var(--text-soft);display:block;margin-bottom:6px;line-height:1.4;}
-    .sc-val{
-      font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;
-      background:rgba(200,144,0,.08);border:1px solid rgba(200,144,0,.2);
-      border-radius:2px;padding:4px 8px;color:var(--gold-lt);display:block;
-      line-height:1.5;
-    }
-    .sc-val em{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.8rem;color:var(--text-soft);margin-left:6px;}
-
-    /* category legend */
     .cat-legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
     .cl-item{display:flex;align-items:center;gap:5px;font-size:.72rem;font-family:'Libre Baskerville',serif;color:var(--text-soft);}
     .cl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+    .sc{background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:12px 14px;border-left:3px solid;}
+    .sc.phon{border-left-color:var(--c-phon);}.sc.nom{border-left-color:var(--c-nom);}.sc.sandhi{border-left-color:var(--c-sandhi);}.sc.pron{border-left-color:var(--c-pron);}.sc.deriv{border-left-color:var(--c-deriv);}
+    .sc-cat{font-family:'Libre Baskerville',serif;font-size:.57rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:4px;}
+    .sc.phon .sc-cat{color:var(--c-phon);}.sc.nom .sc-cat{color:var(--c-nom);}.sc.sandhi .sc-cat{color:var(--c-sandhi);}.sc.pron .sc-cat{color:var(--c-pron);}.sc.deriv .sc-cat{color:var(--c-deriv);}
+    .sc-name{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.05rem;color:var(--text);display:block;line-height:1.4;margin-bottom:2px;}
+    .sc-sutra{font-family:'Libre Baskerville',serif;font-size:.68rem;color:var(--gold-dim);display:block;margin-bottom:5px;}
+    .sc-def{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.84rem;color:var(--text-soft);display:block;margin-bottom:6px;line-height:1.4;}
+    .sc-val{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;background:rgba(200,144,0,.08);border:1px solid rgba(200,144,0,.2);border-radius:2px;padding:4px 8px;color:var(--gold-lt);display:block;line-height:1.5;}
 
-    /* sūtra panel */
+    /* sūtra entries */
     .sutra-entry{display:grid;grid-template-columns:auto 1fr;gap:0 14px;padding:10px 0;border-bottom:1px solid rgba(80,70,30,.5);align-items:start;}
     .sutra-entry:last-child{border-bottom:none;padding-bottom:0;}
     .sutra-num{font-family:'Libre Baskerville',serif;font-size:.75rem;font-weight:700;letter-spacing:.04em;color:#D4A840;white-space:nowrap;padding-top:2px;min-width:68px;}
@@ -230,20 +229,20 @@
     .result{display:none;animation:rUp .3s ease both;}
     @keyframes rUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
     footer{text-align:center;font-size:.7rem;color:var(--text-faint);margin-top:10px;font-style:italic;}
-    @media(max-width:520px){.card{padding:14px 13px;}h1{font-size:2.1rem;}.form,.vtok-ch{font-size:1rem;}}
+    @media(max-width:520px){.card{padding:14px 13px;}h1{font-size:2.1rem;}.form,.vtok-ch{font-size:1rem;}.sandhi-word{width:120px;}}
   </style>
 </head>
 <body>
 <div class="page">
 
   <header>
-    <span class="mast-sa">॥ पाणिनीय-शब्द-सिद्धि-यन्त्रम् ॥</span>
+    <span class="mast-sa">॥ शब्द-शास्त्र-महामञ्जूषा ॥</span>
     <h1>संज्ञा-रूप</h1>
-    <p class="mast-sub">Saṃjñā · Sūtra · Derivation · Declension · Quiz</p>
+    <p class="mast-sub">Saṃjñā · Sandhi · Sūtra · Derivation · Declension · Quiz</p>
     <div class="mast-rule"><span class="mrl"></span><span class="mrd"></span><span class="mrl"></span><span class="mrd"></span><span class="mrl"></span></div>
   </header>
 
-  <div class="card">
+  <div class="card no-print">
     <div class="input-row">
       <div class="iw">
         <input type="text" id="wordInput" placeholder="शब्द लिखें… राम, मुनि, लता, राजन्, तद्, अहम्…" autocomplete="off" spellcheck="false">
@@ -257,6 +256,7 @@
       <span class="pill pa"  onclick="load('राम')">राम</span>
       <span class="pill pa"  onclick="load('बालक')">बालक</span>
       <span class="pill pa"  onclick="load('फल')">फल</span>
+      <span class="pill pa"  onclick="load('चन्दन')">चन्दन</span>
       <span class="pill paa" onclick="load('लता')">लता</span>
       <span class="pill pi"  onclick="load('मुनि')">मुनि</span>
       <span class="pill pu"  onclick="load('साधु')">साधु</span>
@@ -266,11 +266,21 @@
       <span class="pill ps"  onclick="load('त्वम्')">त्वम्</span>
       <span class="pill ps"  onclick="load('तद्')">तद्</span>
       <span class="pill ps"  onclick="load('अयम्')">अयम्</span>
-      <span class="pill ps"  onclick="load('सर्व')">सर्व</span>
+    </div>
+    <!-- History chips -->
+    <div class="pills" id="historyRow" style="display:none;">
+      <span class="pill-lbl">Recent:</span>
+      <span id="historyChips"></span>
     </div>
   </div>
 
   <div class="result" id="resultArea">
+
+    <!-- Print header (print-only) -->
+    <div class="print-only" style="text-align:center;margin-bottom:20px;">
+      <h2 style="font-family:serif;font-size:1.5rem;" id="printTitle"></h2>
+      <p style="font-size:.85rem;color:#666;">Sanskrit Grammar Engine · पाणिनीय व्याकरण</p>
+    </div>
 
     <!-- Analysis -->
     <div class="card">
@@ -284,6 +294,19 @@
         <div class="sec-lbl" style="margin-top:14px;">व्युत्पत्ति · Derivation</div>
         <div id="derivChain"></div>
       </div>
+    </div>
+
+    <!-- ══ SANDHI PANEL ══ -->
+    <div class="card no-print">
+      <div class="sec-lbl">सन्धि-प्रदर्शन · Sandhi Demonstrator</div>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.88rem;color:var(--text-soft);margin-bottom:12px;">Enter a second word to see what sandhi rules fire when these two words meet.</p>
+      <div class="sandhi-inputs">
+        <span class="sandhi-seg seg-a" id="sandhiWord1" style="font-size:1.1rem;"></span>
+        <span class="sandhi-plus">+</span>
+        <input class="sandhi-word" type="text" id="sandhiInput2" placeholder="दूसरा शब्द…" spellcheck="false" autocomplete="off">
+        <button class="sandhi-btn" onclick="computeSandhi()">सन्धि दिखाएँ →</button>
+      </div>
+      <div class="sandhi-result" id="sandhiResult"></div>
     </div>
 
     <!-- महा-संज्ञा -->
@@ -303,7 +326,7 @@
       <div class="samjna-grid" id="samjnaGrid"></div>
     </div>
 
-    <!-- Sūtra panel -->
+    <!-- Sūtra -->
     <div class="card">
       <div class="sec-lbl">सूत्र-विमर्शः · Applied Sūtras</div>
       <div id="sutraPanel"></div>
@@ -319,9 +342,10 @@
         <button class="gen-btn"        id="genF" onclick="setGender('f')">स्त्री॰ F</button>
         <button class="gen-btn"        id="genN" onclick="setGender('n')">न॰ Nt</button>
       </div>
-      <div class="toolbar">
+      <div class="toolbar no-print">
         <button class="tool-btn" id="quizBtn" onclick="toggleQuiz()">📝 Quiz Mode</button>
         <button class="tool-btn" id="copyBtn" onclick="copyTable()">⎘ Copy Table</button>
+        <button class="tool-btn" onclick="printSheet()">🖨 Print Sheet</button>
       </div>
       <div class="legend" id="legendArea"></div>
       <div class="fixed-note" id="fixedNote" style="display:none;"></div>
@@ -329,7 +353,7 @@
         <thead><tr><th>Vibhakti · विभक्ति</th><th>एकवचन</th><th>द्विवचन</th><th>बहुवचन</th></tr></thead>
         <tbody id="tableBody"></tbody>
       </table>
-      <div class="quiz-check" id="quizControls" style="display:none;">
+      <div class="quiz-check no-print" id="quizControls" style="display:none;">
         <button class="tool-btn" onclick="checkQuiz()">✓ Check</button>
         <button class="tool-btn" onclick="revealQuiz()">Show answers</button>
         <span class="quiz-score" id="quizScore"></span>
@@ -337,7 +361,7 @@
     </div>
 
   </div>
-  <footer>पाणिनि-कृत अष्टाध्यायी · सुप्-प्रत्यय · Based on Pāṇini's Ashtādhyāyī</footer>
+  <footer>पाणिनि-कृत अष्टाध्यायी · Based on Pāṇini's Ashtādhyāyī</footer>
 </div>
 
 <script>
@@ -349,8 +373,6 @@ const SVAR_SET=new Set(['अ','आ','इ','ई','उ','ऊ','ए','ऐ','ओ','�
 const VRIDDHI=new Set(['आ','ऐ','औ']);
 const GUNA=new Set(['अ','ए','ओ']);
 const IAST_MAP={'क':'k','ख':'kh','ग':'g','घ':'gh','ङ':'ṅ','च':'c','छ':'ch','ज':'j','झ':'jh','ञ':'ñ','ट':'ṭ','ठ':'ṭh','ड':'ḍ','ढ':'ḍh','ण':'ṇ','त':'t','थ':'th','द':'d','ध':'dh','न':'n','प':'p','फ':'ph','ब':'b','भ':'bh','म':'m','य':'y','र':'r','ल':'l','व':'v','श':'ś','ष':'ṣ','स':'s','ह':'h','अ':'a','आ':'ā','इ':'i','ई':'ī','उ':'u','ऊ':'ū','ए':'e','ऐ':'ai','ओ':'o','औ':'au','ऋ':'ṛ','\u093E':'ā','\u093F':'i','\u0940':'ī','\u0941':'u','\u0942':'ū','\u0943':'ṛ','\u0947':'e','\u0948':'ai','\u094B':'o','\u094C':'au',[ANUSVARA]:'ṃ',[VISARGA]:'ḥ',[HALANT]:''};
-
-/* Consonant class membership (for सवर्ण) */
 const VARGA_MAP={'क':'कवर्ग','ख':'कवर्ग','ग':'कवर्ग','घ':'कवर्ग','ङ':'कवर्ग','च':'चवर्ग','छ':'चवर्ग','ज':'चवर्ग','झ':'चवर्ग','ञ':'चवर्ग','ट':'टवर्ग','ठ':'टवर्ग','ड':'टवर्ग','ढ':'टवर्ग','ण':'टवर्ग','त':'तवर्ग','थ':'तवर्ग','द':'तवर्ग','ध':'तवर्ग','न':'तवर्ग','प':'पवर्ग','फ':'पवर्ग','ब':'पवर्ग','भ':'पवर्ग','म':'पवर्ग'};
 
 function tokenize(word){
@@ -361,15 +383,15 @@ function tokenize(word){
     if(ch===VISARGA){toks.push({t:'x',d:'ः',ia:'ḥ',lb:'विस॰',raw:ch});i++;continue;}
     if(SVAR_SET.has(ch)){toks.push({t:'s',d:ch,ia:IAST_MAP[ch]||ch,lb:'स्वर',raw:ch});i++;continue;}
     if(MATRA_SET.has(ch)){toks.push({t:'s',d:MATRA_TO[ch],ia:IAST_MAP[ch]||'',lb:'स्वर',raw:ch});i++;continue;}
-    let cd=ch,ci=IAST_MAP[ch]||ch,j=i+1,rawStr=ch;
-    while(j<chars.length&&chars[j]===HALANT&&j+1<chars.length){cd+=HALANT+chars[j+1];ci+=IAST_MAP[chars[j+1]]||chars[j+1];rawStr+=HALANT+chars[j+1];j+=2;}
+    let cd=ch,ci=IAST_MAP[ch]||ch,j=i+1,rw=ch;
+    while(j<chars.length&&chars[j]===HALANT&&j+1<chars.length){cd+=HALANT+chars[j+1];ci+=IAST_MAP[chars[j+1]]||chars[j+1];rw+=HALANT+chars[j+1];j+=2;}
     if(j<chars.length&&MATRA_SET.has(chars[j])){
-      toks.push({t:'v',d:cd+HALANT,ia:ci,lb:'व्यञ्जन',raw:rawStr});
+      toks.push({t:'v',d:cd+HALANT,ia:ci,lb:'व्यञ्जन',raw:rw});
       toks.push({t:'s',d:MATRA_TO[chars[j]],ia:IAST_MAP[chars[j]]||'',lb:'स्वर',raw:chars[j]});
       i=j+1;
     }else{
       const rest=chars.slice(j).filter(c=>c!==ANUSVARA&&c!==VISARGA);
-      toks.push({t:'v',d:cd+HALANT,ia:ci,lb:'व्यञ्जन',raw:rawStr});
+      toks.push({t:'v',d:cd+HALANT,ia:ci,lb:'व्यञ्जन',raw:rw});
       if(rest.length>0)toks.push({t:'s',d:'अ',ia:'a',lb:'स्वर',raw:''});
       i=j;
     }
@@ -380,348 +402,318 @@ function tokenize(word){
 function computeTiUp(toks){
   let tiIdx=-1;
   for(let i=toks.length-1;i>=0;i--){if(toks[i].t==='s'){tiIdx=i;break;}}
-  const tiToks=tiIdx>=0?toks.slice(tiIdx):[];
-  const tiStr=tiToks.map(t=>t.d).join('');
+  const tiStr=tiIdx>=0?toks.slice(tiIdx).map(t=>t.d).join(''):'';
   const upIdx=toks.length>=2?toks.length-2:-1;
-  const upTok=upIdx>=0?toks[upIdx]:null;
-  return{tiIdx,tiStr,upIdx,upTok};
+  return{tiIdx,tiStr,upIdx,upTok:upIdx>=0?toks[upIdx]:null};
 }
 
 function renderVichedHTML(toks,tiIdx,upIdx){
   const m={v:'tv',s:'ts',a:'ta',x:'tx'};
-  const h=toks.map((t,i)=>{
-    const extra=(i>=tiIdx&&tiIdx>=0)?'ti-mark':'';
-    const extra2=(i===upIdx)?'up-mark':'';
-    return`<div class="vtok ${m[t.t]} ${extra} ${extra2}"><span class="vtok-ch">${t.d}</span><span class="vtok-lb">${t.lb}</span></div>`+(i<toks.length-1?'<span class="tplus">+</span>':'');
-  }).join('');
+  const h=toks.map((t,i)=>`<div class="vtok ${m[t.t]}${i>=tiIdx&&tiIdx>=0?' ti-mark':''}${i===upIdx?' up-mark':''}"><span class="vtok-ch">${t.d}</span><span class="vtok-lb">${t.lb}</span></div>${i<toks.length-1?'<span class="tplus">+</span>':''}`).join('');
   return`<div class="viched-wrap">${h}</div><div class="viched-iast">IAST: <span>${toks.map(t=>t.ia).join('')}</span></div>`;
 }
 
-/* ════════════════════════ महा-संज्ञा DATABASE ════════════════════════
-   Each entry: { name, sutra, def, cat, applies(word,toks,cfg) → string|null }
-   applies() must return:
-     null   → संज्ञा does not apply to this word
-     string → HTML describing the *computed value* for this specific word
-════════════════════════════════════════════════════════════════════ */
-const SAMJNA_DB = [
+/* ════════════════════════ SANDHI ENGINE ════════════════════════
+   Rules operate on the FINAL CHARACTER of word1 and INITIAL CHARACTER of word2.
+   Each rule: { id, desc, sutra, test(endChar,startChar,w1,w2), apply(w1,w2) → result string }
+   Returns the first matching rule.
+════════════════════════════════════════════════════════════════ */
 
-  /* ─── PHONOLOGICAL ─── */
-  {
-    name:'टि संज्ञा', sutra:'१.१.६४', sutraText:'अचोऽन्त्यादि टि',
-    def:'The portion from the last vowel (ac) to the word-end.',
-    cat:'phon',
-    applies(word,toks){
-      const{tiIdx,tiStr}=computeTiUp(toks);
-      if(tiIdx<0)return null;
-      return`टि of <span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> = <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${tiStr}</span>`;
-    }
-  },
-  {
-    name:'उपधा संज्ञा', sutra:'१.१.६५', sutraText:'अलोऽन्त्यात् पूर्व उपधा',
-    def:'The phoneme (al) immediately before the last sound of a word.',
-    cat:'phon',
-    applies(word,toks){
-      const{upTok}=computeTiUp(toks);
-      if(!upTok)return null;
-      return`उपधा of <span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> = <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${upTok.d}</span>`;
-    }
-  },
-  {
-    name:'वृद्धि संज्ञा', sutra:'१.१.१', sutraText:'वृद्धिरादैच्',
-    def:'The vowels आ, ऐ, औ are called vṛddhi.',
-    cat:'phon',
-    applies(word,toks){
-      const found=toks.filter(t=>t.t==='s'&&VRIDDHI.has(t.d)).map(t=>t.d);
-      if(found.length===0)return null;
-      const uniq=[...new Set(found)];
-      return`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> contains वृद्धि vowel(s): <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${uniq.join(', ')}</span>`;
-    }
-  },
-  {
-    name:'गुण संज्ञा', sutra:'१.१.२', sutraText:'अदेङ्गुणः',
-    def:'The vowels अ, ए, ओ are called guṇa.',
-    cat:'phon',
-    applies(word,toks){
-      const found=toks.filter(t=>t.t==='s'&&GUNA.has(t.d)).map(t=>t.d);
-      if(found.length===0)return null;
-      const uniq=[...new Set(found)];
-      return`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> contains गुण vowel(s): <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${uniq.join(', ')}</span>`;
-    }
-  },
-  {
-    name:'संयोग संज्ञा', sutra:'१.१.७', sutraText:'हलोऽनन्तराः संयोगः',
-    def:'Consecutive consonants (hal) without an intervening vowel form a saṃyoga (conjunct).',
-    cat:'phon',
-    applies(word,toks){
-      // Find runs of consecutive vyanjan tokens
-      const clusters=[];let run=[];
-      toks.forEach(t=>{if(t.t==='v'){run.push(t.d);}else{if(run.length>=2)clusters.push(run.join(''));run=[];}});
-      if(run.length>=2)clusters.push(run.join(''));
-      if(clusters.length===0)return null;
-      return`संयोग clusters in <span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span>: <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${clusters.join(', ')}</span>`;
-    }
-  },
-  {
-    name:'अनुनासिक संज्ञा', sutra:'१.१.८', sutraText:'मुखनासिकावचनोऽनुनासिकः',
-    def:'Sounds produced through both mouth and nose (nasals and anusvara).',
-    cat:'phon',
-    applies(word,toks){
-      const nasalConsonants=new Set(['न','म','ङ','ञ','ण']);
-      const found=toks.filter(t=>(t.t==='a')||(t.t==='v'&&[...t.raw||''].some(c=>nasalConsonants.has(c))));
-      if(found.length===0)return null;
-      return`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> contains अनुनासिक sound(s): <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${found.map(t=>t.d).join(', ')}</span>`;
-    }
-  },
-  {
-    name:'सवर्ण संज्ञा', sutra:'१.१.९', sutraText:'तुल्यास्यप्रयत्नं सवर्णम्',
-    def:'Phonemes sharing the same place of articulation (sthāna) and effort (prayatna) are called savarna.',
-    cat:'phon',
-    applies(word,toks){
-      const vargas=new Set(toks.filter(t=>t.t==='v').map(t=>{const base=[...t.raw||''][0];return VARGA_MAP[base];}).filter(Boolean));
-      if(vargas.size===0)return null;
-      return`Consonant classes present: <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${[...vargas].join(', ')}</span>`;
-    }
-  },
-  {
-    name:'संहिता संज्ञा', sutra:'१.४.१०९', sutraText:'परः सन्निकर्षः संहिता',
-    def:'The close proximity of sounds (within a word) is called saṃhitā.',
-    cat:'phon',
-    applies(word,toks){
-      if(toks.length<=1)return null;
-      return`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> has ${toks.length} phoneme units in संहिता`;
-    }
-  },
-  {
-    name:'लोप संज्ञा', sutra:'१.१.६०', sutraText:'अदर्शनं लोपः',
-    def:'The non-appearance (elision) of an existing phoneme is called lopa.',
-    cat:'phon',
-    applies(word,toks,cfg){
-      // Fires for halant words (where final consonant elides in some forms) and known lopa contexts
-      if(cfg.kind==='halant')return`In several vibhakti forms of <span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span>, the final न् undergoes लोप`;
-      return null;
-    }
-  },
-  {
-    name:'इत् संज्ञा', sutra:'१.३.३', sutraText:'हलन्त्यम्',
-    def:'The final consonant of a grammatical marker (in upadeśa form) is called it (and is dropped).',
-    cat:'phon',
-    applies(word,toks,cfg){
-      // Fires when the word ends in halant (consonant without inherent a) — indicative of it-markers
-      const c=[...word];
-      if(c[c.length-1]===HALANT)
-        return`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> ends in हलन्त — indicative of इत्-marked form`;
-      return null;
-    }
-  },
+/* Helper: get final meaningful char of a word */
+function wordFinal(w){
+  const chars=[...w];
+  for(let i=chars.length-1;i>=0;i--){
+    if(chars[i]!==HALANT)return chars[i];
+  }
+  return '';
+}
+function wordInitial(w){return [...w][0]||'';}
 
-  /* ─── NOMINAL ─── */
-  {
-    name:'प्रातिपदिक संज्ञा', sutra:'१.२.४५', sutraText:'अर्थवदधातुरप्रत्ययः प्रातिपदिकम्',
-    def:'A meaningful element that is neither a verbal root nor a suffix is called a prātipadika.',
-    cat:'nom',
-    applies(word,toks,cfg){
-      if(cfg.kind==='pronoun')return null;
-      return`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> is a प्रातिपदिकम् — a nominal stem`;
-    }
-  },
-  {
-    name:'पद संज्ञा', sutra:'१.४.१४', sutraText:'सुप्तिङन्तं पदम्',
-    def:'A word ending in a sup (nominal) or tiṅ (verbal) suffix is a grammatical word (pada).',
-    cat:'nom',
-    applies(word){
-      return`Declined forms of <span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> ending in sup-suffixes are each a पद`;
-    }
-  },
-  {
-    name:'घि संज्ञा', sutra:'१.४.७', sutraText:'शेषो घ्यसखि',
-    def:'Short-ī and short-ū stems (masculine/neuter) other than nadi and sakhi are called ghi.',
-    cat:'nom',
-    applies(word,toks,cfg){
-      if(cfg.id==='i_mas'||cfg.id==='u_mas')
-        return`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> is घि (short ${cfg.id==='i_mas'?'इ':'उ'}-stem)`;
-      return null;
-    }
-  },
-  {
-    name:'नदी संज्ञा', sutra:'१.४.३', sutraText:'यू स्ट्र्याख्यौ नदी',
-    def:'Long-ī and long-ū stems that are feminine (and not proper names) are called nadī.',
-    cat:'nom',
-    applies(word,toks,cfg){
-      if(word.endsWith('ी')||word.endsWith('ू'))
-        return`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> qualifies as नदी (long ${word.endsWith('ी')?'ई':'ऊ'}-stem feminine)`;
-      return null;
-    }
-  },
-  {
-    name:'प्रगृह्य संज्ञा', sutra:'१.१.११', sutraText:'ईदूदेद्द्विवचनं प्रगृह्यम्',
-    def:'Dual endings in ī, ū, or e are called pragṛhya — they do not undergo sandhi with a following vowel.',
-    cat:'nom',
-    applies(word,toks){
-      if(word.endsWith('ी')||word.endsWith('ू')||word.endsWith('े'))
-        return`Dual form <span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> is प्रगृह्य — no sandhi with following vowel`;
-      return null;
-    }
-  },
-  {
-    name:'सर्वनाम संज्ञा', sutra:'१.१.२७', sutraText:'सर्वादीनि सर्वनामानि',
-    def:'सर्व and similar words are called sarvanāma (pronouns) — they take special declension endings.',
-    cat:'nom',
-    applies(word,toks,cfg){
-      if(cfg.kind!=='pronoun')return null;
-      return`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> belongs to सर्वनाम class → special declension applies`;
-    }
-  },
+/* Vowel classes */
+const AC = new Set(['अ','आ','इ','ई','उ','ऊ','ए','ऐ','ओ','औ','ऋ']);
+const isAc=c=>AC.has(c)||MATRA_SET.has(c);
 
-  /* ─── SANDHI ─── */
-  {
-    name:'विसर्जनीय संज्ञा', sutra:'८.३.१५', sutraText:'खरवसानयोर्विसर्जनीयः',
-    def:'A sibilant before a hard consonant (khar) or at pause becomes visarga (ḥ).',
-    cat:'sandhi',
-    applies(word,toks){
-      if(toks.some(t=>t.t==='x'))
-        return`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> contains विसर्ग — result of visarjanīya-sandhi`;
-      return null;
-    }
-  },
-  {
-    name:'अनुस्वार संज्ञा', sutra:'८.३.२३', sutraText:'मोऽनुस्वारः',
-    def:'The labial nasal म् before a consonant is replaced by anusvāra (ṃ).',
-    cat:'sandhi',
-    applies(word,toks){
-      if(toks.some(t=>t.t==='a'))
-        return`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> contains अनुस्वार`;
-      return null;
-    }
-  },
-  {
-    name:'संयोगान्त-लोप', sutra:'८.२.२३', sutraText:'संयोगान्तस्य लोपः',
-    def:'The final consonant of a cluster is dropped at pada-end.',
-    cat:'sandhi',
-    applies(word,toks,cfg){
-      if(cfg.kind==='halant')
-        return`Final न् of <span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> undergoes संयोगान्त-लोप in various forms`;
-      return null;
-    }
-  },
+/* Sandhi result helpers: strip last char and append new */
+function replaceEnd(w,newEnd){
+  const chars=[...w];
+  // remove last char if it's a vowel/matra/visarga/anusvara
+  const last=chars[chars.length-1];
+  if(isAc(last)||last===VISARGA||MATRA_SET.has(last)||last===ANUSVARA){chars.pop();}
+  return chars.join('')+newEnd;
+}
+function replaceStart(w,newStart){
+  const chars=[...w];
+  if(chars.length>0&&isAc(chars[0])){chars.shift();}
+  return newStart+chars.join('');
+}
 
-  /* ─── DERIVATIONAL ─── */
-  {
-    name:'धातु संज्ञा', sutra:'१.३.१', sutraText:'भूवादयो धातवः',
-    def:'Verbal roots (beginning with bhū) are called dhātu.',
-    cat:'deriv',
-    applies(word){
-      const KNOWN_ROOTS=new Set(['राम','बालक','लता','मुनि','साधु','राजन्','फल','विद्या','पुष्प']);
-      return KNOWN_ROOTS.has(word)
-        ?`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> is derived from a verbal धातु (see व्युत्पत्ति above)`
-        :null;
-    }
-  },
-  {
-    name:'ण्वुल् प्रत्यय', sutra:'३.१.१३३', sutraText:'ण्वुल्तृचौ',
-    def:'The suffix ṇvul (→ -aka) creates agent nouns from verbal roots.',
-    cat:'deriv',
-    applies(word){
-      const nvulSet=new Set(['बालक','पाठक','नायक','लेखक','गायक']);
-      return nvulSet.has(word)
-        ?`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> ← root + ण्वुल् → ${word}`
-        :null;
-    }
-  },
-  {
-    name:'घञ् प्रत्यय', sutra:'३.३.१८', sutraText:'भावे',
-    def:'The suffix ghañ (→ a with vṛddhi) forms bhāva (action) nouns from verbal roots.',
-    cat:'deriv',
-    applies(word){
-      const ghanjSet=new Set(['राम','योग','काम','भाव','घाव']);
-      return ghanjSet.has(word)
-        ?`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> ← root + घञ् suffix (action/result noun)`
-        :null;
-    }
-  },
-  {
-    name:'अन् प्रत्यय', sutra:'३.२.१', sutraText:'कर्तरि शतृ-शानचौ',
-    def:'The suffix an/man forms agent or abstract nouns (e.g. n-stem words like rājan).',
-    cat:'deriv',
-    applies(word,toks,cfg){
-      if(cfg.kind==='halant')
-        return`<span style="font-family:'Tiro Devanagari Sanskrit'">${word}</span> ← root + अन् suffix → n-stem`;
-      return null;
-    }
-  },
+/* 
+  Vowel sandhi lookup:
+  a/ā + i/ī → e    (6.1.87 आद्गुणः)
+  a/ā + u/ū → o    (6.1.87)
+  a/ā + ṛ   → ar   (6.1.87)
+  a/ā + e/ai → ai  (6.1.88 वृद्धिरेचि)
+  a/ā + o/au → au  (6.1.88)
+  a/ā + a/ā → ā    (6.1.101 अकः सवर्णे दीर्घः)
+  i/ī + same → ī   (6.1.101)
+  u/ū + same → ū   (6.1.101)
+  i/ī + dissimilar vowel → y + vowel  (6.1.77 इको यणचि)
+  u/ū + dissimilar vowel → v + vowel  (6.1.77)
+  e/o + vowel → e visarga change ... complex
+*/
+function vowelSandhi(end,start){
+  // Normalise matras to standalone vowels for logic
+  const E=MATRA_TO[end]||end;
+  const S=MATRA_TO[start]||start;
 
-  /* ─── PRONOUN-SPECIFIC ─── */
+  // 6.1.101 सवर्णदीर्घ (same-class lengthening)
+  if((E==='अ'||E==='आ')&&(S==='अ'||S==='आ'))return{r:'ा',rule:'अकः सवर्णे दीर्घः (6.1.101)',desc:'a/ā + a/ā → ā'};
+  if((E==='इ'||E==='ई')&&(S==='इ'||S==='ई'))return{r:'ी',rule:'अकः सवर्णे दीर्घः (6.1.101)',desc:'i/ī + i/ī → ī'};
+  if((E==='उ'||E==='ऊ')&&(S==='उ'||S==='ऊ'))return{r:'ू',rule:'अकः सवर्णे दीर्घः (6.1.101)',desc:'u/ū + u/ū → ū'};
+  if((E==='ऋ'||E==='ॠ')&&(S==='ऋ'||S==='ॠ'))return{r:'ॄ',rule:'अकः सवर्णे दीर्घः (6.1.101)',desc:'ṛ/ṝ + ṛ → ṝ'};
+
+  // 6.1.87 आद्गुणः — a/ā + i/ī/u/ū/ṛ → guṇa
+  if(E==='अ'||E==='आ'){
+    if(S==='इ'||S==='ई')return{r:'े',rule:'आद्गुणः (6.1.87)',desc:'a/ā + i/ī → e'};
+    if(S==='उ'||S==='ऊ')return{r:'ो',rule:'आद्गुणः (6.1.87)',desc:'a/ā + u/ū → o'};
+    if(S==='ऋ')return{r:'र',rule:'आद्गुणः (6.1.87)',desc:'a/ā + ṛ → ar'};
+  }
+
+  // 6.1.88 वृद्धिरेचि — a/ā + e/ai/o/au → vṛddhi
+  if(E==='अ'||E==='आ'){
+    if(S==='ए'||S==='ऐ')return{r:'ै',rule:'वृद्धिरेचि (6.1.88)',desc:'a/ā + e/ai → ai'};
+    if(S==='ओ'||S==='औ')return{r:'ौ',rule:'वृद्धिरेचि (6.1.88)',desc:'a/ā + o/au → au'};
+  }
+
+  // 6.1.77 इको यणचि — i/ī before dissimilar vowel → y
+  if((E==='इ'||E==='ई')&&AC.has(S)&&S!=='इ'&&S!=='ई')return{r:'य्'+start,rule:'इको यणचि (6.1.77)',desc:'i/ī + vowel → y + vowel'};
+  if((E==='उ'||E==='ऊ')&&AC.has(S)&&S!=='उ'&&S!=='ऊ')return{r:'व्'+start,rule:'इको यणचि (6.1.77)',desc:'u/ū + vowel → v + vowel'};
+  if(E==='ऋ'&&AC.has(S))return{r:'र्'+start,rule:'इको यणचि (6.1.77)',desc:'ṛ + vowel → r + vowel'};
+
+  return null;
+}
+
+const SANDHI_RULES = [
+  /* ── Visarga sandhi ── */
   {
-    name:'सः-आदेश', sutra:'७.२.८६', sutraText:'तस्मात् सोः एकवचने',
-    def:'The pronoun tad takes the special nominative-singular form "saḥ" (masculine).',
-    cat:'pron',
-    applies(word,toks,cfg){
-      return(cfg._canon==='तद्')
-        ?`Prathama eka of <span style="font-family:'Tiro Devanagari Sanskrit'">तद्</span> (M) = <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">सः</span> by special substitution`
-        :null;
-    }
+    id:'vis-a', test:(e,s)=>e===VISARGA&&(s==='अ'),
+    desc:'Visarga before अ → anusvara-like elision (pragṛhya context) → visarga dropped, अ retained',
+    sutra:'८.३.१५ + ६.१.११३',
+    apply(w1,w2){return{seg1:w1.slice(0,-1)+"अ",seg2:w2.slice(1),joined:w1.slice(0,-1)+"ऽ"+w2.slice(1)};}
   },
   {
-    name:'अयम्-आदेश', sutra:'७.२.१०५', sutraText:'इदोऽय पुंसि',
-    def:'The proximal demonstrative "idam" takes the form "ayam" in masculine nominative singular.',
-    cat:'pron',
-    applies(word,toks,cfg){
-      return(cfg._canon==='अयम्')
-        ?`Prathama eka of <span style="font-family:'Tiro Devanagari Sanskrit'">इदम्</span> (M) = <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">अयम्</span> by special substitution`
-        :null;
+    id:'vis-vowel', test:(e,s)=>e===VISARGA&&AC.has(s)&&s!=='अ',
+    desc:'Visarga before vowel (non-अ) → visarga dropped, vowel follows directly',
+    sutra:'८.३.१७',
+    apply(w1,w2){return{seg1:w1.slice(0,-1),seg2:w2,joined:w1.slice(0,-1)+w2};}
+  },
+  {
+    id:'vis-k', test:(e,s)=>e===VISARGA&&'कखगघ'.includes(s),
+    desc:'Visarga before velar → retained as visarga',
+    sutra:'८.३.१५',
+    apply(w1,w2){return{seg1:w1,seg2:w2,joined:w1+' '+w2,note:'No change — visarga retained before velar'};}
+  },
+  {
+    id:'vis-s-sh', test:(e,s)=>e===VISARGA&&'शषसह'.includes(s),
+    desc:'Visarga before श/ष/स → visarga retained (or: श → चर् context)',
+    sutra:'८.३.१५',
+    apply(w1,w2){return{seg1:w1,seg2:w2,joined:w1+' '+w2,note:'Visarga retained before sibilant (pause form)'};}
+  },
+  {
+    id:'vis-r', test:(e,s,w1)=>{const c=[...w1];return c.length>=2&&c[c.length-2]!=='अ'&&c[c.length-2]!=='आ'&&e===VISARGA&&s==='र';},
+    desc:'Visarga (from -as) → r before r (aho-rūpa context)',
+    sutra:'८.३.१३',
+    apply(w1,w2){return{seg1:w1.slice(0,-1),seg2:w2,joined:w1.slice(0,-1)+w2};}
+  },
+  /* ── अस्/आस् visarga ── */
+  {
+    id:'as-voiced', test:(e,s,w1)=>{
+      const c=[...w1];
+      return e===VISARGA&&c.length>=2&&(c[c.length-2]==='अ'||MATRA_TO[c[c.length-2]]==='अ')&&'गघड..ज्ञढदधबभ'.includes(s);
+    },
+    desc:'-aḥ before voiced consonant → -o (6.1.113 अतो रोरप्लुतादप्लुते)',
+    sutra:'६.१.११३',
+    apply(w1,w2){return{seg1:replaceEnd(w1,'ो'),seg2:w2,joined:replaceEnd(w1,'ो')+w2};}
+  },
+  /* ── Vowel sandhi (general) ── */
+  {
+    id:'vowel-sandhi',
+    test:(e,s)=>AC.has(MATRA_TO[e]||e)&&AC.has(s),
+    desc:'Vowel + vowel sandhi',
+    sutra:'',
+    apply(w1,w2){
+      const endV=MATRA_TO[wordFinal(w1)]||wordFinal(w1);
+      const startV=MATRA_TO[wordInitial(w2)]||wordInitial(w2);
+      const res=vowelSandhi(endV,startV);
+      if(!res)return null;
+      // Build result: strip end vowel of w1, append sandhi result, strip start vowel of w2
+      const w1base=[...w1];
+      const lc=w1base[w1base.length-1];
+      if(MATRA_SET.has(lc)||SVAR_SET.has(lc))w1base.pop();
+      const w2rest=[...w2];
+      if(SVAR_SET.has(w2rest[0]))w2rest.shift();
+      const joined=w1base.join('')+res.r+w2rest.join('');
+      return{seg1:w1,seg2:w2,joined,rule:res.rule,desc:res.desc};
     }
   },
 ];
 
-/* ════════════════════════ SŪTRA DATABASE (applied sūtras) ════════════════════════ */
+function computeSandhi(){
+  const w1=currentWord, w2=document.getElementById('sandhiInput2').value.trim();
+  if(!w1||!w2){document.getElementById('sandhiResult').innerHTML=`<div class="sandhi-none">Please enter a second word.</div>`;return;}
+  const toks1=tokenize(w1),toks2=tokenize(w2);
+  const endTok=toks1[toks1.length-1];
+  const startTok=toks2[0];
+  const endChar=endTok?.raw||'';
+  const startChar=startTok?.raw||startTok?.d||'';
+
+  // Try rules in order
+  let fired=null;
+  for(const rule of SANDHI_RULES){
+    if(rule.test(endChar,startChar,w1,w2)){
+      const res=rule.apply(w1,w2);
+      if(res){fired={...rule,result:res};break;}
+    }
+  }
+
+  if(!fired){
+    // No sandhi — words remain separate
+    document.getElementById('sandhiResult').innerHTML=`<div class="sandhi-none">No automatic sandhi rule fired — the words remain separate in this context (e.g. before a pause or at different pada boundaries).</div>`;
+    return;
+  }
+
+  const r=fired.result;
+  document.getElementById('sandhiResult').innerHTML=`
+    <div class="sandhi-row">
+      <span class="sandhi-seg seg-a">${r.seg1}</span>
+      <span class="seg-plus">+</span>
+      <span class="sandhi-seg seg-b">${r.seg2}</span>
+      <span class="seg-arrow">→</span>
+      <span class="seg-result">${r.joined}</span>
+      <span class="sandhi-rule">${r.desc||fired.desc}</span>
+    </div>
+    <div style="margin-top:8px;">
+      ${fired.sutra?`<span class="sandhi-sutra">${fired.sutra} · </span>`:''}
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--text-soft);">${fired.desc}</span>
+      ${r.note?`<br><span style="font-size:.78rem;color:var(--text-faint);font-style:italic;">${r.note}</span>`:''}
+    </div>`;
+}
+
+/* ════════════════════════ SAMJNA DATABASE ════════════════════════ */
+const SAMJNA_DB=[
+  {name:'टि संज्ञा',sutra:'१.१.६४',sutraText:'अचोऽन्त्यादि टि',def:'The portion from the last vowel to word-end.',cat:'phon',applies(w,t){const{tiIdx,tiStr}=computeTiUp(t);if(tiIdx<0)return null;return`टि of <span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> = <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${tiStr}</span>`;}},
+  {name:'उपधा संज्ञा',sutra:'१.१.६५',sutraText:'अलोऽन्त्यात् पूर्व उपधा',def:'The phoneme immediately before the final sound.',cat:'phon',applies(w,t){const{upTok}=computeTiUp(t);if(!upTok)return null;return`उपधा of <span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> = <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${upTok.d}</span>`;}},
+  {name:'वृद्धि संज्ञा',sutra:'१.१.१',sutraText:'वृद्धिरादैच्',def:'The vowels आ, ऐ, औ are called vṛddhi.',cat:'phon',applies(w,t){const f=t.filter(x=>x.t==='s'&&VRIDDHI.has(x.d)).map(x=>x.d);if(!f.length)return null;return`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> contains: <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${[...new Set(f)].join(', ')}</span>`;}},
+  {name:'गुण संज्ञा',sutra:'१.१.२',sutraText:'अदेङ्गुणः',def:'The vowels अ, ए, ओ are called guṇa.',cat:'phon',applies(w,t){const f=t.filter(x=>x.t==='s'&&GUNA.has(x.d)).map(x=>x.d);if(!f.length)return null;return`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> contains: <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${[...new Set(f)].join(', ')}</span>`;}},
+  {name:'संयोग संज्ञा',sutra:'१.१.७',sutraText:'हलोऽनन्तराः संयोगः',def:'Consecutive consonants without intervening vowel form a saṃyoga.',cat:'phon',applies(w,t){const cls=[];let r=[];t.forEach(x=>{if(x.t==='v'){r.push(x.d);}else{if(r.length>=2)cls.push(r.join(''));r=[];}});if(r.length>=2)cls.push(r.join(''));if(!cls.length)return null;return`Saṃyoga in <span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span>: <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${cls.join(', ')}</span>`;}},
+  {name:'अनुनासिक',sutra:'१.१.८',sutraText:'मुखनासिकावचनोऽनुनासिकः',def:'Sounds produced through both mouth and nose.',cat:'phon',applies(w,t){const nas=new Set(['न','म','ङ','ञ','ण']);const f=t.filter(x=>x.t==='a'||x.t==='v'&&[...x.raw].some(c=>nas.has(c)));if(!f.length)return null;return`Nasal sounds in <span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span>: <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${f.map(x=>x.d).join(', ')}</span>`;}},
+  {name:'सवर्ण संज्ञा',sutra:'१.१.९',sutraText:'तुल्यास्यप्रयत्नं सवर्णम्',def:'Phonemes sharing the same place and manner of articulation.',cat:'phon',applies(w,t){const vs=new Set(t.filter(x=>x.t==='v').map(x=>{const b=[...x.raw][0];return VARGA_MAP[b];}).filter(Boolean));if(!vs.size)return null;return`Consonant classes: <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${[...vs].join(', ')}</span>`;}},
+  {name:'संहिता संज्ञा',sutra:'१.४.१०९',sutraText:'परः सन्निकर्षः संहिता',def:'The close proximity of sounds within a word.',cat:'phon',applies(w,t){return t.length>1?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> has ${t.length} phoneme units in saṃhitā`:null;}},
+  {name:'लोप संज्ञा',sutra:'१.१.६०',sutraText:'अदर्शनं लोपः',def:'The non-appearance (elision) of an existing phoneme.',cat:'phon',applies(w,t,c){if(c.kind==='halant')return`In forms of <span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span>, final न् undergoes लोप`;return null;}},
+  {name:'इत् संज्ञा',sutra:'१.३.३',sutraText:'हलन्त्यम्',def:'Final consonant of a grammatical marker (in upadeśa) is called it.',cat:'phon',applies(w){const c=[...w];if(c[c.length-1]===HALANT)return`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> ends in हलन्त — it-marked form`;return null;}},
+  {name:'प्रातिपदिक संज्ञा',sutra:'१.२.४५',sutraText:'अर्थवदधातुरप्रत्ययः प्रातिपदिकम्',def:'Meaningful element that is neither a verbal root nor a suffix.',cat:'nom',applies(w,t,c){return c.kind!=='pronoun'?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> is a प्रातिपदिकम्`:null;}},
+  {name:'पद संज्ञा',sutra:'१.४.१४',sutraText:'सुप्तिङन्तं पदम्',def:'A word ending in sup or tiṅ suffix is a grammatical word.',cat:'nom',applies(w){return`Declined forms of <span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> are each a पद`;}},
+  {name:'घि संज्ञा',sutra:'१.४.७',sutraText:'शेषो घ्यसखि',def:'Short-ī and short-ū stems other than nadī are called ghi.',cat:'nom',applies(w,t,c){if(c.id==='i_mas'||c.id==='u_mas')return`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> is घि (${c.id==='i_mas'?'इ':'उ'}-stem)`;return null;}},
+  {name:'नदी संज्ञा',sutra:'१.४.३',sutraText:'यू स्ट्र्याख्यौ नदी',def:'Long-ī and long-ū feminine stems are called nadī.',cat:'nom',applies(w){if(w.endsWith('ी')||w.endsWith('ू'))return`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> qualifies as नदी (${w.endsWith('ी')?'ई':'ऊ'}-stem feminine)`;return null;}},
+  {name:'प्रगृह्य संज्ञा',sutra:'१.१.११',sutraText:'ईदूदेद्द्विवचनं प्रगृह्यम्',def:'Dual endings in ī, ū, e are pragṛhya — immune to sandhi.',cat:'nom',applies(w){if(w.endsWith('ी')||w.endsWith('ू')||w.endsWith('े'))return`Dual <span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> is प्रगृह्य — no sandhi with following vowel`;return null;}},
+  {name:'सर्वनाम संज्ञा',sutra:'१.१.२७',sutraText:'सर्वादीनि सर्वनामानि',def:'सर्व and similar words take special pronominal endings.',cat:'nom',applies(w,t,c){return c.kind==='pronoun'?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> belongs to the सर्वनाम class`:null;}},
+  {name:'विसर्जनीय',sutra:'८.३.१५',sutraText:'खरवसानयोर्विसर्जनीयः',def:'Sibilant before hard consonant or at pause → visarga.',cat:'sandhi',applies(w,t){return t.some(x=>x.t==='x')?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> contains विसर्ग — visarjanīya-sandhi context`:null;}},
+  {name:'अनुस्वार-सन्धि',sutra:'८.३.२३',sutraText:'मोऽनुस्वारः',def:'Labial nasal म् before a consonant → anusvāra.',cat:'sandhi',applies(w,t){return t.some(x=>x.t==='a')?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> contains अनुस्वार`:null;}},
+  {name:'संयोगान्त-लोप',sutra:'८.२.२३',sutraText:'संयोगान्तस्य लोपः',def:'Final consonant of a cluster dropped at pada-end.',cat:'sandhi',applies(w,t,c){return c.kind==='halant'?`Final न् of <span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> undergoes संयोगान्त-लोप`:null;}},
+  {name:'धातु संज्ञा',sutra:'१.३.१',sutraText:'भूवादयो धातवः',def:'Verbal roots (beginning with bhū) are called dhātu.',cat:'deriv',applies(w){return DERIVATIONS[w]?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> is derived from a verbal धातु`:null;}},
+  {name:'ण्वुल् प्रत्यय',sutra:'३.१.१३३',sutraText:'ण्वुल्तृचौ',def:'Suffix ṇvul (→ -aka) creates agent nouns.',cat:'deriv',applies(w){const s=new Set(['बालक','पाठक','नायक','लेखक','गायक','चन्दन']);return s.has(w)?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> ← root + ण्वुल् suffix`:null;}},
+  {name:'घञ् प्रत्यय',sutra:'३.३.१८',sutraText:'भावे',def:'Suffix ghañ forms bhāva nouns from verbal roots.',cat:'deriv',applies(w){return new Set(['राम','योग','काम','भाव']).has(w)?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> ← root + घञ् (action noun)`:null;}},
+  {name:'सः-आदेश',sutra:'७.२.८६',sutraText:'तस्मात् सोः एकवचने',def:'Pronoun tad → saḥ in masculine nominative singular.',cat:'pron',applies(w,t,c){return c._canon==='तद्'?`Prathama eka = <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">सः</span>`:null;}},
+  {name:'अयम्-आदेश',sutra:'७.२.१०५',sutraText:'इदोऽय पुंसि',def:'Idam → ayam in masculine nominative singular.',cat:'pron',applies(w,t,c){return c._canon==='अयम्'?`Prathama eka = <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">अयम्</span>`:null;}},
+];
+
+/* ════════════════════════ SŪTRA DB ════════════════════════ */
 const SUTRA_DB=[
-  {num:'१.१.६४',sa:'अचोऽन्त्यादि टि',en:'"Ṭi" = the portion from the last vowel to word-end',applies(w,t){const{tiIdx,tiStr}=computeTiUp(t);if(tiIdx<0)return null;return`टि of <span class="sa">${w}</span> = <span class="sa">${tiStr}</span>`;}},
-  {num:'१.१.६५',sa:'अलोऽन्त्यात् पूर्व उपधा',en:'"Upadhā" = the sound immediately before the final sound',applies(w,t){const{upTok}=computeTiUp(t);if(!upTok)return null;return`उपधा of <span class="sa">${w}</span> = <span class="sa">${upTok.d}</span>`;}},
-  {num:'१.४.१०९',sa:'परः सन्निकर्षः संहिता',en:'"Saṃhitā" = close contact between sounds',applies(w,t){return t.length>1?`<span class="sa">${w}</span> has ${t.length} phoneme units in saṃhitā`:null;}},
-  {num:'१.२.४५',sa:'अर्थवदधातुरप्रत्ययः प्रातिपदिकम्',en:'Meaningful non-root, non-suffix element = prātipadika',applies(w,t,c){return c.kind!=='pronoun'?`<span class="sa">${w}</span> is a प्रातिपदिकम्`:null;}},
-  {num:'१.४.१४',sa:'सुप्तिङन्तं पदम्',en:'A word ending in sup or tiṅ suffix is a grammatical word (pada)',applies(w){return`Declined forms of <span class="sa">${w}</span> are each a पद`;}},
-  {num:'४.१.२',sa:'स्वौजसमौट्...',en:'The 21 sup-suffixes — the complete nominal case ending system',applies(w,t,c){return c.kind!=='pronoun'?`Applied to stem of <span class="sa">${w}</span> to generate 24 declined forms`:null;}},
-  {num:'८.३.१५',sa:'खरवसानयोर्विसर्जनीयः',en:'Sibilant before hard consonant or at pause → visarga',applies(w,t){return t.some(x=>x.t==='x')?`Visarga in <span class="sa">${w}</span> follows this sandhi rule`:null;}},
-  {num:'८.२.२३',sa:'संयोगान्तस्य लोपः',en:'Final consonant of a cluster dropped at pada-end',applies(w,t,c){return c.kind==='halant'?`Final न् of <span class="sa">${w}</span> undergoes संयोगान्त-लोप`:null;}},
-  {num:'७.२.८६',sa:'तस्मात् सोः (एकवचने सः)',en:'Pronoun tad → saḥ in masculine nominative singular',applies(w,t,c){return c._canon==='तद्'?`Prathama eka = <span class="sa">सः</span>`:null;}},
-  {num:'३.१.१३३',sa:'ण्वुल्तृचौ',en:'Suffix ṇvul (→ aka) creates agent nouns',applies(w){const s=new Set(['बालक','पाठक','नायक','लेखक']);return s.has(w)?`<span class="sa">${w}</span> ← root + ण्वुल्`:null;}},
+  {num:'१.१.६४',sa:'अचोऽन्त्यादि टि',en:'"Ṭi" = from last vowel to word-end',applies(w,t){const{tiIdx,tiStr}=computeTiUp(t);return tiIdx>=0?`टि of <span class="sa">${w}</span> = <span class="sa">${tiStr}</span>`:null;}},
+  {num:'१.१.६५',sa:'अलोऽन्त्यात् पूर्व उपधा',en:'"Upadhā" = sound before the final',applies(w,t){const{upTok}=computeTiUp(t);return upTok?`उपधा = <span class="sa">${upTok.d}</span>`:null;}},
+  {num:'१.४.१०९',sa:'परः सन्निकर्षः संहिता',en:'Close contact of sounds = saṃhitā',applies(w,t){return t.length>1?`<span class="sa">${w}</span> has ${t.length} phoneme units`:null;}},
+  {num:'१.२.४५',sa:'अर्थवदधातुरप्रत्ययः प्रातिपदिकम्',en:'Non-root, non-suffix meaningful element = prātipadika',applies(w,t,c){return c.kind!=='pronoun'?`<span class="sa">${w}</span> is a प्रातिपदिकम्`:null;}},
+  {num:'१.४.१४',sa:'सुप्तिङन्तं पदम्',en:'Sup/tiṅ-ending = grammatical word',applies(w){return`Declined forms of <span class="sa">${w}</span> are each a पद`;}},
+  {num:'४.१.२',sa:'स्वौजसमौट्…',en:'The 21 sup-suffixes',applies(w,t,c){return c.kind!=='pronoun'?`Applied to stem of <span class="sa">${w}</span>`:null;}},
+  {num:'८.३.१५',sa:'खरवसानयोर्विसर्जनीयः',en:'Sibilant before hard consonant/pause → visarga',applies(w,t){return t.some(x=>x.t==='x')?`Visarga in <span class="sa">${w}</span> follows this rule`:null;}},
+  {num:'८.२.२३',sa:'संयोगान्तस्य लोपः',en:'Final consonant of cluster dropped at pada-end',applies(w,t,c){return c.kind==='halant'?`न् of <span class="sa">${w}</span> undergoes संयोगान्त-लोप`:null;}},
+  {num:'७.२.८६',sa:'तस्मात् सोः',en:'tad → saḥ (M nom sg)',applies(w,t,c){return c._canon==='तद्'?`Prathama eka = <span class="sa">सः</span>`:null;}},
+  {num:'३.१.१३३',sa:'ण्वुल्तृचौ',en:'Suffix ṇvul (→ aka) creates agent nouns',applies(w){return new Set(['बालक','पाठक','चन्दन']).has(w)?`<span class="sa">${w}</span> ← root + ण्वुल्`:null;}},
 ];
+
+/* ════════════════════════ DERIVATION DB (expanded to 25 words) ════════════════════════ */
+const DERIVATIONS={
+  'राम':    {steps:['रमु (क्रीडायाम्)','रम् + घञ्','वृद्धि → आ'],final:'राम',note:'root रमु "to delight/play"'},
+  'बालक':   {steps:['बाल','बाल + क'],final:'बालक',note:'diminutive suffix -ka'},
+  'लता':    {steps:['लत् (वेष्टने)','लत् + अ','+ आ (टाप्)'],final:'लता',note:'root लत् + fem. ā-suffix'},
+  'मुनि':   {steps:['मन् (अवबोधने)','मन् + इन्'],final:'मुनि',note:'root मन् "to think" + in-suffix'},
+  'साधु':   {steps:['साध् (संसिद्धौ)','साध् + उ'],final:'साधु',note:'root साध् + u-suffix'},
+  'राजन्':  {steps:['राज् (दीप्तौ)','राज् + अन्'],final:'राजन्',note:'root राज् + an-suffix → n-stem'},
+  'फल':     {steps:['फल् (निष्पत्तौ)','फल् + अ'],final:'फल',note:'root फल् "to bear fruit"'},
+  'चन्दन':  {steps:['चन्दि (आह्लादने)','चन्द् + अन (ण्वुल्)'],final:'चन्दन',note:'root चन्दि + ṇvul suffix'},
+  'नायक':   {steps:['नी (प्रापणे)','नी + ण्वुल् (णि)','नाय + क'],final:'नायक',note:'root नी "to lead" + ṇvul'},
+  'पाठक':   {steps:['पठ् (व्यक्तायां वाचि)','पठ् + ण्वुल्','पाठ + क'],final:'पाठक',note:'root पठ् "to recite/read"'},
+  'लेखक':   {steps:['लिख् (अक्षरविन्यासे)','लिख् + ण्वुल्','लेख + क'],final:'लेखक',note:'root लिख् "to write"'},
+  'देव':    {steps:['दिव् (क्रीडाविजिगीषा…)','दिव् + अच् (घञ्)','वृद्धि → दे'],final:'देव',note:'root दिव् "to shine/play"'},
+  'वन':     {steps:['वन् (याचने)','वन् + अ'],final:'वन',note:'root वन् + a-suffix, neuter'},
+  'जल':     {steps:['जल् (जाड्ये)','जल् + अ'],final:'जल',note:'root जल् + a-suffix, neuter'},
+  'विद्या':  {steps:['विद् (ज्ञाने)','विद् + या (क्यप्)'],final:'विद्या',note:'root विद् "to know" + fem. suffix'},
+  'शान्ति':  {steps:['शम् (उपशमे)','शम् + क्तिन्','शान्त + इ'],final:'शान्ति',note:'root शम् + ktin suffix → abstract noun'},
+  'भक्ति':   {steps:['भज् (सेवायाम्)','भज् + क्तिन्','भक्त + इ'],final:'भक्ति',note:'root भज् + ktin suffix'},
+  'शक्ति':   {steps:['शक् (शक्तौ)','शक् + क्तिन्'],final:'शक्ति',note:'root शक् "to be able"'},
+  'ज्ञान':   {steps:['ज्ञा (अवबोधने)','ज्ञा + ल्युट्','→ ज्ञान'],final:'ज्ञान',note:'root ज्ञा "to know" + lyuṭ'},
+  'कर्म':   {steps:['कृ (करणे)','कृ + मन्','संप्रसारण → कर्म'],final:'कर्म',note:'root कृ + man-suffix → neuter n-stem'},
+  'धर्म':   {steps:['धृ (धारणे)','धृ + मन्'],final:'धर्म',note:'root धृ "to hold/sustain"'},
+  'पुष्प':   {steps:['पुष् (पुष्टौ)','पुष् + प'],final:'पुष्प',note:'root पुष् "to nourish" + pa'},
+  'योग':    {steps:['युज् (योगे)','युज् + घञ्','वृद्धि → यो'],final:'योग',note:'root युज् "to join/concentrate"'},
+  'काम':    {steps:['कम् (कान्तौ)','कम् + घञ्'],final:'काम',note:'root कम् "to desire"'},
+  'नम':     {steps:['नम् (प्रह्वत्वे)','नम् + अ'],final:'नम',note:'root नम् "to bow"'},
+};
 
 /* ════════════════════════ DECLENSION DB ════════════════════════ */
 const VIB=[{n:'1',sa:'प्रथमा',en:'Nominative'},{n:'2',sa:'द्वितीया',en:'Accusative'},{n:'3',sa:'तृतीया',en:'Instrumental'},{n:'4',sa:'चतुर्थी',en:'Dative'},{n:'5',sa:'पञ्चमी',en:'Ablative'},{n:'6',sa:'षष्ठी',en:'Genitive'},{n:'7',sa:'सप्तमी',en:'Locative'},{n:'8',sa:'सम्बोधन',en:'Vocative'}];
 function buildNStem(w){const c=[...w],base=(c[c.length-1]===HALANT&&c[c.length-2]==='न')?c.slice(0,-2).join(''):w;return[[base+'ा',base+'ानौ',base+'ानः'],[base+'ानम्',base+'ानौ',base+'्ञः'],[base+'्ञा',base+'ाभ्याम्',base+'ाभिः'],[base+'्ञे',base+'ाभ्याम्',base+'ाभ्यः'],[base+'्ञः',base+'ाभ्याम्',base+'ाभ्यः'],[base+'्ञः',base+'्ञोः',base+'ाम्'],[base+'्ञि',base+'्ञोः',base+'सु'],[base+'न्',base+'ानौ',base+'ानः']];}
-const PRONOUNS={'अहम्':{typeEn:'1st Person',typeSa:'अस्मद्',badge:'bs',hasGender:false,note:'अस्मद् — no gender, no vocative.',forms:[['अहम्','आवाम्','वयम्'],['माम्','आवाम्','अस्मान्'],['मया','आवाभ्याम्','अस्माभिः'],['मह्यम्','आवाभ्याम्','अस्मभ्यम्'],['मत्','आवाभ्याम्','अस्मत्'],['मम','आवयोः','अस्माकम्'],['मयि','आवयोः','अस्मासु'],['—','—','—']]},'त्वम्':{typeEn:'2nd Person',typeSa:'युष्मद्',badge:'bs',hasGender:false,note:'युष्मद् — no gender, no vocative.',forms:[['त्वम्','युवाम्','यूयम्'],['त्वाम्','युवाम्','युष्मान्'],['त्वया','युवाभ्याम्','युष्माभिः'],['तुभ्यम्','युवाभ्याम्','युष्मभ्यम्'],['त्वत्','युवाभ्याम्','युष्मत्'],['तव','युवयोः','युष्माकम्'],['त्वयि','युवयोः','युष्मासु'],['—','—','—']]},'तद्':{typeEn:'Pronoun tad',typeSa:'सर्वनाम तद्',badge:'bs',hasGender:true,note:'',genders:{m:{label:'पुं॰ M',typeSa:'तद् पुंलिंग',note:'Prathama eka: सः.',forms:[['सः','तौ','ते'],['तम्','तौ','तान्'],['तेन','ताभ्याम्','तैः'],['तस्मै','ताभ्याम्','तेभ्यः'],['तस्मात्','ताभ्याम्','तेभ्यः'],['तस्य','तयोः','तेषाम्'],['तस्मिन्','तयोः','तेषु'],['—','—','—']]},f:{label:'स्त्री॰ F',typeSa:'तद् स्त्रीलिंग',note:'Prathama eka: सा.',forms:[['सा','ते','ताः'],['ताम्','ते','ताः'],['तया','ताभ्याम्','ताभिः'],['तस्यै','ताभ्याम्','ताभ्यः'],['तस्याः','ताभ्याम्','ताभ्यः'],['तस्याः','तयोः','तासाम्'],['तस्याम्','तयोः','तासु'],['—','—','—']]},n:{label:'न॰ Nt',typeSa:'तद् नपुंसकलिंग',note:'',forms:[['तत्','ते','तानि'],['तत्','ते','तानि'],['तेन','ताभ्याम्','तैः'],['तस्मै','ताभ्याम्','तेभ्यः'],['तस्मात्','ताभ्याम्','तेभ्यः'],['तस्य','तयोः','तेषाम्'],['तस्मिन्','तयोः','तेषु'],['—','—','—']]}}},'अयम्':{typeEn:'Pronoun idam',typeSa:'सर्वनाम इदम्',badge:'bs',hasGender:true,note:'',genders:{m:{label:'पुं॰ M',typeSa:'इदम् पुंलिंग',note:'Stems: ay-, im-, an-/en-.',forms:[['अयम्','इमौ','इमे'],['इमम्','इमौ','इमान्'],['अनेन','आभ्याम्','एभिः'],['अस्मै','आभ्याम्','एभ्यः'],['अस्मात्','आभ्याम्','एभ्यः'],['अस्य','अनयोः','एषाम्'],['अस्मिन्','अनयोः','एषु'],['—','—','—']]},f:{label:'स्त्री॰ F',typeSa:'इदम् स्त्रीलिंग',note:'',forms:[['इयम्','इमे','इमाः'],['इमाम्','इमे','इमाः'],['अनया','आभ्याम्','आभिः'],['अस्यै','आभ्याम्','आभ्यः'],['अस्याः','आभ्याम्','आभ्यः'],['अस्याः','अनयोः','आसाम्'],['अस्याम्','अनयोः','आसु'],['—','—','—']]},n:{label:'न॰ Nt',typeSa:'इदम् नपुंसकलिंग',note:'',forces:[['इदम्','इमे','इमानि'],['इदम्','इमे','इमानि'],['अनेन','आभ्याम्','एभिः'],['अस्मै','आभ्याम्','एभ्यः'],['अस्मात्','आभ्याम्','एभ्यः'],['अस्य','अनयोः','एषाम्'],['अस्मिन्','अनयोः','एषु'],['—','—','—']],forms:[['इदम्','इमे','इमानि'],['इदम्','इमे','इमानि'],['अनेन','आभ्याम्','एभिः'],['अस्मै','आभ्याम्','एभ्यः'],['अस्मात्','आभ्याम्','एभ्यः'],['अस्य','अनयोः','एषाम्'],['अस्मिन्','अनयोः','एषु'],['—','—','—']]}}},'सर्व':{typeEn:'Pronoun sarva',typeSa:'सर्वनाम सर्व',badge:'bs',hasGender:true,note:'',genders:{m:{label:'पुं॰ M',typeSa:'सर्व पुंलिंग',note:'',forms:[['सर्वः','सर्वौ','सर्वे'],['सर्वम्','सर्वौ','सर्वान्'],['सर्वेण','सर्वाभ्याम्','सर्वैः'],['सर्वस्मै','सर्वाभ्याम्','सर्वेभ्यः'],['सर्वस्मात्','सर्वाभ्याम्','सर्वेभ्यः'],['सर्वस्य','सर्वयोः','सर्वेषाम्'],['सर्वस्मिन्','सर्वयोः','सर्वेषु'],['—','—','—']]},f:{label:'स्त्री॰ F',typeSa:'सर्व स्त्रीलिंग',note:'',forms:[['सर्वा','सर्वे','सर्वाः'],['सर्वाम्','सर्वे','सर्वाः'],['सर्वया','सर्वाभ्याम्','सर्वाभिः'],['सर्वस्यै','सर्वाभ्याम्','सर्वाभ्यः'],['सर्वस्याः','सर्वाभ्याम्','सर्वाभ्यः'],['सर्वस्याः','सर्वयोः','सर्वासाम्'],['सर्वस्याम्','सर्वयोः','सर्वासु'],['—','—','—']]},n:{label:'न॰ Nt',typeSa:'सर्व नपुंसकलिंग',note:'',forms:[['सर्वम्','सर्वे','सर्वाणि'],['सर्वम्','सर्वे','सर्वाणि'],['सर्वेण','सर्वाभ्याम्','सर्वैः'],['सर्वस्मै','सर्वाभ्याम्','सर्वेभ्यः'],['सर्वस्मात्','सर्वाभ्याम्','सर्वेभ्यः'],['सर्वस्य','सर्वयोः','सर्वेषाम्'],['सर्वस्मिन्','सर्वयोः','सर्वेषु'],['—','—','—']]}}},};
-const NEUTER=new Set(['फल','पुष्प','जल','वन','पत्र','धन','मन','नभ','मुख','वस्त्र','अन्न','क्षेत्र']);
+const PRONOUNS={'अहम्':{typeEn:'1st Person',typeSa:'अस्मद्',badge:'bs',hasGender:false,note:'No gender, no vocative.',forms:[['अहम्','आवाम्','वयम्'],['माम्','आवाम्','अस्मान्'],['मया','आवाभ्याम्','अस्माभिः'],['मह्यम्','आवाभ्याम्','अस्मभ्यम्'],['मत्','आवाभ्याम्','अस्मत्'],['मम','आवयोः','अस्माकम्'],['मयि','आवयोः','अस्मासु'],['—','—','—']]},'त्वम्':{typeEn:'2nd Person',typeSa:'युष्मद्',badge:'bs',hasGender:false,note:'No gender, no vocative.',forms:[['त्वम्','युवाम्','यूयम्'],['त्वाम्','युवाम्','युष्मान्'],['त्वया','युवाभ्याम्','युष्माभिः'],['तुभ्यम्','युवाभ्याम्','युष्मभ्यम्'],['त्वत्','युवाभ्याम्','युष्मत्'],['तव','युवयोः','युष्माकम्'],['त्वयि','युवयोः','युष्मासु'],['—','—','—']]},'तद्':{typeEn:'Pronoun tad',typeSa:'सर्वनाम तद्',badge:'bs',hasGender:true,note:'',genders:{m:{label:'पुं॰ M',typeSa:'तद् पुंलिंग',note:'Prathama eka: सः.',forms:[['सः','तौ','ते'],['तम्','तौ','तान्'],['तेन','ताभ्याम्','तैः'],['तस्मै','ताभ्याम्','तेभ्यः'],['तस्मात्','ताभ्याम्','तेभ्यः'],['तस्य','तयोः','तेषाम्'],['तस्मिन्','तयोः','तेषु'],['—','—','—']]},f:{label:'स्त्री॰ F',typeSa:'तद् स्त्रीलिंग',note:'',forms:[['सा','ते','ताः'],['ताम्','ते','ताः'],['तया','ताभ्याम्','ताभिः'],['तस्यै','ताभ्याम्','ताभ्यः'],['तस्याः','ताभ्याम्','ताभ्यः'],['तस्याः','तयोः','तासाम्'],['तस्याम्','तयोः','तासु'],['—','—','—']]},n:{label:'न॰ Nt',typeSa:'तद् नपुंसकलिंग',note:'',forms:[['तत्','ते','तानि'],['तत्','ते','तानि'],['तेन','ताभ्याम्','तैः'],['तस्मै','ताभ्याम्','तेभ्यः'],['तस्मात्','ताभ्याम्','तेभ्यः'],['तस्य','तयोः','तेषाम्'],['तस्मिन्','तयोः','तेषु'],['—','—','—']]}}},'अयम्':{typeEn:'Pronoun idam',typeSa:'सर्वनाम इदम्',badge:'bs',hasGender:true,note:'',genders:{m:{label:'पुं॰ M',typeSa:'इदम् पुंलिंग',note:'Stems: ay-, im-, an-/en-.',forms:[['अयम्','इमौ','इमे'],['इमम्','इमौ','इमान्'],['अनेन','आभ्याम्','एभिः'],['अस्मै','आभ्याम्','एभ्यः'],['अस्मात्','आभ्याम्','एभ्यः'],['अस्य','अनयोः','एषाम्'],['अस्मिन्','अनयोः','एषु'],['—','—','—']]},f:{label:'स्त्री॰ F',typeSa:'इदम् स्त्रीलिंग',note:'',forms:[['इयम्','इमे','इमाः'],['इमाम्','इमे','इमाः'],['अनया','आभ्याम्','आभिः'],['अस्यै','आभ्याम्','आभ्यः'],['अस्याः','आभ्याम्','आभ्यः'],['अस्याः','अनयोः','आसाम्'],['अस्याम्','अनयोः','आसु'],['—','—','—']]},n:{label:'न॰ Nt',typeSa:'इदम् नपुंसकलिंग',note:'',forms:[['इदम्','इमे','इमानि'],['इदम्','इमे','इमानि'],['अनेन','आभ्याम्','एभिः'],['अस्मै','आभ्याम्','एभ्यः'],['अस्मात्','आभ्याम्','एभ्यः'],['अस्य','अनयोः','एषाम्'],['अस्मिन्','अनयोः','एषु'],['—','—','—']]}}},'सर्व':{typeEn:'Pronoun sarva',typeSa:'सर्वनाम सर्व',badge:'bs',hasGender:true,note:'',genders:{m:{label:'पुं॰ M',typeSa:'सर्व पुंलिंग',note:'',forms:[['सर्वः','सर्वौ','सर्वे'],['सर्वम्','सर्वौ','सर्वान्'],['सर्वेण','सर्वाभ्याम्','सर्वैः'],['सर्वस्मै','सर्वाभ्याम्','सर्वेभ्यः'],['सर्वस्मात्','सर्वाभ्याम्','सर्वेभ्यः'],['सर्वस्य','सर्वयोः','सर्वेषाम्'],['सर्वस्मिन्','सर्वयोः','सर्वेषु'],['—','—','—']]},f:{label:'स्त्री॰ F',typeSa:'सर्व स्त्रीलिंग',note:'',forms:[['सर्वा','सर्वे','सर्वाः'],['सर्वाम्','सर्वे','सर्वाः'],['सर्वया','सर्वाभ्याम्','सर्वाभिः'],['सर्वस्यै','सर्वाभ्याम्','सर्वाभ्यः'],['सर्वस्याः','सर्वाभ्याम्','सर्वाभ्यः'],['सर्वस्याः','सर्वयोः','सर्वासाम्'],['सर्वस्याम्','सर्वयोः','सर्वासु'],['—','—','—']]},n:{label:'न॰ Nt',typeSa:'सर्व नपुंसकलिंग',note:'',forms:[['सर्वम्','सर्वे','सर्वाणि'],['सर्वम्','सर्वे','सर्वाणि'],['सर्वेण','सर्वाभ्याम्','सर्वैः'],['सर्वस्मै','सर्वाभ्याम्','सर्वेभ्यः'],['सर्वस्मात्','सर्वाभ्याम्','सर्वेभ्यः'],['सर्वस्य','सर्वयोः','सर्वेषाम्'],['सर्वस्मिन्','सर्वयोः','सर्वेषु'],['—','—','—']]}}},};
+const NEUTER=new Set(['फल','पुष्प','जल','वन','पत्र','धन','मन','नभ','मुख','वस्त्र','अन्न','क्षेत्र','कर्म','धर्म','ज्ञान','नम']);
 const SUFFIX_DECLS=[{id:'aa_fem',typeEn:'Ā-stem Feminine',typeSa:'आ-कारान्त स्त्री॰',badge:'baa',detect:w=>w.endsWith('ा'),stem:w=>w.endsWith('ा')?w.slice(0,-1):w,suffixes:[['ा','े','ाः'],['ाम्','े','ाः'],['या','ाभ्याम्','ाभिः'],['ायै','ाभ्याम्','ाभ्यः'],['ायाः','ाभ्याम्','ाभ्यः'],['ायाः','योः','ानाम्'],['ायाम्','योः','ासु'],['े','े','ाः']]},{id:'i_mas',typeEn:'I-stem Masculine',typeSa:'इ-कारान्त पुं॰',badge:'bi',detect:w=>w.endsWith('ि'),stem:w=>w.slice(0,-1),suffixes:[['िः','ी','यः'],['िम्','ी','ीन्'],['िना','िभ्याम्','िभिः'],['ये','िभ्याम्','िभ्यः'],['ेः','िभ्याम्','िभ्यः'],['ेः','्योः','ीनाम्'],['ौ','्योः','िषु'],['े','ी','यः']]},{id:'u_mas',typeEn:'U-stem Masculine',typeSa:'उ-कारान्त पुं॰',badge:'bu',detect:w=>w.endsWith('ु'),stem:w=>w.slice(0,-1),suffixes:[['ुः','ू','वः'],['ुम्','ू','ून्'],['ुना','ुभ्याम्','ुभिः'],['वे','ुभ्याम्','ुभ्यः'],['ोः','ुभ्याम्','ुभ्यः'],['ोः','्वोः','ूनाम्'],['ौ','्वोः','ुषु'],['ो','ू','वः']]},{id:'a_neu',typeEn:'A-stem Neuter',typeSa:'अ-कारान्त न॰',badge:'ba',detect:w=>NEUTER.has(w),stem:w=>w,suffixes:[['म्','े','ानि'],['म्','े','ानि'],['ेन','ाभ्याम्','ैः'],['ाय','ाभ्याम्','ेभ्यः'],['ात्','ाभ्याम्','ेभ्यः'],['स्य','योः','ाणाम्'],['े','योः','ेषु'],['','े','ानि']]},{id:'a_mas',typeEn:'A-stem Masculine',typeSa:'अ-कारान्त पुं॰',badge:'ba',detect:()=>true,stem:w=>w,suffixes:[['ः','ौ','ाः'],['म्','ौ','ान्'],['ेन','ाभ्याम्','ैः'],['ाय','ाभ्याम्','ेभ्यः'],['ात्','ाभ्याम्','ेभ्यः'],['स्य','योः','ाणाम्'],['े','योः','ेषु'],['','ौ','ाः']]}];
 const ALIASES={'तत्':'तद्','सः':'तद्','सा':'तद्','इयम्':'अयम्','इदम्':'अयम्','अस्मद्':'अहम्','युष्मद्':'त्वम्'};
 function isNStem(w){const c=[...w];return c.length>=2&&c[c.length-1]===HALANT&&c[c.length-2]==='न';}
-function detect(w){const canon=ALIASES[w]||w;if(PRONOUNS[canon])return{kind:'pronoun',...PRONOUNS[canon],_canon:canon};if(isNStem(w))return{kind:'halant',typeEn:'N-stem',typeSa:'न-कारान्त हलन्त',badge:'bh',note:'हलन्त: sandhi forms pre-computed.',forms:buildNStem(w)};if(NEUTER.has(w))return{kind:'suffix',...SUFFIX_DECLS.find(d=>d.id==='a_neu')};return{kind:'suffix',...SUFFIX_DECLS.find(d=>d.detect(w))};}
+function detect(w){const canon=ALIASES[w]||w;if(PRONOUNS[canon])return{kind:'pronoun',...PRONOUNS[canon],_canon:canon};if(isNStem(w))return{kind:'halant',typeEn:'N-stem',typeSa:'न-कारान्त हलन्त',badge:'bh',note:'Sandhi forms pre-computed.',forms:buildNStem(w)};if(NEUTER.has(w))return{kind:'suffix',...SUFFIX_DECLS.find(d=>d.id==='a_neu')};return{kind:'suffix',...SUFFIX_DECLS.find(d=>d.detect(w))};}
 
-const DERIVATIONS={'राम':{steps:['रमु (क्रीडायाम्)','रम् + घञ्','वृद्धि → राम'],final:'राम',note:'from root रमु "to delight"'},'बालक':{steps:['बाल','बाल + क (स्वार्थे)'],final:'बालक',note:'diminutive suffix -ka'},'लता':{steps:['लत् (वेष्टने)','लत् + अ','+ आ (टाप्)'],final:'लता',note:'root लत् + fem. ā-suffix'},'मुनि':{steps:['मन् (अवबोधने)','मन् + इ'],final:'मुनि',note:'root मन् + i-suffix'},'साधु':{steps:['साध् (संसिद्धौ)','साध् + उ'],final:'साधु',note:'root साध् + u-suffix'},'राजन्':{steps:['राज् (दीप्तौ)','राज् + अन्'],final:'राजन्',note:'root राज् + an-suffix (n-stem)'},'फल':{steps:['फल् (निष्पत्तौ)','फल् + अ'],final:'फल',note:'root फल् "to bear fruit"'}};
+/* ════════════════════════ STATE / HISTORY ════════════════════════ */
+let currentConfig=null,currentGender='m',quizMode=false,samjnaCollapsed=false,currentWord='';
+const history=[];
 
-/* ════════════════════════ STATE ════════════════════════ */
-let currentConfig=null,currentGender='m',quizMode=false,samjnaCollapsed=false;
+function updateHistory(w){
+  if(!history.includes(w))history.unshift(w);
+  if(history.length>6)history.pop();
+  const row=document.getElementById('historyRow');
+  const chips=document.getElementById('historyChips');
+  if(history.length>0){row.style.display='flex';chips.innerHTML=history.map(h=>`<span class="hist-chip" onclick="load('${h}')">${h}</span>`).join('');}
+}
 
 /* ════════════════════════ DOM ════════════════════════ */
 const wordInput=document.getElementById('wordInput'),clrBtn=document.getElementById('clrBtn'),resultArea=document.getElementById('resultArea');
 wordInput.addEventListener('input',()=>{clrBtn.style.display=wordInput.value?'block':'none';});
 wordInput.addEventListener('keydown',e=>{if(e.key==='Enter')runEngine();});
-clrBtn.addEventListener('click',()=>{wordInput.value='';clrBtn.style.display='none';wordInput.focus();resultArea.style.display='none';quizMode=false;});
+clrBtn.addEventListener('click',()=>{wordInput.value='';clrBtn.style.display='none';wordInput.focus();resultArea.style.display='none';quizMode=false;currentWord='';});
+document.getElementById('sandhiInput2').addEventListener('keydown',e=>{if(e.key==='Enter')computeSandhi();});
 function load(w){wordInput.value=w;clrBtn.style.display='block';runEngine();}
-
-function toggleSamjna(){
-  samjnaCollapsed=!samjnaCollapsed;
-  document.getElementById('samjnaGrid').classList.toggle('collapsed',samjnaCollapsed);
-  document.getElementById('samjnaArr').classList.toggle('open',!samjnaCollapsed);
-}
+function toggleSamjna(){samjnaCollapsed=!samjnaCollapsed;document.getElementById('samjnaGrid').classList.toggle('collapsed',samjnaCollapsed);document.getElementById('samjnaArr').classList.toggle('open',!samjnaCollapsed);}
+function printSheet(){document.getElementById('printTitle').textContent=`${currentWord} — Declension & Analysis`;window.print();}
 
 function runEngine(){
   const raw=wordInput.value.trim();if(!raw)return;
-  quizMode=false;currentGender='m';
+  quizMode=false;currentGender='m';currentWord=raw;
   currentConfig=detect(raw);
+  updateHistory(raw);
+  document.getElementById('sandhiWord1').textContent=raw;
+  document.getElementById('sandhiResult').innerHTML='';
+  document.getElementById('sandhiInput2').value='';
+
   const toks=tokenize(raw);
   const{tiIdx,tiStr,upIdx,upTok}=computeTiUp(toks);
 
-  /* analysis */
   document.getElementById('rootDisp').textContent=raw;
   document.getElementById('rootSub').textContent=DERIVATIONS[raw]?.note||'';
   document.getElementById('vichedDisp').innerHTML=renderVichedHTML(toks,tiIdx,upIdx);
@@ -729,46 +721,34 @@ function runEngine(){
   if(tiIdx>=0)tu+=`<span style="color:var(--gold-lt)">●</span> <b style="color:var(--gold)">टि</b> = <span style="font-family:'Tiro Devanagari Sanskrit'">${tiStr}</span>&nbsp;&nbsp;`;
   if(upTok)tu+=`<span style="color:#C090F0">●</span> <b style="color:#B080E0">उपधा</b> = <span style="font-family:'Tiro Devanagari Sanskrit'">${upTok.d}</span>`;
   document.getElementById('tiUpDisp').innerHTML=tu;
+
   let stemHtml;
   if(currentConfig.kind==='suffix'){const s=currentConfig.stem(raw);stemHtml=`<span style="color:var(--blue-root);font-weight:600">${s||'—'}</span><span style="font-size:.75rem;color:var(--text-soft);font-style:italic;margin-left:7px;">(${currentConfig.typeSa})</span>`;}
   else if(currentConfig.kind==='halant'){const b=[...raw].slice(0,-2).join('');stemHtml=`<span style="color:var(--gold-lt);font-weight:600">${b}</span><span style="font-size:.75rem;color:var(--text-soft);font-style:italic;margin-left:7px;">strong: ${b}ान् / weak: ${b}्ञ</span>`;}
   else stemHtml=`<span style="font-size:.82rem;color:var(--text-soft);font-style:italic;">Suppletive</span>`;
   document.getElementById('stemDisp').innerHTML=stemHtml;
 
-  /* derivation */
   const deriv=DERIVATIONS[raw],ds=document.getElementById('derivSection');
-  if(deriv){ds.style.display='block';let ch=deriv.steps.map(s=>`<span class="dc-step">${s}</span><span class="dc-arrow">→</span>`).join('');ch+=`<span class="dc-final">${deriv.final}</span>`;document.getElementById('derivChain').innerHTML=`<div class="deriv-chain">${ch}</div>`;}
+  if(deriv){ds.style.display='block';document.getElementById('derivChain').innerHTML=`<div class="deriv-chain">${deriv.steps.map(s=>`<span class="dc-step">${s}</span><span class="dc-arrow">→</span>`).join('')}<span class="dc-final">${deriv.final}</span></div>`;}
   else ds.style.display='none';
 
-  /* महा-संज्ञा */
+  /* samjna */
   const fired=SAMJNA_DB.map(s=>{const r=s.applies(raw,toks,currentConfig);return r?{...s,result:r}:null;}).filter(Boolean);
   document.getElementById('samjnaCount').textContent=`${fired.length} applicable`;
-  document.getElementById('samjnaGrid').innerHTML=fired.map(s=>`
-    <div class="sc ${s.cat}">
-      <span class="sc-cat">${{phon:'Phonological',nom:'Nominal',sandhi:'Sandhi',pron:'Pronoun',deriv:'Derivational'}[s.cat]}</span>
-      <span class="sc-name">${s.name}</span>
-      <span class="sc-sutra">${s.sutra} · ${s.sutraText}</span>
-      <span class="sc-def">${s.def}</span>
-      <span class="sc-val">${s.result}</span>
-    </div>`).join('')||`<div style="font-style:italic;color:var(--text-soft);font-size:.88rem;">No saṃjñās tagged for this word.</div>`;
+  const catLabel={phon:'Phonological',nom:'Nominal',sandhi:'Sandhi',pron:'Pronoun',deriv:'Derivational'};
+  document.getElementById('samjnaGrid').innerHTML=fired.map(s=>`<div class="sc ${s.cat}"><span class="sc-cat">${catLabel[s.cat]}</span><span class="sc-name">${s.name}</span><span class="sc-sutra">${s.sutra} · ${s.sutraText}</span><span class="sc-def">${s.def}</span><span class="sc-val">${s.result}</span></div>`).join('')||`<div style="font-style:italic;color:var(--text-soft);">No saṃjñās tagged.</div>`;
 
-  /* sūtras */
-  const sutras=SUTRA_DB.map(s=>{const r=s.applies(raw,toks,currentConfig);return r?{...s,result:r}:null;}).filter(Boolean);
-  document.getElementById('sutraPanel').innerHTML=sutras.map(s=>`
-    <div class="sutra-entry">
-      <div class="sutra-num">${s.num}</div>
-      <div><span class="sutra-text">${s.sa}</span><span class="sutra-en">${s.en}</span><span class="sutra-apply">${s.result}</span></div>
-    </div>`).join('')||`<div style="font-style:italic;color:var(--text-soft);font-size:.88rem;">No specific sūtras fired.</div>`;
+  /* sutras */
+  const sutFired=SUTRA_DB.map(s=>{const r=s.applies(raw,toks,currentConfig);return r?{...s,result:r}:null;}).filter(Boolean);
+  document.getElementById('sutraPanel').innerHTML=sutFired.map(s=>`<div class="sutra-entry"><div class="sutra-num">${s.num}</div><div><span class="sutra-text">${s.sa}</span><span class="sutra-en">${s.en}</span><span class="sutra-apply">${s.result}</span></div></div>`).join('')||`<div style="font-style:italic;color:var(--text-soft);">No sūtras fired.</div>`;
 
-  /* detection badge */
+  /* detection */
   document.getElementById('detRow').innerHTML=`<span class="det-w">${raw}</span><span class="det-arr">→</span><span class="det-badge ${currentConfig.badge}">${currentConfig.typeEn}</span><span class="det-meta">${currentConfig.typeSa}</span>`;
 
-  /* gender toggle */
   const gRow=document.getElementById('genderRow');
   if(currentConfig.kind==='pronoun'&&currentConfig.hasGender){gRow.style.display='flex';['m','f','n'].forEach(g=>document.getElementById('gen'+g.toUpperCase()).classList.toggle('active',g==='m'));}
   else gRow.style.display='none';
 
-  /* legend/note */
   const la=document.getElementById('legendArea'),fn=document.getElementById('fixedNote');
   if(currentConfig.kind==='suffix'){la.style.display='flex';la.innerHTML=`<div class="leg-item"><div class="leg-sw lsr"></div><span class="leg-lbl">Stem</span></div><div class="leg-item"><div class="leg-sw lss"></div><span class="leg-lbl">Suffix</span></div>`;fn.style.display='none';}
   else{la.style.display='none';const note=currentConfig.kind==='pronoun'&&currentConfig.hasGender?currentConfig.genders['m'].note||currentConfig.note:currentConfig.note;fn.style.display=note?'block':'none';fn.textContent=note||'';}
@@ -782,20 +762,14 @@ function runEngine(){
   resultArea.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-/* ── Gender toggle ── */
 function setGender(g){currentGender=g;['m','f','n'].forEach(x=>document.getElementById('gen'+x.toUpperCase()).classList.toggle('active',x===g));const cfg=currentConfig;if(cfg?.kind==='pronoun'&&cfg.hasGender){const gd=cfg.genders[g];const fn=document.getElementById('fixedNote');fn.style.display=gd.note?'block':'none';fn.textContent=gd.note||'';document.getElementById('detRow').querySelector('.det-meta').textContent=gd.typeSa||cfg.typeSa;}quizMode?renderQuizTable(wordInput.value.trim()):renderTable(wordInput.value.trim());}
 
-/* ── Table render ── */
 function getRows(cfg,raw){if(cfg.kind==='pronoun'&&cfg.hasGender)return{mode:'fixed',rows:cfg.genders[currentGender].forms};if(cfg.kind==='pronoun')return{mode:'fixed',rows:cfg.forms};if(cfg.kind==='halant')return{mode:'fixed',rows:cfg.forms};return{mode:'suffix',stem:cfg.stem(raw),suffixes:cfg.suffixes};}
 function renderTable(raw){const cfg=currentConfig,{mode,rows,stem,suffixes}=getRows(cfg,raw);let html='';VIB.forEach((v,i)=>{const isVoc=i===7;let cells;if(mode==='suffix'){const[e,d,b]=suffixes[i];const c=s=>`<span class="form"><span class="rt">${stem}</span><span class="sf">${s}</span></span>`;cells=`<td>${isVoc?'<span class="voc-he">हे </span>':''}${c(e)}</td><td>${c(d)}</td><td>${c(b)}</td>`;}else{const[e,d,b]=rows[i];cells=[e,d,b].map(f=>`<td><span class="form ff">${f}</span></td>`).join('');}html+=`<tr class="${isVoc?'voc':''}"><td><span class="vnum">${v.n}</span><span class="vsa">${v.sa}</span><span class="ven">${v.en}</span></td>${cells}</tr>`;});document.getElementById('tableBody').innerHTML=html;}
 function renderQuizTable(raw){const cfg=currentConfig,{mode,rows,stem,suffixes}=getRows(cfg,raw);let html='';VIB.forEach((v,i)=>{const isVoc=i===7;let cells;if(mode==='suffix'){const[e,d,b]=suffixes[i];cells=[stem+e,stem+d,stem+b].map(ans=>`<td class="qc"><input class="quiz-input" data-answer="${ans}" placeholder="…"></td>`).join('');}else{const[e,d,b]=rows[i];cells=[e,d,b].map(ans=>`<td class="qc"><input class="quiz-input" data-answer="${ans}" placeholder="…"${ans==='—'?` value="—" readonly`:''} ></td>`).join('');}html+=`<tr class="${isVoc?'voc':''}"><td><span class="vnum">${v.n}</span><span class="vsa">${v.sa}</span><span class="ven">${v.en}</span></td>${cells}</tr>`;});document.getElementById('tableBody').innerHTML=html;}
-
-/* ── Quiz controls ── */
 function toggleQuiz(){quizMode=!quizMode;document.getElementById('quizBtn').classList.toggle('active',quizMode);document.getElementById('quizControls').style.display=quizMode?'flex':'none';document.getElementById('quizScore').textContent='';if(quizMode)renderQuizTable(wordInput.value.trim());else renderTable(wordInput.value.trim());}
 function checkQuiz(){const ins=[...document.querySelectorAll('.quiz-input:not([readonly])')];let ok=0;ins.forEach(i=>{const v=i.value.trim(),a=i.dataset.answer;if(v===a){i.classList.add('correct');i.classList.remove('wrong');ok++;}else{i.classList.add('wrong');i.classList.remove('correct');}});document.getElementById('quizScore').innerHTML=`Score: <b>${ok} / ${ins.length}</b>`;}
 function revealQuiz(){document.querySelectorAll('.quiz-input:not([readonly])').forEach(i=>{i.value=i.dataset.answer;i.classList.add('correct');i.classList.remove('wrong');});const n=document.querySelectorAll('.quiz-input:not([readonly])').length;document.getElementById('quizScore').innerHTML=`Score: <b>${n} / ${n}</b>`;}
-
-/* ── Copy ── */
 function copyTable(){const rows=document.querySelectorAll('#mainTable tbody tr');let t='Vibhakti\tEkavachana\tDvivachana\tBahuvachana\n';rows.forEach((r,i)=>{const cells=[...r.querySelectorAll('td')];const vib=VIB[i].sa+' ('+VIB[i].en+')';const cols=cells.slice(1).map(c=>{const inp=c.querySelector('input');return inp?inp.dataset.answer||inp.value:c.textContent.replace(/\s+/g,' ').trim();});t+=vib+'\t'+cols.join('\t')+'\n';});navigator.clipboard.writeText(t).then(()=>{const b=document.getElementById('copyBtn');b.classList.add('copy-ok');b.textContent='✓ Copied!';setTimeout(()=>{b.classList.remove('copy-ok');b.textContent='⎘ Copy Table';},2000);});}
 </script>
 </body>
