@@ -375,6 +375,38 @@
     .meaning-hin{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;color:var(--text-soft);margin-top:3px;display:block;}
     .db-source{font-size:.65rem;color:var(--gold-dim);font-family:'Libre Baskerville',serif;margin-top:4px;display:block;font-style:italic;}
     .forms-split{display:none;}  /* pre-stored forms don't show stem/suffix split */
+
+    /* ── लिङ्ग / वचन selectors ── */
+    .selector-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center;}
+    .selector-group{display:flex;flex-direction:column;gap:4px;flex:1;min-width:160px;}
+    .selector-lbl{font-family:'Libre Baskerville',serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-soft);}
+    .selector-lbl span{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.85rem;letter-spacing:0;text-transform:none;color:var(--text-mid);margin-left:4px;}
+    .elegant-select{
+      width:100%;padding:9px 32px 9px 14px;
+      font-family:'Tiro Devanagari Sanskrit',serif;font-size:1rem;
+      color:var(--text);background:var(--bg2);
+      border:1px solid var(--border2);border-radius:2px;
+      outline:none;cursor:pointer;
+      appearance:none;-webkit-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23785600'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;background-position:right 12px center;
+      transition:border-color .2s,box-shadow .2s;
+      line-height:1.5;
+    }
+    .elegant-select:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--glow);}
+    .elegant-select option{background:var(--bg2);color:var(--text);}
+
+    /* Selected values display in result */
+    .linga-vacana-bar{
+      display:flex;gap:10px;flex-wrap:wrap;
+      padding:10px 14px;background:var(--bg2);
+      border:1px solid var(--border);border-radius:2px;
+      margin-bottom:14px;align-items:center;
+    }
+    .lv-item{display:flex;flex-direction:column;gap:2px;}
+    .lv-key{font-family:'Libre Baskerville',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);}
+    .lv-val{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.05rem;color:var(--gold-lt);}
+    .lv-sep{width:1px;background:var(--border2);align-self:stretch;}
     .result{display:none;animation:rUp .3s ease both;}
     @keyframes rUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
@@ -450,6 +482,27 @@
             <span class="pill-lbl">Recent:</span>
             <span id="historyChips"></span>
           </div>
+
+          <div class="selector-row">
+            <div class="selector-group">
+              <div class="selector-lbl">लिङ्ग <span>Gender</span></div>
+              <select class="elegant-select" id="lingaSelect">
+                <option value="auto">स्वयं निर्धारित · Auto-detect</option>
+                <option value="P">पुंलिङ्ग · Masculine</option>
+                <option value="S">स्त्रीलिङ्ग · Feminine</option>
+                <option value="N">नपुंसकलिङ्ग · Neuter</option>
+              </select>
+            </div>
+            <div class="selector-group">
+              <div class="selector-lbl">वचन <span>Number</span></div>
+              <select class="elegant-select" id="vacanaSelect">
+                <option value="all">सर्वाणि · All three</option>
+                <option value="0">एकवचन · Singular</option>
+                <option value="1">द्विवचन · Dual</option>
+                <option value="2">बहुवचन · Plural</option>
+              </select>
+            </div>
+          </div>
         </div>
 
       <!-- Result panels -->
@@ -459,6 +512,14 @@
           <h2 style="font-family:serif;font-size:1.5rem;" id="printTitle"></h2>
         </div>
 
+        <!-- Linga/Vacana selected values bar -->
+        <div class="linga-vacana-bar" id="lvBar" style="display:none;">
+          <div class="lv-item"><div class="lv-key">लिङ्ग · Gender</div><div class="lv-val" id="lvLinga">—</div></div>
+          <div class="lv-sep"></div>
+          <div class="lv-item"><div class="lv-key">वचन · Number</div><div class="lv-val" id="lvVacana">—</div></div>
+          <div class="lv-sep"></div>
+          <div class="lv-item"><div class="lv-key">शब्द · Word</div><div class="lv-val" id="lvWord">—</div></div>
+        </div>
         <!-- Analysis -->
         <div class="card">
           <div class="sec-lbl">विश्लेषण · Analysis</div>
@@ -619,6 +680,23 @@ function runEngine(){
   document.getElementById('sandhiResult').innerHTML='';
   document.getElementById('sandhiInput2').value='';
 
+  // ── Read linga & vacana selections ──
+  const lingaSel=document.getElementById('lingaSelect').value;
+  const vacanaSel=document.getElementById('vacanaSelect').value;
+  const LINGA_LABELS={auto:'स्वयं निर्धारित',P:'पुंलिङ्ग',S:'स्त्रीलिङ्ग',N:'नपुंसकलिङ्ग'};
+  const VACANA_LABELS={all:'सर्वाणि',0:'एकवचन',1:'द्विवचन',2:'बहुवचन'};
+
+  // Show linga-vacana bar
+  const lvBar=document.getElementById('lvBar');
+  lvBar.style.display='flex';
+  document.getElementById('lvLinga').textContent=LINGA_LABELS[lingaSel]||lingaSel;
+  document.getElementById('lvVacana').textContent=VACANA_LABELS[vacanaSel]||vacanaSel;
+  document.getElementById('lvWord').textContent=raw;
+
+  // If linga is manually set and DB entry has matching gender forms, prefer that gender
+  // (used later in table rendering)
+  const manualLinga=(lingaSel!=='auto')?lingaSel:null;
+
   const toks=tokenize(raw);
   const{tiIdx,tiStr,upIdx,upTok}=computeTiUp(toks);
 
@@ -682,6 +760,11 @@ function runEngine(){
 
   const la=document.getElementById('legendArea'),fn=document.getElementById('fixedNote');
 
+  // ── Reset any previous vacana column highlights ──
+  document.querySelectorAll('#mainTable tbody td').forEach(td=>{
+    td.style.background='';td.style.borderLeft='';td.style.opacity='';
+  });
+
   // ── Use pre-stored forms if available, else auto-generate ──
   if(dbEntry&&dbEntry.f&&dbEntry.f.length===24){
     // Pre-stored forms from Shabda DB — guaranteed correct
@@ -705,6 +788,22 @@ function runEngine(){
 
   resultArea.style.display='block';resultArea.style.animation='none';resultArea.offsetHeight;resultArea.style.animation='';
   resultArea.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  // ── Highlight selected vacana column ──
+  if(vacanaSel!=='all'){
+    const colIdx=parseInt(vacanaSel);  // 0=eka, 1=dvi, 2=bahu
+    document.querySelectorAll('#mainTable tbody tr').forEach(tr=>{
+      [...tr.querySelectorAll('td')].forEach((td,i)=>{
+        // col 0=vibhakti label, 1=eka, 2=dvi, 3=bahu
+        if(i===colIdx+1){
+          td.style.background='rgba(200,144,0,.1)';
+          td.style.borderLeft='2px solid var(--gold-dim)';
+        } else if(i>0){
+          td.style.opacity='0.45';
+        }
+      });
+    });
+  }
 }
 
 function setGender(g){currentGender=g;['m','f','n'].forEach(x=>document.getElementById('gen'+x.toUpperCase()).classList.toggle('active',x===g));const cfg=currentConfig;if(cfg?.kind==='pronoun'&&cfg.hasGender){const gd=cfg.genders[g];const fn=document.getElementById('fixedNote');fn.style.display=gd.note?'block':'none';fn.textContent=gd.note||'';document.getElementById('detRow').querySelector('.det-meta').textContent=gd.typeSa||cfg.typeSa;}quizMode?renderQuizTable(wordInput.value.trim()):renderDeclTable(wordInput.value.trim());}
