@@ -672,24 +672,25 @@
      process: step-by-step derivation
 ════════════════════════════════════════ */
 const PRAKRIYA_DB = {
-  'चन्दन':  { r:'चन्द्',  r_en:'to shine, to please', p:'ल्युट्', p_en:'action/instrument noun suffix', t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'that which pleases / sandalwood', sutra:'३.३.११३ ल्युट् च',          process:'चन्द् + ल्युट् → चन्द् + अन → चन्दन' },
-  'राम':    { r:'रम्',    r_en:'to delight, to play',  p:'घञ्',   p_en:'verbal noun suffix (vṛddhi)',  t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who delights / Lord Rāma',   sutra:'३.३.१८ भावे',               process:'रम् + घञ् → राम (वृद्धि: अ→आ)' },
-  'दशरथि': { r:'दशरथ',  r_en:'the chariot of ten',    p:'इञ्',   p_en:'patronymic/descendant suffix', t:'taddhit', t_sa:'तद्धित',         t_en:'Taddhita', meaning:'son/descendant of Daśaratha',    sutra:'४.१.९५ अत इञ्',             process:'दशरथ + इञ् → दाशरथि (वृद्धि) → दशरथि' },
-  'गौरी':   { r:'गौर',   r_en:'white, bright, tawny',  p:'ङीष्',  p_en:'feminine suffix',              t:'stri',    t_sa:'स्त्री प्रत्यय', t_en:'Strī',     meaning:'the bright/fair one (Goddess)',  sutra:'४.१.४१ ऊङुतश्च',           process:'गौर + ङीष् → गौर + ई → गौरी' },
-  'पाठक':   { r:'पठ्',   r_en:'to read, to recite',    p:'ण्वुल्',p_en:'agent noun suffix (-aka)',     t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who reads / teacher',        sutra:'३.१.१३३ ण्वुल्तृचौ',       process:'पठ् + ण्वुल् → पठ् + अक → पाठक (वृद्धि)' },
-  'लेखक':   { r:'लिख्',  r_en:'to write, to scratch',  p:'ण्वुल्',p_en:'agent noun suffix (-aka)',     t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who writes / scribe',        sutra:'३.१.१३३ ण्वुल्तृचौ',       process:'लिख् + ण्वुल् → लिख् + अक → लेखक (वृद्धि)' },
-  'नायक':   { r:'नी',    r_en:'to lead, to carry',     p:'ण्वुल्',p_en:'agent noun suffix (-aka)',     t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'leader, hero',                   sutra:'३.१.१३३ ण्वुल्तृचौ',       process:'नी + ण्वुल् → नी + अक → नायक (गुण+वृद्धि)' },
-  'राजन्':  { r:'राज्',  r_en:'to shine, to rule',     p:'अन्',   p_en:'n-stem suffix',                t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'king, one who shines',           sutra:'उणादि ३.१ राजृ + अन्',     process:'राज् + अन् → राजन् (हलन्त)' },
-  'मुनि':   { r:'मन्',   r_en:'to think, to contemplate',p:'इ',   p_en:'i-suffix (nominal)',           t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who meditates / sage',       sutra:'उणादि इ-प्रत्यय',           process:'मन् + इ → मुनि' },
-  'शान्ति': { r:'शम्',   r_en:'to be calm, to cease',  p:'क्तिन्',p_en:'abstract noun suffix',        t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'peace, tranquility',             sutra:'३.३.९४ स्त्रियां क्तिन्',   process:'शम् + क्तिन् → शान्त + इ → शान्ति' },
-  'भक्ति':  { r:'भज्',   r_en:'to worship, to serve',  p:'क्तिन्',p_en:'abstract noun suffix',        t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'devotion, worship',              sutra:'३.३.९४ स्त्रियां क्तिन्',   process:'भज् + क्तिन् → भक्त + इ → भक्ति' },
-  'योग':    { r:'युज्',  r_en:'to join, to yoke',       p:'घञ्',   p_en:'verbal noun suffix (vṛddhi)', t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'union, concentration',           sutra:'३.३.१८ भावे',               process:'युज् + घञ् → योग (वृद्धि: उ→ओ)' },
-  'ज्ञान':  { r:'ज्ञा',  r_en:'to know, to understand', p:'ल्युट्',p_en:'action/result noun suffix',  t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'knowledge, wisdom',              sutra:'३.३.११३ ल्युट् च',          process:'ज्ञा + ल्युट् → ज्ञा + अन → ज्ञान' },
-  'साधु':   { r:'साध्',  r_en:'to accomplish, to succeed',p:'उ',  p_en:'u-suffix (nominal)',           t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'virtuous person / well done',    sutra:'उणादि उ-प्रत्यय',           process:'साध् + उ → साधु' },
-  'लता':    { r:'लत्',   r_en:'to wind, to creep',      p:'अ + टाप्',p_en:'a-suffix + fem. ā',        t:'stri',    t_sa:'स्त्री प्रत्यय', t_en:'Strī',     meaning:'creeper, vine',                  sutra:'४.१.४ अजाद्यतष्टाप्',      process:'लत् + अ → लत + टाप् → लता' },
-  'देव':    { r:'दिव्',  r_en:'to shine, to play',      p:'अच्',   p_en:'primary nominal suffix',      t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'shining one / god',              sutra:'३.१.१३४ अच् प्रत्ययः',     process:'दिव् + अच् → देव (वृद्धि: इ→ए)' },
-  'धर्म':   { r:'धृ',    r_en:'to hold, to sustain',    p:'मन्',   p_en:'man-suffix (abstract)',       t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'that which sustains / law',      sutra:'उणादि मन्-प्रत्यय',         process:'धृ + मन् → धर्म (संप्रसारण)' },
-  'कर्म':   { r:'कृ',    r_en:'to do, to make',         p:'मन्',   p_en:'man-suffix (abstract)',       t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'action, deed',                   sutra:'उणादि मन्-प्रत्यय',         process:'कृ + मन् → कर्म (संप्रसारण)' },
+  // g: gender code — P=पुंलिङ्ग, S=स्त्रीलिङ्ग, N=नपुंसकलिङ्ग
+  'चन्दन':  { g:'P', r:'चन्द्',  r_en:'to shine, to please', p:'ल्युट्', p_en:'action/instrument noun suffix', t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'that which pleases / sandalwood', sutra:'३.३.११३ ल्युट् च',          process:'चन्द् + ल्युट् → चन्द् + अन → चन्दन' },
+  'राम':    { g:'P', r:'रम्',    r_en:'to delight, to play',  p:'घञ्',   p_en:'verbal noun suffix (vṛddhi)',  t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who delights / Lord Rāma',   sutra:'३.३.१८ भावे',               process:'रम् + घञ् → राम (वृद्धि: अ→आ)' },
+  'दशरथि': { g:'P', r:'दशरथ',  r_en:'the chariot of ten',    p:'इञ्',   p_en:'patronymic/descendant suffix', t:'taddhit', t_sa:'तद्धित',         t_en:'Taddhita', meaning:'son/descendant of Daśaratha',    sutra:'४.१.९५ अत इञ्',             process:'दशरथ + इञ् → दाशरथि (वृद्धि) → दशरथि' },
+  'गौरी':   { g:'S', r:'गौर',   r_en:'white, bright, tawny',  p:'ङीष्',  p_en:'feminine suffix',              t:'stri',    t_sa:'स्त्री प्रत्यय', t_en:'Strī',     meaning:'the bright/fair one (Goddess)',  sutra:'४.१.४१ ऊङुतश्च',           process:'गौर + ङीष् → गौर + ई → गौरी' },
+  'पाठक':   { g:'P', r:'पठ्',   r_en:'to read, to recite',    p:'ण्वुल्',p_en:'agent noun suffix (-aka)',     t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who reads / teacher',        sutra:'३.१.१३३ ण्वुल्तृचौ',       process:'पठ् + ण्वुल् → पठ् + अक → पाठक (वृद्धि)' },
+  'लेखक':   { g:'P', r:'लिख्',  r_en:'to write, to scratch',  p:'ण्वुल्',p_en:'agent noun suffix (-aka)',     t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who writes / scribe',        sutra:'३.१.१३३ ण्वुल्तृचौ',       process:'लिख् + ण्वुल् → लिख् + अक → लेखक (वृद्धि)' },
+  'नायक':   { g:'P', r:'नी',    r_en:'to lead, to carry',     p:'ण्वुल्',p_en:'agent noun suffix (-aka)',     t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'leader, hero',                   sutra:'३.१.१३३ ण्वुल्तृचौ',       process:'नी + ण्वुल् → नी + अक → नायक (गुण+वृद्धि)' },
+  'राजन्':  { g:'P', r:'राज्',  r_en:'to shine, to rule',     p:'अन्',   p_en:'n-stem suffix',                t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'king, one who shines',           sutra:'उणादि ३.१ राजृ + अन्',     process:'राज् + अन् → राजन् (हलन्त)' },
+  'मुनि':   { g:'P', r:'मन्',   r_en:'to think, to contemplate',p:'इ',   p_en:'i-suffix (nominal)',           t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who meditates / sage',       sutra:'उणादि इ-प्रत्यय',           process:'मन् + इ → मुनि' },
+  'शान्ति': { g:'S', r:'शम्',   r_en:'to be calm, to cease',  p:'क्तिन्',p_en:'abstract noun suffix',        t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'peace, tranquility',             sutra:'३.३.९४ स्त्रियां क्तिन्',   process:'शम् + क्तिन् → शान्त + इ → शान्ति' },
+  'भक्ति':  { g:'S', r:'भज्',   r_en:'to worship, to serve',  p:'क्तिन्',p_en:'abstract noun suffix',        t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'devotion, worship',              sutra:'३.३.९४ स्त्रियां क्तिन्',   process:'भज् + क्तिन् → भक्त + इ → भक्ति' },
+  'योग':    { g:'P', r:'युज्',  r_en:'to join, to yoke',       p:'घञ्',   p_en:'verbal noun suffix (vṛddhi)', t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'union, concentration',           sutra:'३.३.१८ भावे',               process:'युज् + घञ् → योग (वृद्धि: उ→ओ)' },
+  'ज्ञान':  { g:'N', r:'ज्ञा',  r_en:'to know, to understand', p:'ल्युट्',p_en:'action/result noun suffix',  t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'knowledge, wisdom',              sutra:'३.३.११३ ल्युट् च',          process:'ज्ञा + ल्युट् → ज्ञा + अन → ज्ञान' },
+  'साधु':   { g:'P', r:'साध्',  r_en:'to accomplish, to succeed',p:'उ',  p_en:'u-suffix (nominal)',           t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'virtuous person / well done',    sutra:'उणादि उ-प्रत्यय',           process:'साध् + उ → साधु' },
+  'लता':    { g:'S', r:'लत्',   r_en:'to wind, to creep',      p:'अ + टाप्',p_en:'a-suffix + fem. ā',        t:'stri',    t_sa:'स्त्री प्रत्यय', t_en:'Strī',     meaning:'creeper, vine',                  sutra:'४.१.४ अजाद्यतष्टाप्',      process:'लत् + अ → लत + टाप् → लता' },
+  'देव':    { g:'P', r:'दिव्',  r_en:'to shine, to play',      p:'अच्',   p_en:'primary nominal suffix',      t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'shining one / god',              sutra:'३.१.१३४ अच् प्रत्ययः',     process:'दिव् + अच् → देव (वृद्धि: इ→ए)' },
+  'धर्म':   { g:'P', r:'धृ',    r_en:'to hold, to sustain',    p:'मन्',   p_en:'man-suffix (abstract)',       t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'that which sustains / law',      sutra:'उणादि मन्-प्रत्यय',         process:'धृ + मन् → धर्म (संप्रसारण)' },
+  'कर्म':   { g:'N', r:'कृ',    r_en:'to do, to make',         p:'मन्',   p_en:'man-suffix (abstract)',       t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'action, deed',                   sutra:'उणादि मन्-प्रत्यय',         process:'कृ + मन् → कर्म (संप्रसारण)' },
 };
 
 /* ════════ UNICODE ════════ */
@@ -805,16 +806,33 @@ function runEngine(){
   document.getElementById('sandhiResult').innerHTML='';
   document.getElementById('sandhiInput2').value='';
 
-  // ── Read linga & vacana selections ──
-  const lingaSel=document.getElementById('lingaSelect').value;
+  // ── Read vacana selection ──
   const vacanaSel=document.getElementById('vacanaSelect').value;
-  const LINGA_LABELS={auto:'स्वयं निर्धारित',P:'पुंलिङ्ग',S:'स्त्रीलिङ्ग',N:'नपुंसकलिङ्ग'};
+  const LINGA_LABELS={auto:'स्वयं निर्धारित',P:'पुंलिङ्ग',S:'स्त्रीलिङ्ग',N:'नपुंसकलिङ्ग',A:'उभयलिङ्ग'};
   const VACANA_LABELS={all:'सर्वाणि',0:'एकवचन',1:'द्विवचन',2:'बहुवचन'};
+
+  // ── Auto-detect linga: PRAKRIYA_DB first, then SHABDA_DB, then user selection ──
+  const ppEntry=(typeof PRAKRIYA_DB!=='undefined')?PRAKRIYA_DB[raw]:null;
+  const dbEntryForLinga=(typeof SHABDA_DB!=='undefined')?SHABDA_DB[raw]:null;
+  let autoLinga=null;
+  if(ppEntry&&ppEntry.g){
+    // PRAKRIYA_DB has explicit gender — use it (highest priority)
+    autoLinga=ppEntry.g;
+  } else if(dbEntryForLinga&&dbEntryForLinga.l){
+    // SHABDA_DB has linga from the word list
+    autoLinga=dbEntryForLinga.l;
+  }
+  // Apply auto-detected linga to dropdown if found, else keep user's choice
+  if(autoLinga){
+    document.getElementById('lingaSelect').value=autoLinga;
+  }
+  const lingaSel=document.getElementById('lingaSelect').value;
 
   // Show linga-vacana bar
   const lvBar=document.getElementById('lvBar');
   lvBar.style.display='flex';
-  document.getElementById('lvLinga').textContent=LINGA_LABELS[lingaSel]||lingaSel;
+  const linSourceHint=autoLinga?'<span style="font-size:.6rem;color:var(--gold-dim);margin-left:4px;">(auto)</span>':'';
+  document.getElementById('lvLinga').innerHTML=(LINGA_LABELS[lingaSel]||lingaSel)+linSourceHint;
   document.getElementById('lvVacana').textContent=VACANA_LABELS[vacanaSel]||vacanaSel;
   document.getElementById('lvWord').textContent=raw;
 
