@@ -364,6 +364,17 @@
     .quiz-score b{color:var(--gold-lt);}
     td.qc{padding:5px 6px;}
 
+
+    /* ── Shabda DB styles ── */
+    .linga-badge{display:inline-block;padding:2px 10px;border-radius:999px;font-family:'Libre Baskerville',serif;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-left:8px;vertical-align:middle;}
+    .lb-p{background:rgba(74,154,106,.15);color:#5ACA7A;}
+    .lb-s{background:rgba(184,68,8,.15);color:#E07040;}
+    .lb-n{background:rgba(74,122,170,.15);color:#80B0E0;}
+    .lb-a{background:rgba(200,148,8,.15);color:#E0B040;}
+    .meaning-en{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--text-mid);}
+    .meaning-hin{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;color:var(--text-soft);margin-top:3px;display:block;}
+    .db-source{font-size:.65rem;color:var(--gold-dim);font-family:'Libre Baskerville',serif;margin-top:4px;display:block;font-style:italic;}
+    .forms-split{display:none;}  /* pre-stored forms don't show stem/suffix split */
     .result{display:none;animation:rUp .3s ease both;}
     @keyframes rUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
@@ -380,6 +391,7 @@
 
     @media(max-width:520px){.card{padding:14px 13px;}h1{font-size:2.1rem;}.form,.vtok-ch,.vform{font-size:1rem;}.sandhi-word{width:120px;}.brand-header{flex-wrap:wrap;}.brand-author{text-align:left;}}
   </style>
+  <script src="words.js"></script>
 </head>
 <body>
 
@@ -452,6 +464,7 @@
           <div class="sec-lbl">विश्लेषण · Analysis</div>
           <div class="agrid">
             <div class="atile"><div class="atile-lbl">प्रातिपदिकम् · Root</div><div class="atile-val" id="rootDisp"></div><div class="atile-sub" id="rootSub"></div></div>
+        <div class="atile" id="meaningTile" style="display:none;"><div class="atile-lbl">अर्थ · Meaning</div><div class="atile-val" id="meaningDisp"></div><div class="atile-sub" id="vyutpattiDisp"></div></div>
             <div class="atile"><div class="atile-lbl">सुप्-अङ्ग · Stem</div><div class="atile-val" id="stemDisp"></div></div>
             <div class="atile" style="grid-column:1/-1;"><div class="atile-lbl">वर्ण-विच्छेद · Phoneme Analysis</div><div id="vichedDisp"></div><div id="tiUpDisp" style="margin-top:9px;font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--text-soft);"></div></div>
           </div>
@@ -605,37 +618,91 @@ function runEngine(){
   document.getElementById('sandhiWord1').textContent=raw;
   document.getElementById('sandhiResult').innerHTML='';
   document.getElementById('sandhiInput2').value='';
+
   const toks=tokenize(raw);
   const{tiIdx,tiStr,upIdx,upTok}=computeTiUp(toks);
+
   document.getElementById('rootDisp').textContent=raw;
-  document.getElementById('rootSub').textContent=DERIVATIONS[raw]?.note||'';
+
+  // ── Check SHABDA_DB for pre-stored data ──
+  const dbEntry=(typeof SHABDA_DB!=='undefined')?SHABDA_DB[raw]:null;
+  const LINGA_LABEL={P:'पुंलिंग · Masc',S:'स्त्रीलिंग · Fem',N:'नपुंसकलिंग · Neut',A:'उभयलिंग · Common'};
+  const LINGA_CLASS={P:'lb-p',S:'lb-s',N:'lb-n',A:'lb-a'};
+
+  if(dbEntry){
+    // Show meaning tile
+    const mt=document.getElementById('meaningTile');
+    const md=document.getElementById('meaningDisp');
+    const vd=document.getElementById('vyutpattiDisp');
+    mt.style.display='block';
+    let mhtml='';
+    if(dbEntry.e)mhtml+=`<span class="meaning-en">${dbEntry.e}</span>`;
+    if(dbEntry.h)mhtml+=`<span class="meaning-hin">${dbEntry.h}</span>`;
+    if(dbEntry.l)mhtml+=`<span class="linga-badge ${LINGA_CLASS[dbEntry.l]||'lb-p'}">${LINGA_LABEL[dbEntry.l]||dbEntry.l}</span>`;
+    md.innerHTML=mhtml;
+    let vhtml='';
+    if(dbEntry.v)vhtml+=`<span style="color:var(--text-soft);font-style:italic;">${dbEntry.v}</span>`;
+    vhtml+=`<span class="db-source">शब्दपाठ-सूची · Pre-stored correct forms</span>`;
+    vd.innerHTML=vhtml;
+    // Override rootSub
+    document.getElementById('rootSub').textContent='';
+  } else {
+    document.getElementById('meaningTile').style.display='none';
+    document.getElementById('rootSub').textContent=DERIVATIONS[raw]?.note||'';
+  }
+
   document.getElementById('vichedDisp').innerHTML=renderVichedHTML(toks,tiIdx,upIdx);
   let tu='';
   if(tiIdx>=0)tu+=`<span style="color:var(--gold-lt)">●</span> <b style="color:var(--gold)">टि</b> = <span style="font-family:'Tiro Devanagari Sanskrit'">${tiStr}</span>&nbsp;&nbsp;`;
   if(upTok)tu+=`<span style="color:#C090F0">●</span> <b style="color:#B080E0">उपधा</b> = <span style="font-family:'Tiro Devanagari Sanskrit'">${upTok.d}</span>`;
   document.getElementById('tiUpDisp').innerHTML=tu;
+
   let stemHtml;
   if(currentConfig.kind==='suffix'){const s=currentConfig.stem(raw);stemHtml=`<span style="color:var(--blue-root);font-weight:600">${s||'—'}</span><span style="font-size:.75rem;color:var(--text-soft);font-style:italic;margin-left:7px;">(${currentConfig.typeSa})</span>`;}
   else if(currentConfig.kind==='halant'){const b=[...raw].slice(0,-2).join('');stemHtml=`<span style="color:var(--gold-lt);font-weight:600">${b}</span><span style="font-size:.75rem;color:var(--text-soft);font-style:italic;margin-left:7px;">strong: ${b}ान् / weak: ${b}्ञ</span>`;}
   else stemHtml=`<span style="font-size:.82rem;color:var(--text-soft);font-style:italic;">Suppletive</span>`;
   document.getElementById('stemDisp').innerHTML=stemHtml;
+
   const deriv=DERIVATIONS[raw],ds=document.getElementById('derivSection');
-  if(deriv){ds.style.display='block';const stepsHtml=deriv.steps.map(s=>'<span class="dc-step">'+s+'</span><span class="dc-arrow">→</span>').join('');document.getElementById('derivChain').innerHTML='<div class="deriv-chain">'+stepsHtml+'<span class="dc-final">'+deriv.final+'</span></div>';const dl=document.getElementById('dhatuLink');if(deriv.dhatu&&DHATU_BY_ROOT[deriv.dhatu]){const d=DHATU_BY_ROOT[deriv.dhatu];dl.innerHTML='<span style="color:var(--gold-dim)">धातु:</span> '+d.root+' ('+d.iast+') · '+ganaLabel(d.gana)+' · '+d.meaning;}else dl.innerHTML='';}else ds.style.display='none';
+  if(deriv&&!dbEntry){ds.style.display='block';const stepsHtml=deriv.steps.map(s=>'<span class="dc-step">'+s+'</span><span class="dc-arrow">→</span>').join('');document.getElementById('derivChain').innerHTML='<div class="deriv-chain">'+stepsHtml+'<span class="dc-final">'+deriv.final+'</span></div>';const dl=document.getElementById('dhatuLink');if(deriv.dhatu&&DHATU_BY_ROOT[deriv.dhatu]){const d=DHATU_BY_ROOT[deriv.dhatu];dl.innerHTML='<span style="color:var(--gold-dim)">धातु:</span> '+d.root+' ('+d.iast+') · '+ganaLabel(d.gana)+' · '+d.meaning;}else dl.innerHTML='';}else ds.style.display='none';
+
   const fired=SAMJNA_DB.map(s=>{const r=s.applies(raw,toks,currentConfig);return r?{...s,result:r}:null;}).filter(Boolean);
   document.getElementById('samjnaCount').textContent=`${fired.length} applicable`;
   const catLabel={phon:'Phonological',nom:'Nominal',sandhi:'Sandhi',pron:'Pronoun',deriv:'Derivational'};
   document.getElementById('samjnaGrid').innerHTML=fired.map(s=>`<div class="sc ${s.cat}"><span class="sc-cat">${catLabel[s.cat]}</span><span class="sc-name">${s.name}</span><span class="sc-sutra">${s.sutra} · ${s.sutraText}</span><span class="sc-def">${s.def}</span><span class="sc-val">${s.result}</span></div>`).join('')||`<div style="font-style:italic;color:var(--text-soft);">No saṃjñās tagged.</div>`;
+
   const sutFired=SUTRA_DB.map(s=>{const r=s.applies(raw,toks,currentConfig);return r?{...s,result:r}:null;}).filter(Boolean);
   document.getElementById('sutraPanel').innerHTML=sutFired.map(s=>`<div class="sutra-entry"><div class="sutra-num">${s.num}</div><div><span class="sutra-text">${s.sa}</span><span class="sutra-en">${s.en}</span><span class="sutra-apply">${s.result}</span></div></div>`).join('')||`<div style="font-style:italic;color:var(--text-soft);">No sūtras fired.</div>`;
+
   document.getElementById('detRow').innerHTML=`<span class="det-w">${raw}</span><span class="det-arr">→</span><span class="det-badge ${currentConfig.badge}">${currentConfig.typeEn}</span><span class="det-meta">${currentConfig.typeSa}</span>`;
+
   const gRow=document.getElementById('genderRow');
   if(currentConfig.kind==='pronoun'&&currentConfig.hasGender){gRow.style.display='flex';['m','f','n'].forEach(g=>document.getElementById('gen'+g.toUpperCase()).classList.toggle('active',g==='m'));}
   else gRow.style.display='none';
+
   const la=document.getElementById('legendArea'),fn=document.getElementById('fixedNote');
-  if(currentConfig.kind==='suffix'){la.style.display='flex';la.innerHTML=`<div class="leg-item"><div class="leg-sw lsr"></div><span class="leg-lbl">Stem</span></div><div class="leg-item"><div class="leg-sw lss"></div><span class="leg-lbl">Suffix</span></div>`;fn.style.display='none';}
-  else{la.style.display='none';const note=currentConfig.kind==='pronoun'&&currentConfig.hasGender?currentConfig.genders['m'].note||currentConfig.note:currentConfig.note;fn.style.display=note?'block':'none';fn.textContent=note||'';}
-  document.getElementById('quizBtn').classList.remove('active');document.getElementById('quizControls').style.display='none';document.getElementById('quizScore').textContent='';
-  renderDeclTable(raw);
+
+  // ── Use pre-stored forms if available, else auto-generate ──
+  if(dbEntry&&dbEntry.f&&dbEntry.f.length===24){
+    // Pre-stored forms from Shabda DB — guaranteed correct
+    la.style.display='none';
+    fn.style.display='none';
+    const forms=dbEntry.f;
+    let html='';
+    VIB.forEach((v,i)=>{
+      const isVoc=i===7;
+      const[e,d,b]=[forms[i*3],forms[i*3+1],forms[i*3+2]];
+      html+=`<tr class="${isVoc?'voc':''}"><td><span class="vnum">${v.n}</span><span class="vsa">${v.sa}</span><span class="ven">${v.en}</span></td><td><span class="form ff">${e||'—'}</span></td><td><span class="form ff">${d||'—'}</span></td><td><span class="form ff">${b||'—'}</span></td></tr>`;
+    });
+    document.getElementById('tableBody').innerHTML=html;
+  } else {
+    // Auto-generate forms
+    if(currentConfig.kind==='suffix'){la.style.display='flex';la.innerHTML=`<div class="leg-item"><div class="leg-sw lsr"></div><span class="leg-lbl">Stem</span></div><div class="leg-item"><div class="leg-sw lss"></div><span class="leg-lbl">Suffix</span></div>`;fn.style.display='none';}
+    else{la.style.display='none';const note=currentConfig.kind==='pronoun'&&currentConfig.hasGender?currentConfig.genders['m'].note||currentConfig.note:currentConfig.note;fn.style.display=note?'block':'none';fn.textContent=note||'';}
+    document.getElementById('quizBtn').classList.remove('active');document.getElementById('quizControls').style.display='none';document.getElementById('quizScore').textContent='';
+    renderDeclTable(raw);
+  }
+
   resultArea.style.display='block';resultArea.style.animation='none';resultArea.offsetHeight;resultArea.style.animation='';
   resultArea.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
