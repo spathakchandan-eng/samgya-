@@ -407,6 +407,38 @@
     .lv-key{font-family:'Libre Baskerville',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);}
     .lv-val{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.05rem;color:var(--gold-lt);}
     .lv-sep{width:1px;background:var(--border2);align-self:stretch;}
+
+    /* ── प्रकृति-प्रत्यय panel ── */
+    .pp-card{background:var(--panel);border:1px solid var(--border);border-radius:2px;padding:22px 26px;margin-bottom:14px;box-shadow:0 4px 24px rgba(0,0,0,.6);}
+    .pp-found{display:flex;flex-direction:column;gap:14px;}
+    .pp-row{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;}
+    .pp-block{flex:1;min-width:140px;background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:12px 14px;}
+    .pp-block-lbl{font-family:'Libre Baskerville',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-soft);margin-bottom:6px;display:block;}
+    .pp-block-sa{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.2rem;color:var(--text);display:block;line-height:1.4;}
+    .pp-block-en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--text-soft);display:block;margin-top:2px;}
+    .pp-arrow{font-size:1.4rem;color:var(--text-faint);align-self:center;flex-shrink:0;}
+    .pp-result{background:rgba(200,144,0,.08);border:1px solid rgba(200,144,0,.25);border-radius:2px;padding:12px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+    .pp-result-word{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.6rem;color:var(--gold-lt);}
+    .pp-result-eq{color:var(--text-faint);font-size:1rem;}
+    .pp-formula{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1rem;color:var(--text-mid);}
+    .pp-formula .pp-root{color:#5ACA7A;font-weight:600;}
+    .pp-formula .pp-suf{color:#C090F0;font-weight:600;}
+    .pp-formula .pp-plus{color:var(--text-faint);margin:0 4px;}
+
+    /* Type badges */
+    .pp-badge{display:inline-block;padding:4px 12px;border-radius:3px;font-family:'Libre Baskerville',serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+    .pp-krit   {background:rgba(74,154,106,.15);color:#5ACA7A;border:1px solid rgba(74,154,106,.3);}
+    .pp-taddhit{background:rgba(74,122,170,.15);color:#80B0E0;border:1px solid rgba(74,122,170,.3);}
+    .pp-stri   {background:rgba(192,80,80,.15); color:#E09090;border:1px solid rgba(192,80,80,.3);}
+    .pp-samas  {background:rgba(200,148,8,.15); color:#E0B040;border:1px solid rgba(200,148,8,.3);}
+    .pp-other  {background:rgba(120,120,120,.15);color:#B0B0B0;border:1px solid rgba(120,120,120,.3);}
+
+    .pp-sutra-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+    .pp-sutra-tag{font-family:'Libre Baskerville',serif;font-size:.7rem;padding:3px 10px;border-radius:2px;background:var(--bg3);border:1px solid var(--border2);color:var(--text-soft);font-style:italic;}
+    .pp-sutra-tag b{font-style:normal;color:var(--gold-dim);}
+
+    .pp-not-found{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--text-soft);padding:8px 0;line-height:1.7;}
+    .pp-not-found .pp-sa{font-family:'Tiro Devanagari Sanskrit',serif;font-style:normal;color:var(--text-mid);display:block;margin-bottom:4px;}
     .result{display:none;animation:rUp .3s ease both;}
     @keyframes rUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
@@ -566,6 +598,12 @@
           <div class="samjna-grid" id="samjnaGrid"></div>
         </div>
 
+        <!-- प्रकृति-प्रत्यय card -->
+        <div class="pp-card" id="ppCard">
+          <div class="sec-lbl">प्रकृति-प्रत्यय विश्लेषण · Morphological Analysis</div>
+          <div id="ppContent"></div>
+        </div>
+
         <!-- Sutra -->
         <div class="card">
           <div class="sec-lbl">सूत्र-विमर्शः · Applied Sūtras</div>
@@ -619,6 +657,41 @@
    Only branding/colour changes applied above
 ══════════════════════════════════════════════════════════ */
 
+
+/* ════════ प्रकृति-प्रत्यय DATABASE ════════
+   Each entry:
+     r  : root / prakriti (धातु or प्रातिपदिक)
+     r_en: root meaning (English)
+     p  : pratyaya / suffix
+     p_en: suffix meaning
+     t  : type code — 'krit' | 'taddhit' | 'stri' | 'samas' | 'other'
+     t_sa: type in Sanskrit
+     t_en: type in English
+     meaning: derived meaning
+     sutra: Pāṇinian sūtra (optional)
+     process: step-by-step derivation
+════════════════════════════════════════ */
+const PRAKRIYA_DB = {
+  'चन्दन':  { r:'चन्द्',  r_en:'to shine, to please', p:'ल्युट्', p_en:'action/instrument noun suffix', t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'that which pleases / sandalwood', sutra:'३.३.११३ ल्युट् च',          process:'चन्द् + ल्युट् → चन्द् + अन → चन्दन' },
+  'राम':    { r:'रम्',    r_en:'to delight, to play',  p:'घञ्',   p_en:'verbal noun suffix (vṛddhi)',  t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who delights / Lord Rāma',   sutra:'३.३.१८ भावे',               process:'रम् + घञ् → राम (वृद्धि: अ→आ)' },
+  'दशरथि': { r:'दशरथ',  r_en:'the chariot of ten',    p:'इञ्',   p_en:'patronymic/descendant suffix', t:'taddhit', t_sa:'तद्धित',         t_en:'Taddhita', meaning:'son/descendant of Daśaratha',    sutra:'४.१.९५ अत इञ्',             process:'दशरथ + इञ् → दाशरथि (वृद्धि) → दशरथि' },
+  'गौरी':   { r:'गौर',   r_en:'white, bright, tawny',  p:'ङीष्',  p_en:'feminine suffix',              t:'stri',    t_sa:'स्त्री प्रत्यय', t_en:'Strī',     meaning:'the bright/fair one (Goddess)',  sutra:'४.१.४१ ऊङुतश्च',           process:'गौर + ङीष् → गौर + ई → गौरी' },
+  'पाठक':   { r:'पठ्',   r_en:'to read, to recite',    p:'ण्वुल्',p_en:'agent noun suffix (-aka)',     t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who reads / teacher',        sutra:'३.१.१३३ ण्वुल्तृचौ',       process:'पठ् + ण्वुल् → पठ् + अक → पाठक (वृद्धि)' },
+  'लेखक':   { r:'लिख्',  r_en:'to write, to scratch',  p:'ण्वुल्',p_en:'agent noun suffix (-aka)',     t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who writes / scribe',        sutra:'३.१.१३३ ण्वुल्तृचौ',       process:'लिख् + ण्वुल् → लिख् + अक → लेखक (वृद्धि)' },
+  'नायक':   { r:'नी',    r_en:'to lead, to carry',     p:'ण्वुल्',p_en:'agent noun suffix (-aka)',     t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'leader, hero',                   sutra:'३.१.१३३ ण्वुल्तृचौ',       process:'नी + ण्वुल् → नी + अक → नायक (गुण+वृद्धि)' },
+  'राजन्':  { r:'राज्',  r_en:'to shine, to rule',     p:'अन्',   p_en:'n-stem suffix',                t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'king, one who shines',           sutra:'उणादि ३.१ राजृ + अन्',     process:'राज् + अन् → राजन् (हलन्त)' },
+  'मुनि':   { r:'मन्',   r_en:'to think, to contemplate',p:'इ',   p_en:'i-suffix (nominal)',           t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who meditates / sage',       sutra:'उणादि इ-प्रत्यय',           process:'मन् + इ → मुनि' },
+  'शान्ति': { r:'शम्',   r_en:'to be calm, to cease',  p:'क्तिन्',p_en:'abstract noun suffix',        t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'peace, tranquility',             sutra:'३.३.९४ स्त्रियां क्तिन्',   process:'शम् + क्तिन् → शान्त + इ → शान्ति' },
+  'भक्ति':  { r:'भज्',   r_en:'to worship, to serve',  p:'क्तिन्',p_en:'abstract noun suffix',        t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'devotion, worship',              sutra:'३.३.९४ स्त्रियां क्तिन्',   process:'भज् + क्तिन् → भक्त + इ → भक्ति' },
+  'योग':    { r:'युज्',  r_en:'to join, to yoke',       p:'घञ्',   p_en:'verbal noun suffix (vṛddhi)', t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'union, concentration',           sutra:'३.३.१८ भावे',               process:'युज् + घञ् → योग (वृद्धि: उ→ओ)' },
+  'ज्ञान':  { r:'ज्ञा',  r_en:'to know, to understand', p:'ल्युट्',p_en:'action/result noun suffix',  t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'knowledge, wisdom',              sutra:'३.३.११३ ल्युट् च',          process:'ज्ञा + ल्युट् → ज्ञा + अन → ज्ञान' },
+  'साधु':   { r:'साध्',  r_en:'to accomplish, to succeed',p:'उ',  p_en:'u-suffix (nominal)',           t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'virtuous person / well done',    sutra:'उणादि उ-प्रत्यय',           process:'साध् + उ → साधु' },
+  'लता':    { r:'लत्',   r_en:'to wind, to creep',      p:'अ + टाप्',p_en:'a-suffix + fem. ā',        t:'stri',    t_sa:'स्त्री प्रत्यय', t_en:'Strī',     meaning:'creeper, vine',                  sutra:'४.१.४ अजाद्यतष्टाप्',      process:'लत् + अ → लत + टाप् → लता' },
+  'देव':    { r:'दिव्',  r_en:'to shine, to play',      p:'अच्',   p_en:'primary nominal suffix',      t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'shining one / god',              sutra:'३.१.१३४ अच् प्रत्ययः',     process:'दिव् + अच् → देव (वृद्धि: इ→ए)' },
+  'धर्म':   { r:'धृ',    r_en:'to hold, to sustain',    p:'मन्',   p_en:'man-suffix (abstract)',       t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'that which sustains / law',      sutra:'उणादि मन्-प्रत्यय',         process:'धृ + मन् → धर्म (संप्रसारण)' },
+  'कर्म':   { r:'कृ',    r_en:'to do, to make',         p:'मन्',   p_en:'man-suffix (abstract)',       t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'action, deed',                   sutra:'उणादि मन्-प्रत्यय',         process:'कृ + मन् → कर्म (संप्रसारण)' },
+};
+
 /* ════════ UNICODE ════════ */
 const HALANT='\u094D',ANUSVARA='\u0902',VISARGA='\u0903';
 const MATRA_TO={'\u093E':'आ','\u093F':'इ','\u0940':'ई','\u0941':'उ','\u0942':'ऊ','\u0943':'ऋ','\u0947':'ए','\u0948':'ऐ','\u094B':'ओ','\u094C':'औ'};
@@ -671,6 +744,58 @@ function load(w){wordInput.value=w;clrBtn.style.display='block';runEngine();}
 function toggleSamjna(){samjnaCollapsed=!samjnaCollapsed;document.getElementById('samjnaGrid').classList.toggle('collapsed',samjnaCollapsed);document.getElementById('samjnaArr').classList.toggle('open',!samjnaCollapsed);}
 function printSheet(){document.getElementById('printTitle').textContent=`${currentWord} — Declension & Analysis`;window.print();}
 
+
+function renderPrakriya(word){
+  const el=document.getElementById('ppContent');
+  const e=PRAKRIYA_DB[word];
+  if(!e){
+    el.innerHTML=`<div class="pp-not-found">
+      <span class="pp-sa">इस शब्द का प्रकृति-प्रत्यय विवरण अभी हमारे स्थानीय शब्दकोश में उपलब्ध नहीं है।</span>
+      This word's etymological details are not yet in our local dictionary. The database currently covers ${Object.keys(PRAKRIYA_DB).length} words.
+    </div>`;
+    return;
+  }
+  const BADGE_CLASS={krit:'pp-krit',taddhit:'pp-taddhit',stri:'pp-stri',samas:'pp-samas',other:'pp-other'};
+  const bc=BADGE_CLASS[e.t]||'pp-other';
+  el.innerHTML=`<div class="pp-found">
+    <!-- Formula result bar -->
+    <div class="pp-result">
+      <span class="pp-result-word">${word}</span>
+      <span class="pp-result-eq">=</span>
+      <span class="pp-formula">
+        <span class="pp-root">${e.r}</span>
+        <span class="pp-plus">+</span>
+        <span class="pp-suf">${e.p}</span>
+      </span>
+      <span class="pp-badge ${bc}">${e.t_sa} · ${e.t_en}</span>
+    </div>
+    <!-- Blocks row -->
+    <div class="pp-row">
+      <div class="pp-block">
+        <span class="pp-block-lbl">प्रकृति · Root</span>
+        <span class="pp-block-sa">${e.r}</span>
+        <span class="pp-block-en">${e.r_en}</span>
+      </div>
+      <div class="pp-arrow">→</div>
+      <div class="pp-block">
+        <span class="pp-block-lbl">प्रत्यय · Suffix</span>
+        <span class="pp-block-sa">${e.p}</span>
+        <span class="pp-block-en">${e.p_en}</span>
+      </div>
+      <div class="pp-arrow">→</div>
+      <div class="pp-block" style="border-left:3px solid var(--gold-dim);">
+        <span class="pp-block-lbl">अर्थ · Meaning</span>
+        <span class="pp-block-sa" style="color:var(--gold-lt);">${word}</span>
+        <span class="pp-block-en">${e.meaning}</span>
+      </div>
+    </div>
+    <!-- Process & Sutra -->
+    <div class="pp-sutra-row">
+      ${e.sutra?`<span class="pp-sutra-tag"><b>सूत्र:</b> ${e.sutra}</span>`:''}
+      ${e.process?`<span class="pp-sutra-tag"><b>प्रक्रिया:</b> ${e.process}</span>`:''}
+    </div>
+  </div>`;
+}
 function runEngine(){
   const raw=wordInput.value.trim();if(!raw)return;
   quizMode=false;currentGender='m';currentWord=raw;
@@ -786,6 +911,7 @@ function runEngine(){
     renderDeclTable(raw);
   }
 
+  renderPrakriya(raw);
   resultArea.style.display='block';resultArea.style.animation='none';resultArea.offsetHeight;resultArea.style.animation='';
   resultArea.scrollIntoView({behavior:'smooth',block:'nearest'});
 
