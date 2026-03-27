@@ -406,21 +406,14 @@
 
       <div class="masthead">
         <span class="mast-sa">॥ शब्द-शास्त्र-महामञ्जूषा ॥</span>
-        <h1>संज्ञा-रूप · तिङन्त</h1>
-        <p class="mast-sub">Dhātu · Tiṅanta · Saṃjñā · Sandhi · Sūtra · Derivation · Declension · Quiz</p>
+        <h1>संज्ञा-रूप</h1>
+        <p class="mast-sub">Saṃjñā · Sandhi · Sūtra · Derivation · Declension · Quiz</p>
         <div class="mast-rule"><span class="mrl"></span><span class="mrd"></span><span class="mrl"></span><span class="mrd"></span><span class="mrl"></span><span class="mrd"></span><span class="mrl"></span></div>
       </div>
 
       <!-- MAIN INPUT CARD -->
       <div class="card no-print">
-        <div class="tabs">
-          <div class="tab active" onclick="showTab('analyze')">विश्लेषण · Analyze</div>
-          <div class="tab" onclick="showTab('tinga')">तिङन्त · Verbs</div>
-          <div class="tab" onclick="showTab('dhatu')">धातु-पाठ · Dhātu</div>
-        </div>
-
         <!-- Analyze tab -->
-        <div class="tab-content active" id="tab-analyze">
           <div class="input-row">
             <div class="iw"><input type="text" id="wordInput" placeholder="शब्द लिखें… राम, मुनि, लता, राजन्, तद्, अहम्…" autocomplete="off" spellcheck="false"><button class="clr" id="clrBtn">✕</button></div>
             <button class="go" onclick="runEngine()">सिद्धि →</button>
@@ -446,61 +439,6 @@
             <span id="historyChips"></span>
           </div>
         </div>
-
-        <!-- Tiṅanta tab -->
-        <div class="tab-content" id="tab-tinga">
-          <div class="verb-search-row"><input class="verb-search" type="text" id="verbSearch" placeholder="धातु खोजें… भू, गम्, पठ्, कृ…" autocomplete="off" spellcheck="false"></div>
-          <div class="verb-filter">
-            <span class="pill-lbl" style="align-self:center;">गण:</span>
-            <button class="vf-btn active" data-gana="all" onclick="filterVerbGana(this)">All</button>
-            <button class="vf-btn" data-gana="1" onclick="filterVerbGana(this)">I (भ्वादि)</button>
-            <button class="vf-btn" data-gana="4" onclick="filterVerbGana(this)">IV (दिवादि)</button>
-            <button class="vf-btn" data-gana="6" onclick="filterVerbGana(this)">VI (तुदादि)</button>
-            <button class="vf-btn" data-gana="10" onclick="filterVerbGana(this)">X (चुरादि)</button>
-            <button class="vf-btn" data-gana="x" onclick="filterVerbGana(this)">Other</button>
-          </div>
-          <div class="verb-grid" id="verbGrid"></div>
-          <div id="conjSection" style="display:none;" class="conj-section">
-            <div class="conj-header">
-              <div class="conj-root-big" id="conjRoot"></div>
-              <div class="conj-meta"><span class="conj-iast" id="conjIast"></span><span class="conj-gana-lbl" id="conjGana"></span><div class="conj-meaning" id="conjMeaning"></div></div>
-            </div>
-            <div class="pada-toggle">
-              <span class="pada-lbl">पद:</span>
-              <button class="pada-btn p active" id="padaP" onclick="setPada('p')">परस्मैपद (P)</button>
-              <button class="pada-btn a" id="padaA" onclick="setPada('a')">आत्मनेपद (Ā)</button>
-            </div>
-            <div class="lakara-row" id="lakaraRow"></div>
-            <div class="lak-desc" id="lakDesc"></div>
-            <div class="toolbar no-print"><button class="tool-btn" id="verbQuizBtn" onclick="toggleVerbQuiz()">📝 Quiz Mode</button></div>
-            <table class="ctable">
-              <thead><tr><th>Puruṣa · पुरुष</th><th>एकवचन</th><th>द्विवचन</th><th>बहुवचन</th></tr></thead>
-              <tbody id="conjBody"></tbody>
-            </table>
-            <div class="quiz-check no-print" id="verbQuizControls" style="display:none;">
-              <button class="tool-btn" onclick="checkVerbQuiz()">✓ Check</button>
-              <button class="tool-btn" onclick="revealVerbQuiz()">Show answers</button>
-              <span class="quiz-score" id="verbQuizScore"></span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Dhātu tab -->
-        <div class="tab-content" id="tab-dhatu">
-          <div class="dhatu-search-row"><input class="dhatu-search" type="text" id="dhatuSearch" placeholder="धातु खोजें…" spellcheck="false" autocomplete="off"></div>
-          <div class="dhatu-filter">
-            <span class="pill-lbl" style="align-self:center">गण:</span>
-            <button class="gana-btn active" data-gana="all" onclick="filterGana(this)">All</button>
-            <button class="gana-btn" data-gana="1" onclick="filterGana(this)">I (भ्वादि)</button>
-            <button class="gana-btn" data-gana="4" onclick="filterGana(this)">IV (दिवादि)</button>
-            <button class="gana-btn" data-gana="6" onclick="filterGana(this)">VI (तुदादि)</button>
-            <button class="gana-btn" data-gana="10" onclick="filterGana(this)">X (चुरादि)</button>
-            <button class="gana-btn" data-gana="x" onclick="filterGana(this)">Other</button>
-          </div>
-          <div class="dhatu-grid" id="dhatuGrid"></div>
-          <div class="dhatu-detail" id="dhatuDetail"></div>
-        </div>
-      </div>
 
       <!-- Result panels -->
       <div class="result" id="resultArea">
@@ -621,62 +559,6 @@ function tokenize(word){const toks=[],chars=[...word];let i=0;while(i<chars.leng
 function computeTiUp(toks){let tiIdx=-1;for(let i=toks.length-1;i>=0;i--){if(toks[i].t==='s'){tiIdx=i;break;}}const tiStr=tiIdx>=0?toks.slice(tiIdx).map(t=>t.d).join(''):'';const upIdx=toks.length>=2?toks.length-2:-1;return{tiIdx,tiStr,upIdx,upTok:upIdx>=0?toks[upIdx]:null};}
 function renderVichedHTML(toks,tiIdx,upIdx){const m={v:'tv',s:'ts',a:'ta',x:'tx'};const h=toks.map((t,i)=>`<div class="vtok ${m[t.t]}${i>=tiIdx&&tiIdx>=0?' ti-mark':''}${i===upIdx?' up-mark':''}"><span class="vtok-ch">${t.d}</span><span class="vtok-lb">${t.lb}</span></div>${i<toks.length-1?'<span class="tplus">+</span>':''}`).join('');return`<div class="viched-wrap">${h}</div><div class="viched-iast">IAST: <span>${toks.map(t=>t.ia).join('')}</span></div>`;}
 
-/* ════════ TIṄANTA ENGINE ════════ */
-const TING_P={lat:{suf:[['ति','तः','न्ति'],['सि','थः','थ'],['मि','वः','मः']],desc:'लट् लकार — Present tense (वर्तमान काल)',augment:''},lot:{suf:[['तु','ताम्','न्तु'],['हि','तम्','त'],['आनि','आव','आम']],desc:'लोट् लकार — Imperative (आज्ञार्थ)',augment:''},lan:{suf:[['त्','ताम्','न्'],['ः','तम्','त'],['म्','व','म']],desc:'लङ् लकार — Imperfect; uses अ- augment',augment:'अ'},lrt:{suf:[['ष्यति','ष्यतः','ष्यन्ति'],['ष्यसि','ष्यथः','ष्यथ'],['ष्यामि','ष्याव','ष्याम']],desc:'लृट् लकार — Simple future (भविष्यत् काल)',augment:''},lin:{suf:[['यात्','याताम्','युः'],['याः','यातम्','यात'],['याम्','याव','याम']],desc:'विधिलिङ् लकार — Optative / Potential',augment:''}};
-const TING_A={lat:{suf:[['ते','एते','न्ते'],['से','एथे','ध्वे'],['ए','वहे','महे']],desc:'लट् लकार — Present (आत्मनेपद)',augment:''},lot:{suf:[['ताम्','एताम्','न्ताम्'],['स्व','एथाम्','ध्वम्'],['ई','आवहै','आमहै']],desc:'लोट् लकार — Imperative (आत्मनेपद)',augment:''},lan:{suf:[['त','एताम्','न्त'],['थाः','एथाम्','ध्वम्'],['इ','वहि','महि']],desc:'लङ् लकार — Imperfect (आत्मनेपद); uses अ- augment',augment:'अ'}};
-const PURUSHA=[{num:'1',sa:'प्रथमपुरुष',en:'3rd person'},{num:'2',sa:'मध्यमपुरुष',en:'2nd person'},{num:'3',sa:'उत्तमपुरुष',en:'1st person'}];
-const LAKARAS_P=[{id:'lat',label:'लट्',hint:'Present'},{id:'lot',label:'लोट्',hint:'Imperative'},{id:'lan',label:'लङ्',hint:'Imperfect'},{id:'lrt',label:'लृट्',hint:'Future'},{id:'lin',label:'विधिलिङ्',hint:'Optative'}];
-const LAKARAS_A=[{id:'lat',label:'लट्',hint:'Present'},{id:'lot',label:'लोट्',hint:'Imperative'},{id:'lan',label:'लङ्',hint:'Imperfect'}];
-function ganaClass(g){return{1:'g1',4:'g4',6:'g6',10:'g10'}[g]||'gx';}
-function ganaLabel(g){return{1:'I · भ्वादि',4:'IV · दिवादि',6:'VI · तुदादि',10:'X · चुरादि'}[g]||'अन्य';}
-function buildConjTable(verb,lakara,pada){const table=pada==='p'?TING_P:TING_A;const lak=table[lakara];if(!lak)return null;const stem=verb.stem||'';const aug=lak.augment;const fullStem=aug?(aug+stem):stem;const sp=verb.special?.[pada]?.[lakara];return lak.suf.map((row,pi)=>row.map((suf,vi)=>{if(sp&&sp[pi]&&sp[pi][vi])return{full:sp[pi][vi],stem:'',suf:''};return{full:fullStem+suf,stem:fullStem,suf};}));}
-
-const VERB_DB=[
-  {root:'भू',iast:'bhū',gana:1,pada:'p',meaning:'to be, become',stem:'भव',examples:['भव','भूमि','भव्य']},
-  {root:'गम्',iast:'gam',gana:1,pada:'p',meaning:'to go',stem:'गच्छ',examples:['गमन','गति']},
-  {root:'पठ्',iast:'paṭh',gana:1,pada:'p',meaning:'to read, recite',stem:'पठ',examples:['पाठक','पठन']},
-  {root:'वद्',iast:'vad',gana:1,pada:'p',meaning:'to speak',stem:'वद',examples:['वाद','वदन']},
-  {root:'नम्',iast:'nam',gana:1,pada:'p',meaning:'to bow',stem:'नम',examples:['नमस्','नमन']},
-  {root:'रमु',iast:'ram',gana:1,pada:'u',meaning:'to delight, play',stem:'रम',examples:['राम','रति']},
-  {root:'जि',iast:'ji',gana:1,pada:'p',meaning:'to conquer',stem:'जय',examples:['जय','विजय']},
-  {root:'नी',iast:'nī',gana:1,pada:'u',meaning:'to lead',stem:'नय',examples:['नायक','नीति']},
-  {root:'स्था',iast:'sthā',gana:1,pada:'p',meaning:'to stand',stem:'तिष्ठ',examples:['स्थान','स्थिति']},
-  {root:'लभ्',iast:'labh',gana:1,pada:'a',meaning:'to obtain',stem:'लभ',examples:['लाभ','लब्ध']},
-  {root:'शम्',iast:'śam',gana:4,pada:'p',meaning:'to be calm',stem:'शाम्य',examples:['शान्ति','शम']},
-  {root:'भज्',iast:'bhaj',gana:4,pada:'u',meaning:'to worship',stem:'भज्य',examples:['भक्ति','भजन']},
-  {root:'दिव्',iast:'div',gana:4,pada:'u',meaning:'to shine, play',stem:'दीव्य',examples:['देव','दिव्य']},
-  {root:'लिख्',iast:'likh',gana:6,pada:'p',meaning:'to write',stem:'लिख',examples:['लेखक','लेख']},
-  {root:'चुर्',iast:'cur',gana:10,pada:'u',meaning:'to steal',stem:'चोरय',examples:['चोर','चौर्य']},
-  {root:'कथ्',iast:'kath',gana:10,pada:'p',meaning:'to narrate',stem:'कथय',examples:['कथा','कथन']},
-  {root:'गण्',iast:'gaṇ',gana:10,pada:'p',meaning:'to count',stem:'गणय',examples:['गणना','गणित']},
-  {root:'चन्दि',iast:'cand',gana:10,pada:'p',meaning:'to delight',stem:'चन्दय',examples:['चन्दन','चन्द्र']},
-  {root:'पाल्',iast:'pāl',gana:10,pada:'p',meaning:'to protect',stem:'पालय',examples:['पालन']},
-  {root:'अस्',iast:'as',gana:'x',pada:'p',meaning:'to be, exist (II)',stem:'',special:{p:{lat:[['अस्ति','स्तः','सन्ति'],['असि','स्थः','स्थ'],['अस्मि','स्वः','स्मः']],lot:[['अस्तु','स्ताम्','सन्तु'],['एधि','स्तम्','स्त'],['असानि','असाव','असाम']],lan:[['आसीत्','आस्ताम्','आसन्'],['आसीः','आस्तम्','आस्त'],['आसम्','आस्व','आस्म']]}},examples:['अस्ति','सन्ति','सत्']},
-  {root:'दा',iast:'dā',gana:'x',pada:'p',meaning:'to give (III)',stem:'',special:{p:{lat:[['ददाति','दत्तः','ददति'],['ददासि','दत्थः','दत्थ'],['ददामि','दद्वः','दद्मः']],lot:[['ददातु','दत्ताम्','ददतु'],['देहि','दत्तम्','दत्त'],['ददानि','ददाव','ददाम']]}},examples:['दान','देय']},
-  {root:'ज्ञा',iast:'jñā',gana:'x',pada:'p',meaning:'to know (IX)',stem:'',special:{p:{lat:[['जानाति','जानीतः','जानन्ति'],['जानासि','जानीथः','जानीथ'],['जानामि','जानीवः','जानीमः']]}},examples:['ज्ञान','ज्ञात']},
-];
-
-let currentVerb=null,currentPada='p',currentLakara='lat',verbQuizMode=false,verbGanaFilter='all';
-function renderVerbGrid(){const q=document.getElementById('verbSearch').value.trim().toLowerCase();const filtered=VERB_DB.filter(v=>{const gMatch=verbGanaFilter==='all'||v.gana==verbGanaFilter;const tMatch=!q||v.root.includes(q)||v.iast.toLowerCase().includes(q)||v.meaning.toLowerCase().includes(q);return gMatch&&tMatch;});document.getElementById('verbGrid').innerHTML=filtered.map(v=>`<div class="vc ${ganaClass(v.gana)}" onclick="selectVerb('${v.root}')"><span class="vc-gana">${ganaLabel(v.gana)}</span><span class="vc-root">${v.root}</span><span class="vc-iast">${v.iast}</span><span class="vc-meaning">${v.meaning}</span></div>`).join('')||`<div style="font-style:italic;color:var(--text-soft);padding:8px;">No verbs matched.</div>`;}
-function filterVerbGana(btn){document.querySelectorAll('.vf-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');verbGanaFilter=btn.dataset.gana;renderVerbGrid();}
-function renderLakaraRow(){const laks=currentPada==='p'?LAKARAS_P:LAKARAS_A;document.getElementById('lakaraRow').innerHTML=laks.map(l=>`<button class="lak-btn${l.id===currentLakara?' active':''}" onclick="setLakara('${l.id}')">${l.label} <span style="font-family:'Libre Baskerville',serif;font-style:italic;font-size:.65rem;color:var(--text-faint);">${l.hint}</span></button>`).join('');}
-function selectVerb(root){currentVerb=VERB_DB.find(v=>v.root===root);if(!currentVerb)return;document.querySelectorAll('.vc').forEach(c=>c.classList.remove('selected'));document.querySelectorAll('.vc').forEach(c=>{if(c.querySelector('.vc-root')?.textContent===root)c.classList.add('selected');});document.getElementById('conjRoot').textContent=currentVerb.root;document.getElementById('conjIast').textContent=currentVerb.iast;document.getElementById('conjGana').textContent=ganaLabel(currentVerb.gana)+' · '+{p:'Parasmaipada',a:'Ātmanepada',u:'Ubhayapada'}[currentVerb.pada];document.getElementById('conjMeaning').textContent=currentVerb.meaning;const hasA=(currentVerb.pada==='a'||currentVerb.pada==='u'||currentVerb.special?.a);document.getElementById('padaA').style.opacity=hasA?'1':'0.4';document.getElementById('padaA').style.pointerEvents=hasA?'auto':'none';currentPada=currentVerb.pada==='a'?'a':'p';document.getElementById('padaP').classList.toggle('active',currentPada==='p');document.getElementById('padaA').classList.toggle('active',currentPada==='a');currentLakara='lat';renderLakaraRow();renderConjTable();document.getElementById('conjSection').style.display='block';document.getElementById('conjSection').scrollIntoView({behavior:'smooth',block:'nearest'});}
-function setPada(p){currentPada=p;document.getElementById('padaP').classList.toggle('active',p==='p');document.getElementById('padaA').classList.toggle('active',p==='a');currentLakara='lat';renderLakaraRow();renderConjTable();}
-function setLakara(l){currentLakara=l;renderLakaraRow();renderConjTable();}
-function renderConjTable(){if(!currentVerb)return;verbQuizMode=false;document.getElementById('verbQuizBtn').classList.remove('active');document.getElementById('verbQuizControls').style.display='none';const table=currentPada==='p'?TING_P:TING_A;const lak=table[currentLakara];if(lak)document.getElementById('lakDesc').textContent=lak.desc;const rows=buildConjTable(currentVerb,currentLakara,currentPada);if(!rows){document.getElementById('conjBody').innerHTML=`<tr><td colspan="4" style="font-style:italic;color:var(--text-soft);text-align:center;padding:16px;">Not available for this pada/lakāra combination.</td></tr>`;return;}document.getElementById('conjBody').innerHTML=PURUSHA.map((p,pi)=>`<tr><td><span class="purusha-lbl">${p.num}</span><span class="purusha-sa">${p.sa}</span><span class="purusha-en">${p.en}</span></td>${rows[pi].map(({full,stem,suf})=>`<td><span class="vform">${stem?`<span class="vr">${stem}</span><span class="vsuf">${suf}</span>`:full}</span></td>`).join('')}</tr>`).join('');}
-function toggleVerbQuiz(){verbQuizMode=!verbQuizMode;document.getElementById('verbQuizBtn').classList.toggle('active',verbQuizMode);document.getElementById('verbQuizControls').style.display=verbQuizMode?'flex':'none';if(verbQuizMode){const rows=buildConjTable(currentVerb,currentLakara,currentPada);if(!rows)return;document.getElementById('conjBody').innerHTML=PURUSHA.map((p,pi)=>`<tr><td><span class="purusha-lbl">${p.num}</span><span class="purusha-sa">${p.sa}</span><span class="purusha-en">${p.en}</span></td>${rows[pi].map(({full})=>`<td class="qc"><input class="vquiz-input" data-answer="${full}" placeholder="…"></td>`).join('')}</tr>`).join('');}else renderConjTable();}
-function checkVerbQuiz(){const ins=[...document.querySelectorAll('.vquiz-input')];let ok=0;ins.forEach(i=>{if(i.value.trim()===i.dataset.answer){i.classList.add('correct');i.classList.remove('wrong');ok++;}else{i.classList.add('wrong');i.classList.remove('correct');}});document.getElementById('verbQuizScore').innerHTML=`Score: <b>${ok} / ${ins.length}</b>`;}
-function revealVerbQuiz(){document.querySelectorAll('.vquiz-input').forEach(i=>{i.value=i.dataset.answer;i.classList.add('correct');i.classList.remove('wrong');});const n=document.querySelectorAll('.vquiz-input').length;document.getElementById('verbQuizScore').innerHTML=`Score: <b>${n} / ${n}</b>`;}
-
-/* ════════ DHĀTU DB ════════ */
-const DHATU_DB=[{root:'भू',iast:'bhū',gana:'1',meaning:'to be, become',examples:['भव','भूमि'],upadesha:'भू'},{root:'गम्',iast:'gam',gana:'1',meaning:'to go',examples:['गमन','गति'],upadesha:'गम्लृ'},{root:'रमु',iast:'ram',gana:'1',meaning:'to delight',examples:['राम','रति'],upadesha:'रमु'},{root:'कृ',iast:'kṛ',gana:'1',meaning:'to do, make',examples:['कर्म','कृति'],upadesha:'डुकृञ्'},{root:'नी',iast:'nī',gana:'1',meaning:'to lead',examples:['नायक','नीति'],upadesha:'णीञ्'},{root:'पठ्',iast:'paṭh',gana:'1',meaning:'to read',examples:['पाठक','पठन'],upadesha:'पठ'},{root:'स्था',iast:'sthā',gana:'1',meaning:'to stand',examples:['स्थान','स्थिति'],upadesha:'ष्ठा'},{root:'वद्',iast:'vad',gana:'1',meaning:'to speak',examples:['वाद','विवाद'],upadesha:'वद'},{root:'नम्',iast:'nam',gana:'1',meaning:'to bow',examples:['नमस्','नमन'],upadesha:'णम'},{root:'जि',iast:'ji',gana:'1',meaning:'to conquer',examples:['जय','विजय'],upadesha:'जि'},{root:'धृ',iast:'dhṛ',gana:'1',meaning:'to hold',examples:['धर्म','धृति'],upadesha:'धृञ्'},{root:'स्मृ',iast:'smṛ',gana:'1',meaning:'to remember',examples:['स्मृति'],upadesha:'स्मृ'},{root:'दिव्',iast:'div',gana:'4',meaning:'to shine, play',examples:['देव','दिव्य'],upadesha:'दिव्'},{root:'शम्',iast:'śam',gana:'4',meaning:'to be calm',examples:['शान्ति','शम'],upadesha:'शमु'},{root:'भज्',iast:'bhaj',gana:'4',meaning:'to worship',examples:['भक्ति','भजन'],upadesha:'भज'},{root:'लिख्',iast:'likh',gana:'6',meaning:'to write',examples:['लेखक','लेख'],upadesha:'लिख'},{root:'विद्',iast:'vid',gana:'6',meaning:'to find',examples:['विद्या','वेद'],upadesha:'विद्'},{root:'चुर्',iast:'cur',gana:'10',meaning:'to steal',examples:['चोर','चौर्य'],upadesha:'चुर'},{root:'कथ्',iast:'kath',gana:'10',meaning:'to narrate',examples:['कथा','कथन'],upadesha:'कथ'},{root:'गण्',iast:'gaṇ',gana:'10',meaning:'to count',examples:['गणना','गणित'],upadesha:'गण'},{root:'चन्दि',iast:'candi',gana:'10',meaning:'to delight',examples:['चन्दन','चन्द्र'],upadesha:'चदि'},{root:'वर्ण्',iast:'varṇ',gana:'10',meaning:'to describe',examples:['वर्ण','वर्णन'],upadesha:'वर्ण'},{root:'अस्',iast:'as',gana:'x',meaning:'to be (II)',examples:['अस्ति','सन्ति'],upadesha:'असु (II)'},{root:'दा',iast:'dā',gana:'x',meaning:'to give (III)',examples:['दान','देय'],upadesha:'डुदाञ् (III)'},{root:'युज्',iast:'yuj',gana:'x',meaning:'to join (VII)',examples:['योग','युक्त'],upadesha:'युज (VII)'},{root:'ज्ञा',iast:'jñā',gana:'x',meaning:'to know (IX)',examples:['ज्ञान','ज्ञात'],upadesha:'ज्ञा (IX)'},{root:'फल्',iast:'phal',gana:'x',meaning:'to bear fruit',examples:['फल'],upadesha:'फल (I)'},{root:'मन्',iast:'man',gana:'x',meaning:'to think (IV/VIII)',examples:['मुनि','मन'],upadesha:'मन (VIII)'},{root:'साध्',iast:'sādh',gana:'x',meaning:'to accomplish',examples:['साधु','साधन'],upadesha:'साध (V)'},{root:'राज्',iast:'rāj',gana:'x',meaning:'to shine, rule',examples:['राजन्'],upadesha:'राज (I)'},{root:'लत्',iast:'lat',gana:'x',meaning:'to wind',examples:['लता'],upadesha:'लत (X)'},{root:'पुष्',iast:'puṣ',gana:'x',meaning:'to nourish',examples:['पुष्प'],upadesha:'पुष (IX)'}];
-const DHATU_BY_ROOT={};DHATU_DB.forEach(d=>{DHATU_BY_ROOT[d.root]=d;});
-let currentGanaFilter='all';
-function renderDhatuGrid(){const q=document.getElementById('dhatuSearch').value.trim().toLowerCase();const filtered=DHATU_DB.filter(d=>{const gMatch=currentGanaFilter==='all'||d.gana==currentGanaFilter;const tMatch=!q||d.root.includes(q)||d.iast.toLowerCase().includes(q)||d.meaning.toLowerCase().includes(q)||d.examples.some(e=>e.includes(q));return gMatch&&tMatch;});document.getElementById('dhatuGrid').innerHTML=filtered.map(d=>`<div class="dc ${ganaClass(d.gana)}" onclick="selectDhatu('${d.root}')"><span class="dc-gana">${ganaLabel(d.gana)}</span><span class="dc-root">${d.root}</span><span class="dc-iast">${d.iast} · ${d.upadesha}</span><span class="dc-meaning">${d.meaning}</span><span class="dc-examples"><span>e.g.</span> ${d.examples.slice(0,3).join(', ')}</span></div>`).join('')||`<div style="grid-column:1/-1;font-style:italic;color:var(--text-soft);font-size:.9rem;">No dhātus matched.</div>`;}
-function filterGana(btn){document.querySelectorAll('.gana-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');currentGanaFilter=btn.dataset.gana;renderDhatuGrid();}
-function selectDhatu(root){const d=DHATU_DB.find(x=>x.root===root);if(!d)return;document.querySelectorAll('.dc').forEach(c=>c.classList.remove('selected'));document.querySelectorAll('.dc').forEach(c=>{if(c.querySelector('.dc-root')?.textContent===root)c.classList.add('selected');});const ex=d.examples.map(e=>`<span class="dd-ex" onclick="load('${e}')">${e}</span>`).join('');const hasVerb=VERB_DB.find(v=>v.root===root);document.getElementById('dhatuDetail').innerHTML=`<div class="dd-header"><div class="dd-root-big">${d.root}</div><div class="dd-meta"><span class="dd-iast-big">${d.iast}</span><span class="dd-gana-big">${ganaLabel(d.gana)} · उपदेश: ${d.upadesha}</span><div class="dd-meaning-big">${d.meaning}</div></div></div><div class="dd-section"><div class="dd-lbl">Derivatives — click to analyze</div><div class="dd-examples-list">${ex}</div></div>${hasVerb?`<button class="dd-conjugate-btn" onclick="conjugateFromDhatu('${root}')">→ Conjugate (तिङन्त)</button>`:''}`;document.getElementById('dhatuDetail').classList.add('visible');}
-function conjugateFromDhatu(root){showTab('tinga');setTimeout(()=>selectVerb(root),50);}
-
 /* ════════ SANDHI ════════ */
 const AC=new Set(['अ','आ','इ','ई','उ','ऊ','ए','ऐ','ओ','औ','ऋ']);
 function vowelSandhi(E,S){const a=new Set(['अ','आ']),iv=new Set(['इ','ई']),uv=new Set(['उ','ऊ']),ev=new Set(['ए','ऐ']),ov=new Set(['ओ','औ']);if(a.has(E)&&a.has(S))return{r:'ा',rule:'अकः सवर्णे दीर्घः (6.1.101)',desc:'a/ā + a/ā → ā'};if(iv.has(E)&&iv.has(S))return{r:'ी',rule:'अकः सवर्णे दीर्घः (6.1.101)',desc:'i/ī + i/ī → ī'};if(uv.has(E)&&uv.has(S))return{r:'ू',rule:'अकः सवर्णे दीर्घः (6.1.101)',desc:'u/ū + u/ū → ū'};if(a.has(E)&&iv.has(S))return{r:'े',rule:'आद्गुणः (6.1.87)',desc:'a/ā + i/ī → e'};if(a.has(E)&&uv.has(S))return{r:'ो',rule:'आद्गुणः (6.1.87)',desc:'a/ā + u/ū → o'};if(a.has(E)&&S==='ऋ')return{r:'र',rule:'आद्गुणः (6.1.87)',desc:'a/ā + ṛ → ar'};if(a.has(E)&&ev.has(S))return{r:'ै',rule:'वृद्धिरेचि (6.1.88)',desc:'a/ā + e/ai → ai'};if(a.has(E)&&ov.has(S))return{r:'ौ',rule:'वृद्धिरेचि (6.1.88)',desc:'a/ā + o/au → au'};if(iv.has(E)&&AC.has(S)&&!iv.has(S))return{r:'य्'+S,rule:'इको यणचि (6.1.77)',desc:'i/ī + vowel → y+vowel'};if(uv.has(E)&&AC.has(S)&&!uv.has(S))return{r:'व्'+S,rule:'इको यणचि (6.1.77)',desc:'u/ū + vowel → v+vowel'};if(E==='ऋ'&&AC.has(S))return{r:'र्'+S,rule:'इको यणचि (6.1.77)',desc:'ṛ + vowel → r+vowel'};return null;}
@@ -705,17 +587,14 @@ function detectDecl(w){const canon=ALIASES[w]||w;if(PRONOUNS[canon])return{kind:
 let currentConfig=null,currentGender='m',quizMode=false,samjnaCollapsed=false,currentWord='';
 const history=[];
 function updateHistory(w){if(!history.includes(w))history.unshift(w);if(history.length>6)history.pop();const row=document.getElementById('historyRow'),chips=document.getElementById('historyChips');if(history.length){row.style.display='flex';chips.innerHTML=history.map(h=>`<span class="hist-chip" onclick="load('${h}')">${h}</span>`).join('');}}
-function showTab(id){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));document.querySelector(`.tab[onclick="showTab('${id}')"]`).classList.add('active');document.getElementById('tab-'+id).classList.add('active');}
 const wordInput=document.getElementById('wordInput'),clrBtn=document.getElementById('clrBtn'),resultArea=document.getElementById('resultArea');
 wordInput.addEventListener('input',()=>{clrBtn.style.display=wordInput.value?'block':'none';});
 wordInput.addEventListener('keydown',e=>{if(e.key==='Enter')runEngine();});
 clrBtn.addEventListener('click',()=>{wordInput.value='';clrBtn.style.display='none';wordInput.focus();resultArea.style.display='none';quizMode=false;currentWord='';});
 document.getElementById('sandhiInput2').addEventListener('keydown',e=>{if(e.key==='Enter')computeSandhi();});
-document.getElementById('verbSearch').addEventListener('input',renderVerbGrid);
-function load(w){wordInput.value=w;clrBtn.style.display='block';showTab('analyze');runEngine();}
+function load(w){wordInput.value=w;clrBtn.style.display='block';runEngine();}
 function toggleSamjna(){samjnaCollapsed=!samjnaCollapsed;document.getElementById('samjnaGrid').classList.toggle('collapsed',samjnaCollapsed);document.getElementById('samjnaArr').classList.toggle('open',!samjnaCollapsed);}
 function printSheet(){document.getElementById('printTitle').textContent=`${currentWord} — Declension & Analysis`;window.print();}
-function showDhatuFromAnalysis(root){showTab('dhatu');document.getElementById('dhatuSearch').value=root;renderDhatuGrid();setTimeout(()=>selectDhatu(root),50);}
 
 function runEngine(){
   const raw=wordInput.value.trim();if(!raw)return;
@@ -740,7 +619,7 @@ function runEngine(){
   else stemHtml=`<span style="font-size:.82rem;color:var(--text-soft);font-style:italic;">Suppletive</span>`;
   document.getElementById('stemDisp').innerHTML=stemHtml;
   const deriv=DERIVATIONS[raw],ds=document.getElementById('derivSection');
-  if(deriv){ds.style.display='block';const stepsHtml=deriv.steps.map((s,i)=>{const isDhatu=i===0&&deriv.dhatu&&DHATU_BY_ROOT[deriv.dhatu];return`<span class="dc-step${isDhatu?' is-dhatu':''}"${isDhatu?` onclick="showDhatuFromAnalysis('${deriv.dhatu}')" title="View dhātu"`:''}>${s}</span><span class="dc-arrow">→</span>`;}).join('');document.getElementById('derivChain').innerHTML=`<div class="deriv-chain">${stepsHtml}<span class="dc-final">${deriv.final}</span></div>`;const dl=document.getElementById('dhatuLink');if(deriv.dhatu&&DHATU_BY_ROOT[deriv.dhatu]){const d=DHATU_BY_ROOT[deriv.dhatu];dl.innerHTML=`<span style="color:var(--gold-dim)">धातु:</span> <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${d.root}</span> (${d.iast}) · ${ganaLabel(d.gana)} · ${d.meaning} — <span style="cursor:pointer;text-decoration:underline;color:var(--blue-root);" onclick="showDhatuFromAnalysis('${d.root}')">View in Dhātu-Pāṭha →</span>`;}else dl.innerHTML='';}else ds.style.display='none';
+  if(deriv){ds.style.display='block';const stepsHtml=deriv.steps.map((s,i)=>{const isDhatu=i===0&&deriv.dhatu&&DHATU_BY_ROOT[deriv.dhatu];return`<span class="dc-step${isDhatu?' is-dhatu':''}"${isDhatu?` onclick="// showDhatuFromAnalysis removed -- ${deriv.dhatu}')" title="View dhātu"`:''}>${s}</span><span class="dc-arrow">→</span>`;}).join('');document.getElementById('derivChain').innerHTML=`<div class="deriv-chain">${stepsHtml}<span class="dc-final">${deriv.final}</span></div>`;const dl=document.getElementById('dhatuLink');dl.innerHTML='';
   const fired=SAMJNA_DB.map(s=>{const r=s.applies(raw,toks,currentConfig);return r?{...s,result:r}:null;}).filter(Boolean);
   document.getElementById('samjnaCount').textContent=`${fired.length} applicable`;
   const catLabel={phon:'Phonological',nom:'Nominal',sandhi:'Sandhi',pron:'Pronoun',deriv:'Derivational'};
@@ -769,7 +648,6 @@ function checkQuiz(){const ins=[...document.querySelectorAll('#mainTable .quiz-i
 function revealQuiz(){document.querySelectorAll('#mainTable .quiz-input:not([readonly])').forEach(i=>{i.value=i.dataset.answer;i.classList.add('correct');i.classList.remove('wrong');});const n=document.querySelectorAll('#mainTable .quiz-input:not([readonly])').length;document.getElementById('quizScore').innerHTML=`Score: <b>${n} / ${n}</b>`;}
 function copyTable(){const rows=document.querySelectorAll('#mainTable tbody tr');let t='Vibhakti\tEkavachana\tDvivachana\tBahuvachana\n';rows.forEach((r,i)=>{const cells=[...r.querySelectorAll('td')];const vib=VIB[i].sa+' ('+VIB[i].en+')';const cols=cells.slice(1).map(c=>{const inp=c.querySelector('input');return inp?inp.dataset.answer||inp.value:c.textContent.replace(/\s+/g,' ').trim();});t+=vib+'\t'+cols.join('\t')+'\n';});navigator.clipboard.writeText(t).then(()=>{const b=document.getElementById('copyBtn');b.classList.add('copy-ok');b.textContent='✓ Copied!';setTimeout(()=>{b.classList.remove('copy-ok');b.textContent='⎘ Copy Table';},2000);});}
 
-document.addEventListener('DOMContentLoaded',()=>{renderDhatuGrid();renderVerbGrid();});
 </script>
 </body>
 </html>
