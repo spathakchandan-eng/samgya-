@@ -218,6 +218,104 @@
     .dc-final{padding:3px 10px;border:1px solid var(--gold-dim);border-radius:2px;background:rgba(200,144,0,.1);color:var(--gold-lt);font-weight:600;}
 
     /* RESULT */
+
+    /* ── शब्द-प्रक्रिया panel ── */
+    .prakriya-panel{
+      background:var(--bg2);
+      border:1px solid var(--gold-dim);
+      border-radius:2px;
+      padding:0;
+      margin-top:16px;
+      overflow:hidden;
+      display:none;
+      animation:rUp .25s ease both;
+    }
+    .prakriya-panel.visible{display:block;}
+    .prakriya-header{
+      background:linear-gradient(90deg,rgba(200,144,0,.12) 0%,transparent 100%);
+      border-bottom:1px solid rgba(200,144,0,.2);
+      padding:12px 18px;
+      display:flex;align-items:center;gap:12px;
+    }
+    .prakriya-header-title{
+      font-family:'Tiro Devanagari Sanskrit',serif;
+      font-size:1.05rem;color:var(--gold-lt);flex:1;
+    }
+    .prakriya-header-subtitle{
+      font-family:'Libre Baskerville',serif;
+      font-style:italic;font-size:.7rem;color:var(--text-soft);
+    }
+    .prakriya-close{
+      background:none;border:none;cursor:pointer;
+      color:var(--text-faint);font-size:1rem;padding:4px 8px;
+      border-radius:2px;transition:color .15s,background .15s;
+    }
+    .prakriya-close:hover{color:var(--saffron);background:rgba(184,68,0,.1);}
+    .prakriya-word-display{
+      padding:14px 18px 10px;
+      display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+      border-bottom:1px solid var(--border);
+    }
+    .prakriya-word-big{
+      font-family:'Tiro Devanagari Sanskrit',serif;
+      font-size:2rem;color:var(--gold-lt);line-height:1;
+    }
+    .prakriya-word-meta{
+      font-family:'Libre Baskerville',serif;
+      font-size:.72rem;color:var(--text-soft);font-style:italic;
+    }
+    .prakriya-steps{padding:16px 18px;display:flex;flex-direction:column;gap:10px;}
+    .prakriya-step{
+      display:grid;grid-template-columns:28px 1fr;
+      gap:0 12px;align-items:start;
+    }
+    .step-num{
+      width:28px;height:28px;border-radius:50%;
+      background:rgba(200,144,0,.15);border:1px solid rgba(200,144,0,.3);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Libre Baskerville',serif;font-size:.7rem;
+      font-weight:700;color:var(--gold);flex-shrink:0;margin-top:2px;
+    }
+    .step-content{display:flex;flex-direction:column;gap:3px;}
+    .step-rule{
+      font-family:'Libre Baskerville',serif;
+      font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--text-soft);
+    }
+    .step-form{
+      font-family:'Tiro Devanagari Sanskrit',serif;
+      font-size:1.1rem;color:var(--text);line-height:1.5;
+    }
+    .step-form .sf{color:var(--red-suf);background:rgba(192,80,64,.1);padding:1px 3px;border-radius:2px;}
+    .step-form .rt{color:var(--blue-root);background:rgba(74,138,202,.1);padding:1px 3px;border-radius:2px;}
+    .step-form .ch{color:var(--gold-lt);background:rgba(200,144,0,.1);padding:1px 3px;border-radius:2px;}
+    .step-sutra{
+      font-family:'Libre Baskerville',serif;font-style:italic;
+      font-size:.68rem;color:var(--gold-dim);
+    }
+    .step-arrow{grid-column:1;justify-self:center;color:var(--text-faint);font-size:.8rem;margin-top:4px;}
+    .prakriya-not-found{
+      padding:16px 18px;
+      font-family:'Tiro Devanagari Sanskrit',serif;
+      font-size:.95rem;color:var(--text-soft);
+      font-style:italic;text-align:center;line-height:1.7;
+    }
+    .prakriya-not-found span{color:var(--text-mid);font-style:normal;display:block;font-size:1.05rem;margin-bottom:4px;}
+
+    /* Clickable table cell forms */
+    .form.clickable{
+      cursor:pointer;
+      transition:color .15s,background .15s;
+      border-radius:2px;
+      padding:1px 3px;
+    }
+    .form.clickable:hover{color:var(--gold-lt);background:rgba(200,144,0,.12);}
+    .form.clickable.active{
+      color:var(--gold-lt)!important;
+      background:rgba(200,144,0,.15)!important;
+      outline:1px solid rgba(200,144,0,.4);
+    }
+    .form.ff.clickable{color:var(--text);}
     .result{display:none;animation:rUp .3s ease both;}
     @keyframes rUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
@@ -378,6 +476,20 @@
         <thead><tr><th>Vibhakti · विभक्ति</th><th>एकवचन</th><th>द्विवचन</th><th>बहुवचन</th></tr></thead>
         <tbody id="tableBody"></tbody>
       </table>
+
+      <!-- शब्द-प्रक्रिया panel — appears when table cell clicked -->
+      <div class="prakriya-panel" id="prakriyaPanel">
+        <div class="prakriya-header">
+          <div>
+            <div class="prakriya-header-title">प्रक्रिया विश्लेषण</div>
+            <div class="prakriya-header-subtitle">Shabda Prakriyā · Step-by-step Derivation</div>
+          </div>
+          <button class="prakriya-close" onclick="closePrakriya()" title="Close">✕</button>
+        </div>
+        <div class="prakriya-word-display" id="prakriyaWordDisplay"></div>
+        <div id="prakriyaBody"></div>
+      </div>
+
     </div>
 
   </div>
@@ -627,17 +739,23 @@ function renderPrakriya(word){
 /* ── 10. TABLE BUILDERS ────────────────────────────────────── */
 var LINGA_META={P:{cls:'gh-masc',sa:'पुंलिङ्ग',en:'Masculine'},S:{cls:'gh-fem',sa:'स्त्रीलिङ्ग',en:'Feminine'},N:{cls:'gh-neut',sa:'नपुंसकलिङ्ग',en:'Neuter'}};
 
-function buildRows(forms24,vacana){
+function buildRows(forms24,vacana,word){
+  /* word param: if provided, cells are clickable with prakriya lookup */
   var rows='';
+  var w=word||currentWord||'';
   VIB.forEach(function(v,i){
     var isVoc=i===7;
     var e=forms24[i*3]||'—', d=forms24[i*3+1]||'—', b=forms24[i*3+2]||'—';
     var dim=' style="opacity:.35;"';
+    function mkCell(form, vacIdx) {
+      var clickable = w ? ' clickable" onclick="showPrakriya(''+w+'','+i+','+vacIdx+',this)' : '';
+      return '<span class="form ff'+clickable+'">'+form+'</span>';
+    }
     var cells=vacana==='all'
-      ?'<td><span class="form ff">'+e+'</span></td><td><span class="form ff">'+d+'</span></td><td><span class="form ff">'+b+'</span></td>'
-      :vacana==='0'?'<td><span class="form ff">'+e+'</span></td><td'+dim+'><span class="form ff">'+d+'</span></td><td'+dim+'><span class="form ff">'+b+'</span></td>'
-      :vacana==='1'?'<td'+dim+'><span class="form ff">'+e+'</span></td><td><span class="form ff">'+d+'</span></td><td'+dim+'><span class="form ff">'+b+'</span></td>'
-      :'<td'+dim+'><span class="form ff">'+e+'</span></td><td'+dim+'><span class="form ff">'+d+'</span></td><td><span class="form ff">'+b+'</span></td>';
+      ?'<td>'+mkCell(e,0)+'</td><td>'+mkCell(d,1)+'</td><td>'+mkCell(b,2)+'</td>'
+      :vacana==='0'?'<td>'+mkCell(e,0)+'</td><td'+dim+'>'+mkCell(d,1)+'</td><td'+dim+'>'+mkCell(b,2)+'</td>'
+      :vacana==='1'?'<td'+dim+'>'+mkCell(e,0)+'</td><td>'+mkCell(d,1)+'</td><td'+dim+'>'+mkCell(b,2)+'</td>'
+      :'<td'+dim+'>'+mkCell(e,0)+'</td><td'+dim+'>'+mkCell(d,1)+'</td><td>'+mkCell(b,2)+'</td>';
     rows+='<tr class="'+(isVoc?'voc':'')+'"><td><span class="vnum">'+v.n+'</span><span class="vsa">'+v.sa+'</span><span class="ven">'+v.en+'</span></td>'+cells+'</tr>';
   });
   return rows;
@@ -645,7 +763,7 @@ function buildRows(forms24,vacana){
 
 function buildGenderSection(variant,vacana){
   var m=LINGA_META[variant.l]||LINGA_META['P'];
-  return '<div class="gender-section"><div class="gender-header '+m.cls+'"><span class="gh-sa">'+m.sa+'</span><span class="gh-en"> · '+m.en+'</span></div><table><thead><tr><th style="text-align:left;">Vibhakti · विभक्ति</th><th>एकवचन</th><th>द्विवचन</th><th>बहुवचन</th></tr></thead><tbody>'+buildRows(variant.f,vacana)+'</tbody></table></div>';
+  return '<div class="gender-section"><div class="gender-header '+m.cls+'"><span class="gh-sa">'+m.sa+'</span><span class="gh-en"> · '+m.en+'</span></div><table><thead><tr><th style="text-align:left;">Vibhakti · विभक्ति</th><th>एकवचन</th><th>द्विवचन</th><th>बहुवचन</th></tr></thead><tbody>'+buildRows(variant.f,vacana,currentWord)+'</tbody></table></div>';
 }
 
 function renderAutoTable(raw,vacana){
@@ -680,12 +798,12 @@ function renderAutoTable(raw,vacana){
     var stem=cfg.stem(raw);
     VIB.forEach(function(v,i){
       var isVoc=i===7; var suf=cfg.suffixes[i]; var ei=suf[0],di=suf[1],bi=suf[2];
-      function cell(s){return'<span class="form"><span class="rt">'+stem+'</span><span class="sf">'+s+'</span></span>';}
+      function cell(s,vi){var w2=currentWord||'';var cl=w2?' clickable" onclick="showPrakriya(\''+w2+'\','+i+','+vi+',this)':'';return'<span class="form'+cl+'"><span class="rt">'+stem+'</span><span class="sf">'+s+'</span></span>';}
       var dim=' style="opacity:.35;"';
-      var cells=vacana==='all'?'<td>'+(isVoc?'<span class="voc-he">हे </span>':'')+cell(ei)+'</td><td>'+cell(di)+'</td><td>'+cell(bi)+'</td>'
-        :vacana==='0'?'<td>'+(isVoc?'<span class="voc-he">हे </span>':'')+cell(ei)+'</td><td'+dim+'>'+cell(di)+'</td><td'+dim+'>'+cell(bi)+'</td>'
-        :vacana==='1'?'<td'+dim+'>'+(isVoc?'<span class="voc-he">हे </span>':'')+cell(ei)+'</td><td>'+cell(di)+'</td><td'+dim+'>'+cell(bi)+'</td>'
-        :'<td'+dim+'>'+(isVoc?'<span class="voc-he">हे </span>':'')+cell(ei)+'</td><td'+dim+'>'+cell(di)+'</td><td>'+cell(bi)+'</td>';
+      var cells=vacana==='all'?'<td>'+(isVoc?'<span class="voc-he">हे </span>':'')+cell(ei,0)+'</td><td>'+cell(di,1)+'</td><td>'+cell(bi,2)+'</td>'
+        :vacana==='0'?'<td>'+(isVoc?'<span class="voc-he">हे </span>':'')+cell(ei,0)+'</td><td'+dim+'>'+cell(di,1)+'</td><td'+dim+'>'+cell(bi,2)+'</td>'
+        :vacana==='1'?'<td'+dim+'>'+(isVoc?'<span class="voc-he">हे </span>':'')+cell(ei,0)+'</td><td>'+cell(di,1)+'</td><td'+dim+'>'+cell(bi,2)+'</td>'
+        :'<td'+dim+'>'+(isVoc?'<span class="voc-he">हे </span>':'')+cell(ei,0)+'</td><td'+dim+'>'+cell(di,1)+'</td><td>'+cell(bi,2)+'</td>';
       rows+='<tr class="'+(isVoc?'voc':'')+'"><td><span class="vnum">'+v.n+'</span><span class="vsa">'+v.sa+'</span><span class="ven">'+v.en+'</span></td>'+cells+'</tr>';
     });
   }
@@ -697,6 +815,9 @@ function renderAutoTable(raw,vacana){
    This is called by the सिद्धि → button onclick="runEngine()"
    ────────────────────────────────────────────────────────── */
 function runEngine() {
+
+  /* Close any open prakriya panel when new word is searched */
+  closePrakriya();
 
   var raw = document.getElementById('wordInput').value.trim();
 
@@ -825,7 +946,7 @@ function runEngine() {
       mainTable.style.display = '';
       multiCont.style.display = 'none';
       if (dbVariants[0].f && dbVariants[0].f.length===24) {
-        document.getElementById('tableBody').innerHTML = buildRows(dbVariants[0].f, vacanaSel);
+        document.getElementById('tableBody').innerHTML = buildRows(dbVariants[0].f, vacanaSel, raw);
       }
     }
   } else {
@@ -854,6 +975,191 @@ function runEngine() {
   console.log('Analysis complete for:', raw);
 }
 
+
+
+/* ================================================================
+   शब्द-प्रक्रिया DATABASE
+   Structure: SHABDA_PRAKRIYA[word][vibhakti_index][vacana_index]
+   vibhakti: 0=Prathama 1=Dvitiya 2=Tritiya 3=Chaturthi
+             4=Panchami 5=Shashthi 6=Saptami 7=Sambodhan
+   vacana:   0=Ekavachana 1=Dvivachana 2=Bahuvachana
+   Each entry: array of step objects {rule, form, sutra, note}
+   ================================================================ */
+var SHABDA_PRAKRIYA = {
+
+  "राम": {
+    /* ── 0: प्रथमा ── */
+    0: {
+      0: [ /* रामः — Prathama Ekavachana */
+        {rule:"प्रातिपदिक ग्रहण",    form:"<span class='rt'>राम</span>",                    sutra:"१.२.४५",  note:"Base form (prātipadika)"},
+        {rule:"सु-प्रत्यय योजन",     form:"<span class='rt'>राम</span> + <span class='sf'>सु</span>",sutra:"४.१.२",   note:"Nominative singular suffix सु added"},
+        {rule:"रुत्व-विसर्ग",        form:"<span class='rt'>राम</span> + <span class='sf'>स्</span> → <span class='ch'>रामः</span>", sutra:"८.२.६६", note:"Final स् → visarga before pause"}
+      ],
+      1: [ /* रामौ — Prathama Dvivachana */
+        {rule:"प्रातिपदिक ग्रहण",    form:"<span class='rt'>राम</span>",                    sutra:"१.२.४५",  note:"Base form"},
+        {rule:"औ-प्रत्यय योजन",      form:"<span class='rt'>राम</span> + <span class='sf'>औ</span>",  sutra:"४.१.२",   note:"Nominative dual suffix औ added"},
+        {rule:"सिद्ध रूप",           form:"<span class='ch'>रामौ</span>",                   sutra:"—",       note:"No further changes needed"}
+      ],
+      2: [ /* रामाः — Prathama Bahuvachana */
+        {rule:"प्रातिपदिक ग्रहण",    form:"<span class='rt'>राम</span>",                    sutra:"१.२.४५",  note:"Base form"},
+        {rule:"जस्-प्रत्यय योजन",    form:"<span class='rt'>राम</span> + <span class='sf'>जस्</span>", sutra:"४.१.२",   note:"Nominative plural suffix जस् added"},
+        {rule:"जस् → अस् आदेश",     form:"<span class='rt'>राम</span> + <span class='sf'>अस्</span>", sutra:"७.१.२४",  note:"जस् becomes अस्"},
+        {rule:"गुण-अकार दीर्घ",      form:"<span class='rt'>रामा</span><span class='sf'>स्</span>",   sutra:"७.३.१०२", note:"Vowel before अस् lengthens: अ+अ → आ"},
+        {rule:"रुत्व-विसर्ग",        form:"<span class='ch'>रामाः</span>",                  sutra:"८.२.६६",  note:"Final स् → visarga"}
+      ]
+    },
+    /* ── 1: द्वितीया ── */
+    1: {
+      0: [ /* रामम् — Dvitiya Ekavachana */
+        {rule:"प्रातिपदिक ग्रहण",    form:"<span class='rt'>राम</span>",                    sutra:"१.२.४५",  note:"Base form"},
+        {rule:"अम्-प्रत्यय योजन",    form:"<span class='rt'>राम</span> + <span class='sf'>अम्</span>",sutra:"४.१.२",   note:"Accusative singular suffix अम् added"},
+        {rule:"सिद्ध रूप",           form:"<span class='ch'>रामम्</span>",                  sutra:"—",       note:"No sandhi change needed"}
+      ]
+    },
+    /* ── 2: तृतीया ── */
+    2: {
+      0: [ /* रामेण — Tritiya Ekavachana */
+        {rule:"प्रातिपदिक ग्रहण",    form:"<span class='rt'>राम</span>",                    sutra:"१.२.४५",  note:"Base form"},
+        {rule:"टा-प्रत्यय योजन",     form:"<span class='rt'>राम</span> + <span class='sf'>टा</span>", sutra:"४.१.२",   note:"Instrumental singular suffix टा added"},
+        {rule:"अदभ्यस्तात्",         form:"<span class='rt'>राम</span> + <span class='sf'>इन</span>", sutra:"७.१.११",  note:"अ-stem + टा → इन (special rule)"},
+        {rule:"गुण-अकार →ए",        form:"<span class='rt'>राम</span><span class='ch'>े</span><span class='sf'>न</span>",sutra:"७.३.१०२",note:"अ + इ → ए (guṇa)"},
+        {rule:"सिद्ध रूप",           form:"<span class='ch'>रामेण</span>",                  sutra:"—",       note:"Final form"}
+      ]
+    },
+    /* ── 3: चतुर्थी ── */
+    3: {
+      0: [ /* रामाय — Chaturthi Ekavachana */
+        {rule:"प्रातिपदिक ग्रहण",    form:"<span class='rt'>राम</span>",                    sutra:"१.२.४५",  note:"Base form"},
+        {rule:"ङे-प्रत्यय योजन",     form:"<span class='rt'>राम</span> + <span class='sf'>ङे</span>", sutra:"४.१.२",   note:"Dative singular suffix ङे"},
+        {rule:"ङे → आय आदेश",       form:"<span class='rt'>राम</span> + <span class='sf'>आय</span>",sutra:"७.३.१०२", note:"ङे replaced by आय for अ-stems"},
+        {rule:"सिद्ध रूप",           form:"<span class='ch'>रामाय</span>",                  sutra:"—",       note:"Final form"}
+      ]
+    },
+    /* ── 4: पञ्चमी ── */
+    4: {
+      0: [ /* रामात् — Panchami Ekavachana */
+        {rule:"प्रातिपदिक ग्रहण",    form:"<span class='rt'>राम</span>",                    sutra:"१.२.४५",  note:"Base form"},
+        {rule:"ङसि-प्रत्यय योजन",   form:"<span class='rt'>राम</span> + <span class='sf'>ङसि</span>",sutra:"४.१.२",  note:"Ablative singular suffix ङसि"},
+        {rule:"ङसि → आत् आदेश",    form:"<span class='rt'>राम</span> + <span class='sf'>आत्</span>",sutra:"७.३.१०२",note:"ङसि → आत् for अ-stems"},
+        {rule:"सिद्ध रूप",           form:"<span class='ch'>रामात्</span>",                 sutra:"—",       note:"Final form"}
+      ],
+      2: [ /* रामेभ्यः — Panchami Bahuvachana */
+        {rule:"प्रातिपदिक ग्रहण",    form:"<span class='rt'>राम</span>",                    sutra:"१.२.४५",  note:"Base form"},
+        {rule:"भ्यस्-प्रत्यय योजन", form:"<span class='rt'>राम</span> + <span class='sf'>भ्यस्</span>",sutra:"४.१.२", note:"Ablative plural suffix भ्यस्"},
+        {rule:"एत्व",               form:"<span class='rt'>राम</span><span class='ch'>े</span><span class='sf'>भ्यस्</span>",sutra:"७.३.१०३",note:"अ + भ्यस् → ए + भ्यस् (etvam)"},
+        {rule:"रुत्व-विसर्ग",       form:"<span class='ch'>रामेभ्यः</span>",               sutra:"८.२.६६",  note:"Final स् → visarga"}
+      ]
+    },
+    /* ── 5: षष्ठी ── */
+    5: {
+      0: [ /* रामस्य — Shashthi Ekavachana */
+        {rule:"प्रातिपदिक ग्रहण",   form:"<span class='rt'>राम</span>",                    sutra:"१.२.४५",  note:"Base form"},
+        {rule:"ङस्-प्रत्यय योजन",  form:"<span class='rt'>राम</span> + <span class='sf'>ङस्</span>",sutra:"४.१.२",  note:"Genitive singular suffix ङस्"},
+        {rule:"ङस् → स्य आदेश",   form:"<span class='rt'>राम</span> + <span class='sf'>स्य</span>",sutra:"७.१.१२", note:"ङस् → स्य for a-stems"},
+        {rule:"सिद्ध रूप",          form:"<span class='ch'>रामस्य</span>",                 sutra:"—",       note:"Final form"}
+      ]
+    },
+    /* ── 6: सप्तमी ── */
+    6: {
+      0: [ /* रामे — Saptami Ekavachana */
+        {rule:"प्रातिपदिक ग्रहण",   form:"<span class='rt'>राम</span>",                    sutra:"१.२.४५",  note:"Base form"},
+        {rule:"ङि-प्रत्यय योजन",   form:"<span class='rt'>राम</span> + <span class='sf'>ङि</span>", sutra:"४.१.२",   note:"Locative singular suffix ङि"},
+        {rule:"ङि → ए आदेश",      form:"<span class='rt'>राम</span> + <span class='sf'>ए</span>",  sutra:"७.३.१०२", note:"ङि → ए for अ-stems"},
+        {rule:"सिद्ध रूप",          form:"<span class='ch'>रामे</span>",                   sutra:"—",       note:"Final form"}
+      ]
+    },
+    /* ── 7: सम्बोधन ── */
+    7: {
+      0: [ /* हे राम — Sambodhan Ekavachana */
+        {rule:"प्रातिपदिक ग्रहण",   form:"<span class='rt'>राम</span>",                    sutra:"१.२.४५",  note:"Base form"},
+        {rule:"सु-प्रत्यय (सम्बो०)",form:"<span class='rt'>राम</span> + <span class='sf'>सु</span>",sutra:"२.३.४८",  note:"Vocative takes same suffix as Nominative"},
+        {rule:"एकवचन लोप",         form:"<span class='rt'>राम</span>",                    sutra:"७.२.१०७", note:"सु dropped in vocative singular — zero ending"},
+        {rule:"हे-उपसर्ग",          form:"<span class='ch'>हे राम</span>",                sutra:"८.२.८",   note:"Vocative particle हे prefixed"}
+      ]
+    }
+  }
+
+  /* ── ADD MORE WORDS HERE ──
+     "शब्द": {
+       0: { 0: [...steps], 1: [...], 2: [...] },
+       ...
+     }
+  ── */
+};
+
+
+/* ── PRAKRIYA DISPLAY FUNCTIONS ─────────────────────────────── */
+var VIB_NAMES = ['प्रथमा','द्वितीया','तृतीया','चतुर्थी','पञ्चमी','षष्ठी','सप्तमी','सम्बोधन'];
+var VIB_EN    = ['Nominative','Accusative','Instrumental','Dative','Ablative','Genitive','Locative','Vocative'];
+var VAC_NAMES = ['एकवचन','द्विवचन','बहुवचन'];
+var VAC_EN    = ['Singular','Dual','Plural'];
+
+function showPrakriya(word, vibIdx, vacIdx, cellEl) {
+  console.log('showPrakriya called:', word, vibIdx, vacIdx);
+
+  /* Remove active from all clickable cells */
+  document.querySelectorAll('.form.clickable').forEach(function(el) {
+    el.classList.remove('active');
+  });
+  if (cellEl) cellEl.classList.add('active');
+
+  var panel = document.getElementById('prakriyaPanel');
+  var wordDisp = document.getElementById('prakriyaWordDisplay');
+  var body = document.getElementById('prakriyaBody');
+
+  /* Show panel */
+  panel.classList.add('visible');
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+  /* Word + meta header */
+  var wordText = cellEl ? cellEl.textContent.trim() : word;
+  wordDisp.innerHTML =
+    '<span class="prakriya-word-big">' + wordText + '</span>' +
+    '<span class="prakriya-word-meta">' +
+      VIB_NAMES[vibIdx] + ' (' + VIB_EN[vibIdx] + ') · ' +
+      VAC_NAMES[vacIdx] + ' (' + VAC_EN[vacIdx] + ')' +
+    '</span>';
+
+  /* Look up prakriya data */
+  var wordData = SHABDA_PRAKRIYA[word];
+  if (!wordData || !wordData[vibIdx] || !wordData[vibIdx][vacIdx]) {
+    body.innerHTML =
+      '<div class="prakriya-not-found">' +
+      '<span>प्रक्रिया शीघ्रमेव अद्यतनं भविष्यति</span>' +
+      'Step-by-step derivation for this form will be added soon. ' +
+      'Currently detailed prakriyā is available for selected forms of राम.' +
+      '</div>';
+    return;
+  }
+
+  var steps = wordData[vibIdx][vacIdx];
+  var stepsHtml = '<div class="prakriya-steps">';
+  steps.forEach(function(step, i) {
+    stepsHtml +=
+      '<div class="prakriya-step">' +
+        '<div class="step-num">' + (i+1) + '</div>' +
+        '<div class="step-content">' +
+          '<div class="step-rule">' + step.rule + '</div>' +
+          '<div class="step-form">' + step.form + '</div>' +
+          (step.sutra && step.sutra !== '—'
+            ? '<div class="step-sutra">सूत्र ' + step.sutra + (step.note ? ' · ' + step.note : '') + '</div>'
+            : (step.note ? '<div class="step-sutra">' + step.note + '</div>' : '')) +
+        '</div>' +
+      '</div>';
+    if (i < steps.length - 1) {
+      stepsHtml += '<div style="display:grid;grid-template-columns:28px 1fr;gap:0 12px;"><div style="justify-self:center;color:var(--text-faint);font-size:.75rem;padding:2px 0;">↓</div><div></div></div>';
+    }
+  });
+  stepsHtml += '</div>';
+  body.innerHTML = stepsHtml;
+}
+
+function closePrakriya() {
+  document.getElementById('prakriyaPanel').classList.remove('visible');
+  document.querySelectorAll('.form.clickable').forEach(function(el) {
+    el.classList.remove('active');
+  });
+}
 
 /* ── 12. COPY TABLE ────────────────────────────────────────── */
 function copyTable(){
