@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>सृष्टिसंस्कृतम् · शब्द-शास्त्र-महामञ्जूषा</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#090703;--bg2:#110E07;--bg3:#171309;--panel:#1B1709;
+      --border:#2C260E;--border2:#3E3618;
+      --text:#F0E6CC;--text-mid:#C8B880;--text-soft:#887848;--text-faint:#564830;
+      --gold:#C89000;--gold-dim:#785600;--gold-lt:#E0B040;
+      --saffron:#B84000;--crimson:#8A1010;
+      --blue-root:#4A8ACA;--red-suf:#C05040;
+      --gana-1t:#60A060;--gana-4t:#6060A0;--gana-6t:#A06060;--gana-10t:#A08040;--gana-xt:#6080A0;
+      --c-phon:#4A7AAA;--c-nom:#4A9A6A;--c-sandhi:#9A6ACA;--c-pron:#C06050;--c-deriv:#8A8A3A;
+      --glow:rgba(200,144,0,.1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scrollbar-width:thin;scrollbar-color:var(--border) var(--bg);}
+    @media print{
+      body{background:white!important;color:#111!important;padding:0;}
+      .no-print{display:none!important;}.print-only{display:block!important;}
+      .card{background:white!important;border:1px solid #ccc!important;box-shadow:none!important;break-inside:avoid;}
+      .result{display:block!important;}
+      th{background:#eee!important;color:#111!important;}
+      .form,.vsa,.ff{color:#111!important;}
+      .rt{color:#1a4a8a!important;}.sf{color:#9a1a1a!important;}
+      .brand-header{background:white!important;border-bottom:2px solid #8A1010!important;}
+      .brand-title{color:#8A1010!important;}
+    }
+    .print-only{display:none;}
+
+    body{
+      background:var(--bg);
+      background-image:
+        radial-gradient(ellipse at 15% 0%,rgba(200,144,0,.07) 0%,transparent 55%),
+        radial-gradient(ellipse at 85% 100%,rgba(138,16,16,.05) 0%,transparent 50%);
+      min-height:100vh;
+      display:flex;flex-direction:column;align-items:center;
+      font-family:'Cormorant Garamond',Georgia,serif;
+      color:var(--text);
+    }
+    .page{width:100%;max-width:980px;padding:0 16px 96px;}
+
+    /* ══ BRAND HEADER ══ */
+    .brand-header{
+      width:100%;
+      background:linear-gradient(135deg,rgba(138,16,16,.9) 0%,rgba(90,10,10,.95) 100%);
+      border-bottom:1px solid rgba(200,144,0,.3);
+      padding:16px 24px;
+      display:flex;align-items:center;gap:20px;
+      margin-bottom:0;
+      box-shadow:0 4px 20px rgba(0,0,0,.5);
+      position:sticky;top:0;z-index:100;
+    }
+    .brand-logo-wrap{flex-shrink:0;}
+    .brand-logo{
+      width:60px;height:60px;border-radius:8px;
+      border:2px solid rgba(200,144,0,.5);
+      object-fit:cover;
+      display:block;
+    }
+    .brand-logo-placeholder{
+      width:60px;height:60px;border-radius:8px;
+      border:2px solid rgba(200,144,0,.5);
+      background:rgba(200,144,0,.1);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Tiro Devanagari Sanskrit',serif;
+      font-size:1.6rem;color:var(--gold);
+    }
+    .brand-text{flex:1;}
+    .brand-title{
+      font-family:'Tiro Devanagari Sanskrit',serif;
+      font-size:1.5rem;font-weight:400;
+      color:#F5DDA0;line-height:1.1;display:block;
+    }
+    .brand-tagline{
+      font-family:'Libre Baskerville',serif;font-style:italic;
+      font-size:.75rem;color:rgba(245,221,160,.7);
+      display:block;margin-top:3px;letter-spacing:.06em;
+    }
+    .brand-author{
+      font-family:'Libre Baskerville',serif;
+      font-size:.72rem;color:rgba(245,221,160,.55);
+      text-align:right;flex-shrink:0;line-height:1.5;
+    }
+    .brand-author b{color:rgba(245,221,160,.8);font-weight:700;}
+
+    /* ══ Main content area ══ */
+    .content-wrap{
+      width:100%;padding-top:32px;
+    }
+
+    /* Masthead (below brand header) */
+    .masthead{text-align:center;margin-bottom:28px;}
+    .mast-sa{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.9rem;color:var(--gold);letter-spacing:.28em;display:block;margin-bottom:8px;opacity:.85;}
+    h1{font-family:'Tiro Devanagari Sanskrit',serif;font-size:2.6rem;font-weight:400;color:var(--text);line-height:1.1;}
+    .mast-sub{font-family:'Libre Baskerville',serif;font-style:italic;font-size:.82rem;color:var(--text-soft);margin-top:5px;letter-spacing:.07em;}
+    .mast-rule{display:flex;align-items:center;gap:10px;margin:14px auto 0;max-width:400px;}
+    .mrl{flex:1;height:1px;background:var(--border2);}.mrd{width:5px;height:5px;transform:rotate(45deg);background:var(--gold);flex-shrink:0;}
+
+    /* Tabs */
+    .tabs{display:flex;gap:0;border-bottom:1px solid var(--border2);margin-bottom:14px;flex-wrap:wrap;}
+    .tab{padding:9px 20px;font-family:'Libre Baskerville',serif;font-size:.78rem;letter-spacing:.06em;cursor:pointer;border:1px solid transparent;border-bottom:none;border-radius:2px 2px 0 0;color:var(--text-soft);transition:all .18s;user-select:none;white-space:nowrap;}
+    .tab:hover{color:var(--text-mid);background:rgba(255,255,255,.03);}
+    .tab.active{color:var(--gold-lt);border-color:var(--border2);background:var(--panel);margin-bottom:-1px;}
+    .tab-content{display:none;}.tab-content.active{display:block;}
+
+    .card{background:var(--panel);border:1px solid var(--border);border-radius:2px;padding:22px 26px;margin-bottom:14px;box-shadow:0 4px 24px rgba(0,0,0,.6),0 1px 4px rgba(0,0,0,.4);}
+    .sec-lbl{font-family:'Libre Baskerville',serif;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-soft);display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+    .sec-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
+
+    /* Input */
+    .input-row{display:flex;gap:10px;align-items:stretch;}
+    .iw{flex:1;position:relative;}
+    input[type=text]{width:100%;padding:12px 42px 12px 14px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.45rem;color:var(--text);background:var(--bg2);border:1px solid var(--border);border-radius:2px;outline:none;transition:border-color .2s,box-shadow .2s;line-height:1.4;}
+    input::placeholder{color:var(--text-faint);font-style:italic;font-size:1.05rem;}
+    input:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--glow);background:var(--bg3);}
+    .clr{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-faint);font-size:.88rem;padding:4px;display:none;transition:color .15s;}
+    .clr:hover{color:var(--saffron);}
+    .go{padding:12px 22px;background:var(--crimson);color:#fff;border:none;border-radius:2px;font-family:'Libre Baskerville',serif;font-size:.88rem;font-style:italic;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 3px 12px rgba(138,16,16,.5);transition:background .2s,transform .1s;}
+    .go:hover{background:#6A0808;}.go:active{transform:translateY(1px);}
+
+    /* Pills */
+    .pills{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px;align-items:center;}
+    .pill-lbl{font-size:.72rem;color:var(--text-soft);font-style:italic;}
+    .pill-sep{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);font-family:'Libre Baskerville',serif;}
+    .pill{padding:3px 11px;border-radius:999px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:.92rem;cursor:pointer;border:1px solid;transition:opacity .15s,transform .1s;line-height:1.7;}
+    .pill:hover{opacity:.65;transform:translateY(-1px);}
+    .pa{background:rgba(74,154,106,.1);border-color:rgba(74,154,106,.3);color:#5ACA7A;}
+    .paa{background:rgba(184,68,8,.1);border-color:rgba(184,68,8,.3);color:#E07040;}
+    .pi{background:rgba(154,106,202,.1);border-color:rgba(154,106,202,.3);color:#C090F0;}
+    .pu{background:rgba(74,122,170,.1);border-color:rgba(74,122,170,.3);color:#80B0E0;}
+    .ph{background:rgba(200,148,8,.1);border-color:rgba(200,148,8,.3);color:#E0B040;}
+    .ps{background:rgba(192,80,80,.1);border-color:rgba(192,80,80,.3);color:#E09090;}
+    .hist-chip{padding:3px 11px;border-radius:999px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:.9rem;cursor:pointer;border:1px solid var(--border2);background:rgba(200,144,0,.06);color:var(--text-mid);transition:opacity .15s,transform .1s;line-height:1.7;}
+    .hist-chip:hover{opacity:.7;transform:translateY(-1px);}
+
+    /* Analysis tiles */
+    .agrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:16px;}
+    @media(max-width:560px){.agrid{grid-template-columns:1fr;}}
+    .atile{background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:12px 14px;border-left:3px solid var(--gold-dim);}
+    .atile-lbl{font-family:'Libre Baskerville',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-soft);margin-bottom:5px;}
+    .atile-val{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.96rem;color:var(--text);line-height:1.6;}
+    .atile-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--text-soft);margin-top:3px;}
+
+    /* Viched */
+    .viched-wrap{display:flex;flex-wrap:wrap;align-items:center;gap:3px;}
+    .vtok{display:inline-flex;flex-direction:column;align-items:center;gap:2px;}
+    .vtok-ch{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.3rem;line-height:1.3;padding:4px 9px;border-radius:3px;min-width:36px;text-align:center;border:1px solid;transition:background .15s;}
+    .vtok-lb{font-family:'Cormorant Garamond',serif;font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;}
+    .tv .vtok-ch{color:#5ACA7A;border-color:rgba(74,154,106,.3);background:rgba(74,154,106,.07);}.tv .vtok-lb{color:#3A8A4A;}
+    .ts .vtok-ch{color:var(--gold-lt);border-color:rgba(200,144,0,.3);background:rgba(200,144,0,.07);}.ts .vtok-lb{color:var(--gold-dim);}
+    .ta .vtok-ch{color:#C090F0;border-color:rgba(154,106,202,.3);background:rgba(154,106,202,.07);}.ta .vtok-lb{color:#7A5AAA;}
+    .tx .vtok-ch{color:#80B0E0;border-color:rgba(74,122,170,.3);background:rgba(74,122,170,.07);}.tx .vtok-lb{color:#4A6A9A;}
+    .vtok.ti-mark .vtok-ch{outline:2px solid var(--gold);outline-offset:2px;}
+    .vtok.up-mark .vtok-ch{outline:2px solid #C090F0;outline-offset:2px;}
+    .tplus{font-size:.9rem;color:var(--text-faint);padding:0 2px;align-self:center;margin-bottom:18px;}
+    .viched-iast{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.88rem;color:var(--text-soft);margin-top:8px;}
+    .viched-iast span{color:var(--text-mid);font-style:normal;}
+
+    /* Verb tab */
+    .verb-search-row{display:flex;gap:8px;margin-bottom:14px;}
+    .verb-search{flex:1;padding:10px 14px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.2rem;color:var(--text);background:var(--bg2);border:1px solid var(--border);border-radius:2px;outline:none;transition:border-color .2s;}
+    .verb-search:focus{border-color:var(--gold-dim);}
+    .verb-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+    .vf-btn{padding:3px 12px;border-radius:999px;border:1px solid var(--border2);background:transparent;color:var(--text-soft);font-family:'Libre Baskerville',serif;font-size:.74rem;cursor:pointer;transition:all .18s;letter-spacing:.04em;}
+    .vf-btn:hover{color:var(--text-mid);}
+    .vf-btn.active{border-color:var(--gold-dim);background:rgba(200,144,0,.12);color:var(--gold-lt);}
+    .verb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;max-height:300px;overflow-y:auto;padding-right:4px;margin-bottom:14px;}
+    .verb-grid::-webkit-scrollbar{width:4px;}.verb-grid::-webkit-scrollbar-track{background:var(--bg2);}.verb-grid::-webkit-scrollbar-thumb{background:var(--border2);}
+    .vc{background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:10px 12px;cursor:pointer;transition:border-color .18s,background .18s;border-left:3px solid;}
+    .vc:hover{border-color:var(--border2);background:var(--bg3);}
+    .vc.selected{border-color:var(--gold-dim);background:rgba(200,144,0,.07);}
+    .vc.g1{border-left-color:var(--gana-1t);}.vc.g4{border-left-color:var(--gana-4t);}.vc.g6{border-left-color:var(--gana-6t);}.vc.g10{border-left-color:var(--gana-10t);}.vc.gx{border-left-color:var(--gana-xt);}
+    .vc-root{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.15rem;color:var(--text);display:block;}
+    .vc-iast{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.78rem;color:var(--text-soft);display:block;}
+    .vc-gana{font-family:'Libre Baskerville',serif;font-size:.62rem;font-weight:700;letter-spacing:.08em;padding:1px 6px;border-radius:999px;display:inline-block;margin-bottom:3px;}
+    .g1 .vc-gana{background:rgba(58,106,58,.2);color:var(--gana-1t);}.g4 .vc-gana{background:rgba(58,58,106,.2);color:var(--gana-4t);}.g6 .vc-gana{background:rgba(106,58,58,.2);color:var(--gana-6t);}.g10 .vc-gana{background:rgba(90,74,42,.2);color:var(--gana-10t);}.gx .vc-gana{background:rgba(58,74,90,.2);color:var(--gana-xt);}
+    .vc-meaning{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--text-mid);display:block;}
+    .conj-section{margin-top:4px;}
+    .conj-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+    .conj-root-big{font-family:'Tiro Devanagari Sanskrit',serif;font-size:2.4rem;color:var(--gold-lt);line-height:1;}
+    .conj-meta{flex:1;}
+    .conj-iast{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--text-soft);display:block;}
+    .conj-gana-lbl{font-family:'Libre Baskerville',serif;font-size:.78rem;color:var(--text-mid);display:block;margin-top:3px;}
+    .conj-meaning{font-size:1.05rem;color:var(--text-mid);font-family:'Cormorant Garamond',serif;margin-top:4px;}
+    .pada-toggle{display:flex;gap:8px;margin-bottom:16px;align-items:center;}
+    .pada-lbl{font-family:'Libre Baskerville',serif;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-soft);}
+    .pada-btn{padding:4px 14px;border-radius:999px;border:1px solid var(--border2);background:transparent;color:var(--text-soft);font-family:'Libre Baskerville',serif;font-size:.8rem;cursor:pointer;transition:all .18s;letter-spacing:.03em;}
+    .pada-btn.active.p{background:rgba(90,138,90,.15);border-color:rgba(90,138,90,.4);color:#80C080;}
+    .pada-btn.active.a{background:rgba(90,90,138,.15);border-color:rgba(90,90,138,.4);color:#8080C0;}
+    .lakara-row{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
+    .lak-btn{padding:3px 12px;border-radius:999px;border:1px solid var(--border2);background:transparent;color:var(--text-soft);font-family:'Tiro Devanagari Sanskrit',serif;font-size:.9rem;cursor:pointer;transition:all .18s;line-height:1.7;}
+    .lak-btn:hover{color:var(--text-mid);}
+    .lak-btn.active{border-color:var(--gold-dim);background:rgba(200,144,0,.12);color:var(--gold-lt);}
+    .lak-desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.8rem;color:var(--text-soft);margin-bottom:10px;}
+    .ctable{width:100%;border-collapse:collapse;}
+    .ctable thead tr{border-bottom:1px solid var(--border2);}
+    .ctable th{padding:9px 10px;font-family:'Libre Baskerville',serif;font-size:.64rem;font-weight:400;font-style:italic;letter-spacing:.1em;text-transform:uppercase;color:var(--text-soft);text-align:center;}
+    .ctable th:first-child{text-align:left;}
+    .ctable tbody tr{border-bottom:1px solid rgba(80,70,30,.3);transition:background .15s;}
+    .ctable tbody tr:last-child{border-bottom:none;}
+    .ctable tbody tr:hover{background:rgba(200,144,0,.04);}
+    .ctable td{padding:10px 10px;text-align:center;vertical-align:middle;}
+    .ctable td:first-child{text-align:left;padding-left:0;}
+    .purusha-lbl{font-size:.6rem;color:var(--gold);font-weight:700;letter-spacing:.05em;display:block;}
+    .purusha-sa{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.97rem;color:var(--text);display:block;line-height:1.5;}
+    .purusha-en{font-size:.67rem;color:var(--text-faint);font-style:italic;display:block;}
+    .vform{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.15rem;color:var(--text);line-height:1.5;}
+    .vform .vr{color:var(--blue-root);background:rgba(74,138,202,.08);padding:1px 0;border-radius:2px;}
+    .vform .vsuf{color:var(--red-suf);background:rgba(192,80,64,.08);padding:1px 0;border-radius:2px;}
+
+    /* Dhātu tab */
+    .dhatu-search-row{display:flex;gap:8px;margin-bottom:14px;}
+    .dhatu-search{flex:1;padding:10px 14px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.2rem;color:var(--text);background:var(--bg2);border:1px solid var(--border);border-radius:2px;outline:none;transition:border-color .2s;}
+    .dhatu-search:focus{border-color:var(--gold-dim);}
+    .dhatu-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+    .gana-btn{padding:3px 12px;border-radius:999px;border:1px solid var(--border2);background:transparent;color:var(--text-soft);font-family:'Libre Baskerville',serif;font-size:.74rem;cursor:pointer;transition:all .18s;letter-spacing:.04em;}
+    .gana-btn:hover{color:var(--text-mid);}
+    .gana-btn.active{border-color:var(--gold-dim);background:rgba(200,144,0,.12);color:var(--gold-lt);}
+    .dhatu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;max-height:500px;overflow-y:auto;padding-right:4px;}
+    .dhatu-grid::-webkit-scrollbar{width:4px;}.dhatu-grid::-webkit-scrollbar-track{background:var(--bg2);}.dhatu-grid::-webkit-scrollbar-thumb{background:var(--border2);}
+    .dc{background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:12px 14px;cursor:pointer;transition:border-color .18s,background .18s;border-left:3px solid;}
+    .dc:hover{border-color:var(--border2);background:var(--bg3);}
+    .dc.selected{border-color:var(--gold-dim);background:rgba(200,144,0,.07);}
+    .dc.g1{border-left-color:var(--gana-1t);}.dc.g4{border-left-color:var(--gana-4t);}.dc.g6{border-left-color:var(--gana-6t);}.dc.g10{border-left-color:var(--gana-10t);}.dc.gx{border-left-color:var(--gana-xt);}
+    .dc-root{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.2rem;color:var(--text);display:block;margin-bottom:2px;}
+    .dc-iast{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--text-soft);display:block;}
+    .dc-gana{font-family:'Libre Baskerville',serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;padding:1px 7px;border-radius:999px;margin-bottom:5px;display:inline-block;}
+    .g1 .dc-gana{background:rgba(58,106,58,.2);color:var(--gana-1t);}.g4 .dc-gana{background:rgba(58,58,106,.2);color:var(--gana-4t);}.g6 .dc-gana{background:rgba(106,58,58,.2);color:var(--gana-6t);}.g10 .dc-gana{background:rgba(90,74,42,.2);color:var(--gana-10t);}.gx .dc-gana{background:rgba(58,74,90,.2);color:var(--gana-xt);}
+    .dc-meaning{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--text-mid);display:block;margin-bottom:4px;}
+    .dc-examples{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.82rem;color:var(--text-faint);display:block;}
+    .dc-examples span{color:var(--text-soft);}
+    .dhatu-detail{background:var(--bg2);border:1px solid var(--gold-dim);border-radius:2px;padding:16px 18px;margin-top:12px;display:none;}
+    .dhatu-detail.visible{display:block;animation:rUp .2s ease both;}
+    .dd-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:12px;flex-wrap:wrap;}
+    .dd-root-big{font-family:'Tiro Devanagari Sanskrit',serif;font-size:2.5rem;color:var(--gold-lt);line-height:1;}
+    .dd-meta{flex:1;}
+    .dd-iast-big{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;color:var(--text-soft);display:block;}
+    .dd-gana-big{font-family:'Libre Baskerville',serif;font-size:.78rem;letter-spacing:.08em;color:var(--text-mid);display:block;margin-top:3px;}
+    .dd-meaning-big{font-size:1.1rem;color:var(--text-mid);margin-top:5px;font-family:'Cormorant Garamond',serif;}
+    .dd-section{margin-top:10px;}
+    .dd-lbl{font-family:'Libre Baskerville',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-soft);margin-bottom:5px;}
+    .dd-examples-list{display:flex;flex-wrap:wrap;gap:6px;}
+    .dd-ex{padding:3px 10px;background:rgba(200,144,0,.07);border:1px solid rgba(200,144,0,.2);border-radius:2px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;color:var(--gold-lt);cursor:pointer;transition:background .15s;}
+    .dd-ex:hover{background:rgba(200,144,0,.14);}
+    .dd-conjugate-btn{margin-top:10px;padding:6px 16px;background:rgba(90,138,90,.15);border:1px solid rgba(90,138,90,.3);color:#80C080;font-family:'Libre Baskerville',serif;font-size:.8rem;border-radius:2px;cursor:pointer;transition:all .18s;}
+    .dd-conjugate-btn:hover{background:rgba(90,138,90,.25);}
+
+    /* Sandhi */
+    .sandhi-inputs{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px;}
+    .sandhi-word{width:160px;padding:9px 12px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.2rem;color:var(--text);background:var(--bg2);border:1px solid var(--border);border-radius:2px;outline:none;transition:border-color .2s;text-align:center;}
+    .sandhi-word:focus{border-color:var(--gold-dim);background:var(--bg3);}
+    .sandhi-plus{color:var(--text-faint);font-size:1.2rem;}
+    .sandhi-btn{padding:9px 18px;background:rgba(74,122,170,.15);border:1px solid rgba(74,122,170,.3);color:#80B0E0;font-family:'Libre Baskerville',serif;font-size:.82rem;font-style:italic;border-radius:2px;cursor:pointer;transition:all .18s;white-space:nowrap;}
+    .sandhi-btn:hover{background:rgba(74,122,170,.25);}
+    .sandhi-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+    .sandhi-row:last-child{border-bottom:none;padding-bottom:0;}
+    .sandhi-seg{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.2rem;padding:4px 10px;border-radius:2px;}
+    .seg-a{background:rgba(74,122,74,.12);color:#80C080;border:1px solid rgba(74,122,74,.3);}
+    .seg-b{background:rgba(74,74,138,.12);color:#9090E0;border:1px solid rgba(74,74,138,.3);}
+    .seg-plus{color:var(--text-faint);font-size:1rem;}
+    .seg-arrow{color:var(--text-faint);}
+    .seg-result{background:rgba(200,144,0,.1);color:var(--gold-lt);border:1px solid rgba(200,144,0,.25);font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.2rem;padding:4px 12px;border-radius:2px;}
+    .sandhi-rule{font-family:'Libre Baskerville',serif;font-size:.72rem;font-style:italic;color:var(--text-soft);}
+    .sandhi-sutra{font-size:.68rem;color:var(--gold-dim);}
+    .sandhi-none{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--text-soft);}
+
+    /* Samjna */
+    .samjna-toggle{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:10px 0;border-bottom:1px solid var(--border);margin-bottom:14px;user-select:none;}
+    .samjna-toggle-lbl{font-family:'Libre Baskerville',serif;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-soft);}
+    .samjna-toggle-count{font-family:'Libre Baskerville',serif;font-size:.72rem;color:var(--gold);margin-left:auto;margin-right:10px;}
+    .samjna-toggle-arr{color:var(--text-faint);font-size:.8rem;transition:transform .2s;}
+    .samjna-toggle-arr.open{transform:rotate(180deg);}
+    .samjna-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:10px;}
+    .samjna-grid.collapsed{display:none;}
+    .cat-legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+    .cl-item{display:flex;align-items:center;gap:5px;font-size:.72rem;font-family:'Libre Baskerville',serif;color:var(--text-soft);}
+    .cl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+    .sc{background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:12px 14px;border-left:3px solid;}
+    .sc.phon{border-left-color:var(--c-phon);}.sc.nom{border-left-color:var(--c-nom);}.sc.sandhi{border-left-color:var(--c-sandhi);}.sc.pron{border-left-color:var(--c-pron);}.sc.deriv{border-left-color:var(--c-deriv);}
+    .sc-cat{font-family:'Libre Baskerville',serif;font-size:.57rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:4px;}
+    .sc.phon .sc-cat{color:var(--c-phon);}.sc.nom .sc-cat{color:var(--c-nom);}.sc.sandhi .sc-cat{color:var(--c-sandhi);}.sc.pron .sc-cat{color:var(--c-pron);}.sc.deriv .sc-cat{color:var(--c-deriv);}
+    .sc-name{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.05rem;color:var(--text);display:block;line-height:1.4;margin-bottom:2px;}
+    .sc-sutra{font-family:'Libre Baskerville',serif;font-size:.68rem;color:var(--gold-dim);display:block;margin-bottom:5px;}
+    .sc-def{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.84rem;color:var(--text-soft);display:block;margin-bottom:6px;line-height:1.4;}
+    .sc-val{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;background:rgba(200,144,0,.08);border:1px solid rgba(200,144,0,.2);border-radius:2px;padding:4px 8px;color:var(--gold-lt);display:block;line-height:1.5;}
+
+    /* Sutra entries */
+    .sutra-entry{display:grid;grid-template-columns:auto 1fr;gap:0 14px;padding:10px 0;border-bottom:1px solid rgba(80,70,30,.5);align-items:start;}
+    .sutra-entry:last-child{border-bottom:none;padding-bottom:0;}
+    .sutra-num{font-family:'Libre Baskerville',serif;font-size:.75rem;font-weight:700;letter-spacing:.04em;color:#D4A840;white-space:nowrap;padding-top:2px;min-width:68px;}
+    .sutra-text{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1rem;color:var(--text-mid);line-height:1.4;display:block;margin-bottom:2px;}
+    .sutra-en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--text-soft);display:block;margin-bottom:3px;}
+    .sutra-apply{font-family:'Cormorant Garamond',serif;font-size:.86rem;color:var(--gold-lt);display:block;}
+    .sutra-apply .sa{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;color:var(--gold);}
+
+    /* Deriv chain */
+    .deriv-chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:1rem;margin-top:8px;}
+    .dc-step{padding:3px 10px;border:1px solid var(--border2);border-radius:2px;background:var(--bg3);color:var(--text-mid);}
+    .dc-step.is-dhatu{border-color:var(--gana-1t);background:rgba(58,106,58,.1);color:#60A060;cursor:pointer;}
+    .dc-step.is-dhatu:hover{background:rgba(58,106,58,.18);}
+    .dc-arrow{color:var(--text-faint);font-size:.85rem;}
+    .dc-final{padding:3px 10px;border:1px solid var(--gold-dim);border-radius:2px;background:rgba(200,144,0,.1);color:var(--gold-lt);font-weight:600;}
+
+    /* Det row */
+    .det-row{display:flex;align-items:center;gap:11px;padding-bottom:14px;margin-bottom:16px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+    .det-w{font-family:'Tiro Devanagari Sanskrit',serif;font-size:2.1rem;color:var(--text);line-height:1;}
+    .det-arr{color:var(--text-faint);}
+    .det-badge{padding:4px 11px;border-radius:3px;font-family:'Libre Baskerville',serif;font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+    .ba{background:rgba(74,154,106,.15);color:#5ACA7A;}.baa{background:rgba(184,68,8,.15);color:#E07040;}.bi{background:rgba(154,106,202,.15);color:#C090F0;}.bu{background:rgba(74,122,170,.15);color:#80B0E0;}.bh{background:rgba(200,148,8,.15);color:#E0B040;}.bs{background:rgba(192,80,80,.15);color:#E09090;}
+    .det-meta{font-style:italic;font-size:.85rem;color:var(--text-soft);margin-left:auto;}
+
+    .gender-row{display:flex;gap:8px;margin-bottom:14px;align-items:center;}
+    .gender-lbl{font-family:'Libre Baskerville',serif;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-soft);}
+    .gen-btn{padding:3px 13px;border-radius:999px;border:1px solid var(--border2);background:transparent;color:var(--text-soft);font-family:'Tiro Devanagari Sanskrit',serif;font-size:.88rem;cursor:pointer;transition:all .18s;line-height:1.6;}
+    .gen-btn.active{background:rgba(200,144,0,.15);border-color:var(--gold-dim);color:var(--gold-lt);}
+
+    .toolbar{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+    .tool-btn{padding:5px 13px;border-radius:2px;border:1px solid var(--border2);background:transparent;color:var(--text-soft);font-family:'Libre Baskerville',serif;font-size:.73rem;cursor:pointer;letter-spacing:.04em;transition:all .18s;}
+    .tool-btn:hover{color:var(--text-mid);background:rgba(255,255,255,.04);}
+    .tool-btn.active{background:rgba(154,106,202,.12);border-color:rgba(154,106,202,.4);color:#C090F0;}
+    .tool-btn.copy-ok{background:rgba(74,154,106,.12);border-color:rgba(74,154,106,.4);color:#5ACA7A;}
+
+    .legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px;font-size:.74rem;font-family:'Libre Baskerville',serif;}
+    .leg-item{display:flex;align-items:center;gap:5px;}
+    .leg-sw{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+    .lsr{background:rgba(74,138,202,.15);border:1px solid rgba(74,138,202,.4);}.lss{background:rgba(192,80,64,.12);border:1px solid rgba(192,80,64,.35);}
+    .leg-lbl{color:var(--text-soft);}
+    .fixed-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.84rem;color:var(--text-soft);margin-bottom:12px;}
+
+    /* Noun table */
+    table{width:100%;border-collapse:collapse;}
+    thead tr{border-bottom:1px solid var(--border2);}
+    th{padding:9px 9px;font-family:'Libre Baskerville',serif;font-size:.64rem;font-weight:400;font-style:italic;letter-spacing:.1em;text-transform:uppercase;color:var(--text-soft);text-align:center;}
+    th:first-child{text-align:left;}
+    tbody tr{border-bottom:1px solid rgba(80,70,30,.35);transition:background .15s;}
+    tbody tr:last-child{border-bottom:none;}
+    tbody tr:hover{background:rgba(200,144,0,.04);}
+    tbody tr.voc{opacity:.75;}
+    td{padding:9px 9px;text-align:center;vertical-align:middle;}
+    td:first-child{text-align:left;padding-left:0;}
+    .vnum{font-size:.58rem;color:var(--gold);font-weight:700;letter-spacing:.05em;display:block;}
+    .vsa{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.97rem;color:var(--text);display:block;line-height:1.5;}
+    .ven{font-size:.67rem;color:var(--text-faint);font-style:italic;display:block;}
+    .form{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.1rem;line-height:1.5;white-space:nowrap;}
+    .rt{color:var(--blue-root);background:rgba(74,138,202,.08);padding:1px 0;border-radius:2px;}
+    .sf{color:var(--red-suf);background:rgba(192,80,64,.08);padding:1px 0;border-radius:2px;}
+    .voc-he{font-size:.66rem;color:var(--text-faint);}
+    .ff{color:var(--text);}
+    .quiz-input{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.05rem;width:100%;padding:4px 7px;background:var(--bg3);border:1px solid var(--border2);border-radius:2px;color:var(--text);outline:none;text-align:center;transition:border-color .2s,background .2s;}
+    .quiz-input:focus{border-color:var(--gold-dim);background:var(--bg2);}
+    .quiz-input.correct{border-color:#2A6A3A!important;background:rgba(42,106,58,.12)!important;color:#60CA80!important;}
+    .quiz-input.wrong{border-color:#6A2A2A!important;background:rgba(106,42,42,.12)!important;color:#CA6060!important;}
+    .vquiz-input{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.05rem;width:100%;padding:4px 7px;background:var(--bg3);border:1px solid var(--border2);border-radius:2px;color:var(--text);outline:none;text-align:center;transition:border-color .2s,background .2s;}
+    .vquiz-input:focus{border-color:var(--gold-dim);background:var(--bg2);}
+    .vquiz-input.correct{border-color:#2A6A3A!important;background:rgba(42,106,58,.12)!important;color:#60CA80!important;}
+    .vquiz-input.wrong{border-color:#6A2A2A!important;background:rgba(106,42,42,.12)!important;color:#CA6060!important;}
+    .quiz-check{margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+    .quiz-score{font-family:'Libre Baskerville',serif;font-size:.83rem;color:var(--text-soft);}
+    .quiz-score b{color:var(--gold-lt);}
+    td.qc{padding:5px 6px;}
+
+
+    /* ── Shabda DB styles ── */
+    .linga-badge{display:inline-block;padding:2px 10px;border-radius:999px;font-family:'Libre Baskerville',serif;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-left:8px;vertical-align:middle;}
+    .lb-p{background:rgba(74,154,106,.15);color:#5ACA7A;}
+    .lb-s{background:rgba(184,68,8,.15);color:#E07040;}
+    .lb-n{background:rgba(74,122,170,.15);color:#80B0E0;}
+    .lb-a{background:rgba(200,148,8,.15);color:#E0B040;}
+    .meaning-en{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--text-mid);}
+    .meaning-hin{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;color:var(--text-soft);margin-top:3px;display:block;}
+    .db-source{font-size:.65rem;color:var(--gold-dim);font-family:'Libre Baskerville',serif;margin-top:4px;display:block;font-style:italic;}
+    .forms-split{display:none;}  /* pre-stored forms don't show stem/suffix split */
+
+    /* ── लिङ्ग / वचन selectors ── */
+    .selector-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center;}
+    .selector-group{display:flex;flex-direction:column;gap:4px;flex:1;min-width:160px;}
+    .selector-lbl{font-family:'Libre Baskerville',serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-soft);}
+    .selector-lbl span{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.85rem;letter-spacing:0;text-transform:none;color:var(--text-mid);margin-left:4px;}
+    .elegant-select{
+      width:100%;padding:9px 32px 9px 14px;
+      font-family:'Tiro Devanagari Sanskrit',serif;font-size:1rem;
+      color:var(--text);background:var(--bg2);
+      border:1px solid var(--border2);border-radius:2px;
+      outline:none;cursor:pointer;
+      appearance:none;-webkit-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23785600'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;background-position:right 12px center;
+      transition:border-color .2s,box-shadow .2s;
+      line-height:1.5;
+    }
+    .elegant-select:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--glow);}
+    .elegant-select option{background:var(--bg2);color:var(--text);}
+
+    /* Selected values display in result */
+    .linga-vacana-bar{
+      display:flex;gap:10px;flex-wrap:wrap;
+      padding:10px 14px;background:var(--bg2);
+      border:1px solid var(--border);border-radius:2px;
+      margin-bottom:14px;align-items:center;
+    }
+    .lv-item{display:flex;flex-direction:column;gap:2px;}
+    .lv-key{font-family:'Libre Baskerville',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);}
+    .lv-val{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.05rem;color:var(--gold-lt);}
+    .lv-sep{width:1px;background:var(--border2);align-self:stretch;}
+
+    /* ── प्रकृति-प्रत्यय panel ── */
+    .pp-card{background:var(--panel);border:1px solid var(--border);border-radius:2px;padding:22px 26px;margin-bottom:14px;box-shadow:0 4px 24px rgba(0,0,0,.6);}
+    .pp-found{display:flex;flex-direction:column;gap:14px;}
+    .pp-row{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;}
+    .pp-block{flex:1;min-width:140px;background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:12px 14px;}
+    .pp-block-lbl{font-family:'Libre Baskerville',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-soft);margin-bottom:6px;display:block;}
+    .pp-block-sa{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.2rem;color:var(--text);display:block;line-height:1.4;}
+    .pp-block-en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--text-soft);display:block;margin-top:2px;}
+    .pp-arrow{font-size:1.4rem;color:var(--text-faint);align-self:center;flex-shrink:0;}
+    .pp-result{background:rgba(200,144,0,.08);border:1px solid rgba(200,144,0,.25);border-radius:2px;padding:12px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+    .pp-result-word{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.6rem;color:var(--gold-lt);}
+    .pp-result-eq{color:var(--text-faint);font-size:1rem;}
+    .pp-formula{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1rem;color:var(--text-mid);}
+    .pp-formula .pp-root{color:#5ACA7A;font-weight:600;}
+    .pp-formula .pp-suf{color:#C090F0;font-weight:600;}
+    .pp-formula .pp-plus{color:var(--text-faint);margin:0 4px;}
+
+    /* Type badges */
+    .pp-badge{display:inline-block;padding:4px 12px;border-radius:3px;font-family:'Libre Baskerville',serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+    .pp-krit   {background:rgba(74,154,106,.15);color:#5ACA7A;border:1px solid rgba(74,154,106,.3);}
+    .pp-taddhit{background:rgba(74,122,170,.15);color:#80B0E0;border:1px solid rgba(74,122,170,.3);}
+    .pp-stri   {background:rgba(192,80,80,.15); color:#E09090;border:1px solid rgba(192,80,80,.3);}
+    .pp-samas  {background:rgba(200,148,8,.15); color:#E0B040;border:1px solid rgba(200,148,8,.3);}
+    .pp-other  {background:rgba(120,120,120,.15);color:#B0B0B0;border:1px solid rgba(120,120,120,.3);}
+
+    .pp-sutra-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+    .pp-sutra-tag{font-family:'Libre Baskerville',serif;font-size:.7rem;padding:3px 10px;border-radius:2px;background:var(--bg3);border:1px solid var(--border2);color:var(--text-soft);font-style:italic;}
+    .pp-sutra-tag b{font-style:normal;color:var(--gold-dim);}
+
+    .pp-not-found{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--text-soft);padding:8px 0;line-height:1.7;}
+    .pp-not-found .pp-sa{font-family:'Tiro Devanagari Sanskrit',serif;font-style:normal;color:var(--text-mid);display:block;margin-bottom:4px;}
+
+    /* ── Multi-gender stacked tables ── */
+    .gender-section{margin-bottom:18px;border:1px solid var(--border);border-radius:2px;overflow:hidden;}
+    .gender-section:last-child{margin-bottom:0;}
+    .gender-header{
+      display:flex;align-items:center;gap:10px;
+      padding:10px 14px;
+      font-family:'Libre Baskerville',serif;font-size:.75rem;font-weight:700;
+      letter-spacing:.1em;text-transform:uppercase;
+    }
+    .gender-header .gh-sa{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1rem;letter-spacing:0;text-transform:none;font-weight:400;}
+    .gender-header .gh-en{font-style:italic;font-weight:400;opacity:.7;font-size:.68rem;}
+    .gh-masc  {background:rgba(74,154,106,.12); color:#5ACA7A; border-bottom:1px solid rgba(74,154,106,.25);}
+    .gh-fem   {background:rgba(192,80,80,.12);  color:#E09090; border-bottom:1px solid rgba(192,80,80,.25);}
+    .gh-neut  {background:rgba(74,122,170,.12); color:#80B0E0; border-bottom:1px solid rgba(74,122,170,.25);}
+    .gh-ubi   {background:rgba(200,148,8,.12);  color:#E0B040; border-bottom:1px solid rgba(200,148,8,.25);}
+    .gender-section table{border-radius:0;}
+    .gender-section tbody tr:last-child{border-bottom:none;}
+    /* vacana highlight applies inside each section */
+    .gender-section .col-highlight td:nth-child(2){background:rgba(200,144,0,.1);border-left:2px solid var(--gold-dim);}
+    .gender-section .col-highlight td:nth-child(3){background:rgba(200,144,0,.1);border-left:2px solid var(--gold-dim);}
+    .gender-section .col-highlight td:nth-child(4){background:rgba(200,144,0,.1);border-left:2px solid var(--gold-dim);}
+    .multi-gender-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.84rem;color:var(--text-soft);margin-bottom:12px;padding:8px 12px;background:var(--bg2);border-left:3px solid var(--gold-dim);border-radius:0 2px 2px 0;}
+    .result{display:none;animation:rUp .3s ease both;}
+    @keyframes rUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+    /* ══ BRAND FOOTER ══ */
+    .brand-footer{
+      width:100%;margin-top:16px;padding:20px 24px;
+      border-top:1px solid rgba(200,144,0,.2);
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+      background:rgba(138,16,16,.08);
+    }
+    .brand-footer-left{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.1rem;color:var(--gold);opacity:.9;}
+    .brand-footer-right{font-family:'Libre Baskerville',serif;font-size:.75rem;color:var(--text-faint);text-align:right;line-height:1.6;}
+    .brand-footer-right b{color:var(--text-soft);}
+
+    @media(max-width:520px){.card{padding:14px 13px;}h1{font-size:2.1rem;}.form,.vtok-ch,.vform{font-size:1rem;}.sandhi-word{width:120px;}.brand-header{flex-wrap:wrap;}.brand-author{text-align:left;}}
+  </style>
+  <script src="words.js"></script>
+</head>
+<body>
+
+  <!-- ══ BRAND HEADER ══ -->
+  <div class="brand-header no-print">
+    <div class="brand-logo-wrap">
+      <img class="brand-logo" src="https://lh3.googleusercontent.com/d/1GJwWQZme5jDBtW3rZcQfB5ybLhazGiG7" alt="सृष्टिसंस्कृतम् लोगो"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="brand-logo-placeholder" style="display:none;">सृ</div>
+    </div>
+    <div class="brand-text">
+      <span class="brand-title">सृष्टिसंस्कृतम्</span>
+      <span class="brand-tagline">शिक्षयेम नः सर्वान् — Teaching Sanskrit to All</span>
+    </div>
+    <div class="brand-author">
+      <b>Dr. Chandan Kumar Pathak (CK)</b><br>
+      Sanskrit Grammar Engine<br>
+      <span style="font-size:.65rem;">Based on Pāṇini's Ashtādhyāyī</span>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="content-wrap">
+
+      <div class="masthead">
+        <span class="mast-sa">॥ शब्द-शास्त्र-महामञ्जूषा ॥</span>
+        <h1>संज्ञा-रूप</h1>
+        <p class="mast-sub">Saṃjñā · Sandhi · Sūtra · Derivation · Declension · Quiz</p>
+        <div class="mast-rule"><span class="mrl"></span><span class="mrd"></span><span class="mrl"></span><span class="mrd"></span><span class="mrl"></span><span class="mrd"></span><span class="mrl"></span></div>
+      </div>
+
+      <!-- MAIN INPUT CARD -->
+      <div class="card no-print">
+        <!-- Analyze tab -->
+          <div class="input-row">
+            <div class="iw"><input type="text" id="wordInput" placeholder="शब्द लिखें… राम, मुनि, लता, राजन्, तद्, अहम्…" autocomplete="off" spellcheck="false"><button class="clr" id="clrBtn">✕</button></div>
+            <button class="go" onclick="runEngine()">सिद्धि →</button>
+          </div>
+          <div class="pills">
+            <span class="pill-lbl">Try —</span>
+            <span class="pill-sep">Nouns:</span>
+            <span class="pill pa" onclick="load('राम')">राम</span>
+            <span class="pill pa" onclick="load('बालक')">बालक</span>
+            <span class="pill pa" onclick="load('फल')">फल</span>
+            <span class="pill pa" onclick="load('चन्दन')">चन्दन</span>
+            <span class="pill paa" onclick="load('लता')">लता</span>
+            <span class="pill pi" onclick="load('मुनि')">मुनि</span>
+            <span class="pill pu" onclick="load('साधु')">साधु</span>
+            <span class="pill ph" onclick="load('राजन्')">राजन्</span>
+            <span class="pill-sep">Pronouns:</span>
+            <span class="pill ps" onclick="load('अहम्')">अहम्</span>
+            <span class="pill ps" onclick="load('तद्')">तद्</span>
+            <span class="pill ps" onclick="load('अयम्')">अयम्</span>
+          </div>
+          <div class="pills" id="historyRow" style="display:none;">
+            <span class="pill-lbl">Recent:</span>
+            <span id="historyChips"></span>
+          </div>
+
+          <div class="selector-row">
+            <div class="selector-group">
+              <div class="selector-lbl">लिङ्ग <span>Gender</span></div>
+              <select class="elegant-select" id="lingaSelect">
+                <option value="auto">स्वयं निर्धारित · Auto-detect</option>
+                <option value="P">पुंलिङ्ग · Masculine</option>
+                <option value="S">स्त्रीलिङ्ग · Feminine</option>
+                <option value="N">नपुंसकलिङ्ग · Neuter</option>
+              </select>
+            </div>
+            <div class="selector-group">
+              <div class="selector-lbl">वचन <span>Number</span></div>
+              <select class="elegant-select" id="vacanaSelect">
+                <option value="all">सर्वाणि · All three</option>
+                <option value="0">एकवचन · Singular</option>
+                <option value="1">द्विवचन · Dual</option>
+                <option value="2">बहुवचन · Plural</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      <!-- Result panels -->
+      <div class="result" id="resultArea">
+        <div class="print-only" style="text-align:center;margin-bottom:20px;padding:12px;border-bottom:2px solid #8A1010;">
+          <div style="font-family:serif;font-size:1.2rem;color:#8A1010;font-weight:bold;">सृष्टिसंस्कृतम् · Dr. Chandan Kumar Pathak</div>
+          <h2 style="font-family:serif;font-size:1.5rem;" id="printTitle"></h2>
+        </div>
+
+        <!-- Linga/Vacana selected values bar -->
+        <div class="linga-vacana-bar" id="lvBar" style="display:none;">
+          <div class="lv-item"><div class="lv-key">लिङ्ग · Gender</div><div class="lv-val" id="lvLinga">—</div></div>
+          <div class="lv-sep"></div>
+          <div class="lv-item"><div class="lv-key">वचन · Number</div><div class="lv-val" id="lvVacana">—</div></div>
+          <div class="lv-sep"></div>
+          <div class="lv-item"><div class="lv-key">शब्द · Word</div><div class="lv-val" id="lvWord">—</div></div>
+        </div>
+        <!-- Analysis -->
+        <div class="card">
+          <div class="sec-lbl">विश्लेषण · Analysis</div>
+          <div class="agrid">
+            <div class="atile"><div class="atile-lbl">प्रातिपदिकम् · Root</div><div class="atile-val" id="rootDisp"></div><div class="atile-sub" id="rootSub"></div></div>
+        <div class="atile" id="meaningTile" style="display:none;"><div class="atile-lbl">अर्थ · Meaning</div><div class="atile-val" id="meaningDisp"></div><div class="atile-sub" id="vyutpattiDisp"></div></div>
+            <div class="atile"><div class="atile-lbl">सुप्-अङ्ग · Stem</div><div class="atile-val" id="stemDisp"></div></div>
+            <div class="atile" style="grid-column:1/-1;"><div class="atile-lbl">वर्ण-विच्छेद · Phoneme Analysis</div><div id="vichedDisp"></div><div id="tiUpDisp" style="margin-top:9px;font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--text-soft);"></div></div>
+          </div>
+          <div id="derivSection" style="display:none;">
+            <div class="sec-lbl" style="margin-top:14px;">व्युत्पत्ति · Derivation</div>
+            <div id="derivChain"></div>
+            <div id="dhatuLink" style="margin-top:8px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.84rem;color:var(--text-soft);"></div>
+          </div>
+        </div>
+
+        <!-- Sandhi -->
+        <div class="card no-print">
+          <div class="sec-lbl">सन्धि-प्रदर्शन · Sandhi Demonstrator</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.88rem;color:var(--text-soft);margin-bottom:12px;">Enter a second word to see sandhi rules at the junction.</p>
+          <div class="sandhi-inputs">
+            <span class="sandhi-seg seg-a" id="sandhiWord1" style="font-size:1.1rem;"></span>
+            <span class="sandhi-plus">+</span>
+            <input class="sandhi-word" type="text" id="sandhiInput2" placeholder="दूसरा शब्द…" spellcheck="false" autocomplete="off">
+            <button class="sandhi-btn" onclick="computeSandhi()">सन्धि →</button>
+          </div>
+          <div id="sandhiResult"></div>
+        </div>
+
+        <!-- Samjna -->
+        <div class="card">
+          <div class="samjna-toggle" onclick="toggleSamjna()">
+            <span class="samjna-toggle-lbl">महा-संज्ञा · Grammatical Categories</span>
+            <span class="samjna-toggle-count" id="samjnaCount"></span>
+            <span class="samjna-toggle-arr open" id="samjnaArr">▲</span>
+          </div>
+          <div class="cat-legend">
+            <div class="cl-item"><div class="cl-dot" style="background:var(--c-phon)"></div>Phonological</div>
+            <div class="cl-item"><div class="cl-dot" style="background:var(--c-nom)"></div>Nominal</div>
+            <div class="cl-item"><div class="cl-dot" style="background:var(--c-sandhi)"></div>Sandhi</div>
+            <div class="cl-item"><div class="cl-dot" style="background:var(--c-pron)"></div>Pronoun</div>
+            <div class="cl-item"><div class="cl-dot" style="background:var(--c-deriv)"></div>Derivational</div>
+          </div>
+          <div class="samjna-grid" id="samjnaGrid"></div>
+        </div>
+
+        <!-- प्रकृति-प्रत्यय card -->
+        <div class="pp-card" id="ppCard">
+          <div class="sec-lbl">प्रकृति-प्रत्यय विश्लेषण · Morphological Analysis</div>
+          <div id="ppContent"></div>
+        </div>
+
+        <!-- Sutra -->
+        <div class="card">
+          <div class="sec-lbl">सूत्र-विमर्शः · Applied Sūtras</div>
+          <div id="sutraPanel"></div>
+        </div>
+
+        <!-- Declension -->
+        <div class="card">
+          <div class="sec-lbl">रूप-तालिका · Declension Table</div>
+          <div class="det-row" id="detRow"></div>
+          <div class="gender-row" id="genderRow" style="display:none;">
+            <span class="gender-lbl">लिंग:</span>
+            <button class="gen-btn active" id="genM" onclick="setGender('m')">पुं॰ M</button>
+            <button class="gen-btn"        id="genF" onclick="setGender('f')">स्त्री॰ F</button>
+            <button class="gen-btn"        id="genN" onclick="setGender('n')">न॰ Nt</button>
+          </div>
+          <div class="toolbar no-print">
+            <button class="tool-btn" id="quizBtn" onclick="toggleQuiz()">📝 Quiz Mode</button>
+            <button class="tool-btn" id="copyBtn" onclick="copyTable()">⎘ Copy Table</button>
+            <button class="tool-btn" onclick="printSheet()">🖨 Print Sheet</button>
+          </div>
+          <div class="legend" id="legendArea"></div>
+          <div class="fixed-note" id="fixedNote" style="display:none;"></div>
+          <table id="mainTable">
+            <thead><tr><th>Vibhakti · विभक्ति</th><th>एकवचन</th><th>द्विवचन</th><th>बहुवचन</th></tr></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+          <div class="quiz-check no-print" id="quizControls" style="display:none;">
+            <button class="tool-btn" onclick="checkQuiz()">✓ Check</button>
+            <button class="tool-btn" onclick="revealQuiz()">Show answers</button>
+            <span class="quiz-score" id="quizScore"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brand footer -->
+      <div class="brand-footer no-print">
+        <div class="brand-footer-left">सृष्टिसंस्कृतम्</div>
+        <div class="brand-footer-right">
+          © 2024 · <b>Dr. Chandan Kumar Pathak (CK)</b><br>
+          पाणिनि-कृत अष्टाध्यायी पर आधारित · Based on Pāṇini's Ashtādhyāyī
+        </div>
+      </div>
+
+    </div><!-- /content-wrap -->
+  </div><!-- /page -->
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   COMPLETE ENGINE — All features from v11 preserved verbatim
+   Only branding/colour changes applied above
+══════════════════════════════════════════════════════════ */
+
+
+/* ════════ प्रकृति-प्रत्यय DATABASE ════════
+   Each entry:
+     r  : root / prakriti (धातु or प्रातिपदिक)
+     r_en: root meaning (English)
+     p  : pratyaya / suffix
+     p_en: suffix meaning
+     t  : type code — 'krit' | 'taddhit' | 'stri' | 'samas' | 'other'
+     t_sa: type in Sanskrit
+     t_en: type in English
+     meaning: derived meaning
+     sutra: Pāṇinian sūtra (optional)
+     process: step-by-step derivation
+════════════════════════════════════════ */
+const PRAKRIYA_DB = {
+  // g: gender code — P=पुंलिङ्ग, S=स्त्रीलिङ्ग, N=नपुंसकलिङ्ग
+  'चन्दन':  { g:'P', r:'चन्द्',  r_en:'to shine, to please', p:'ल्युट्', p_en:'action/instrument noun suffix', t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'that which pleases / sandalwood', sutra:'३.३.११३ ल्युट् च',          process:'चन्द् + ल्युट् → चन्द् + अन → चन्दन' },
+  'राम':    { g:'P', r:'रम्',    r_en:'to delight, to play',  p:'घञ्',   p_en:'verbal noun suffix (vṛddhi)',  t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who delights / Lord Rāma',   sutra:'३.३.१८ भावे',               process:'रम् + घञ् → राम (वृद्धि: अ→आ)' },
+  'दशरथि': { g:'P', r:'दशरथ',  r_en:'the chariot of ten',    p:'इञ्',   p_en:'patronymic/descendant suffix', t:'taddhit', t_sa:'तद्धित',         t_en:'Taddhita', meaning:'son/descendant of Daśaratha',    sutra:'४.१.९५ अत इञ्',             process:'दशरथ + इञ् → दाशरथि (वृद्धि) → दशरथि' },
+  'गौरी':   { g:'S', r:'गौर',   r_en:'white, bright, tawny',  p:'ङीष्',  p_en:'feminine suffix',              t:'stri',    t_sa:'स्त्री प्रत्यय', t_en:'Strī',     meaning:'the bright/fair one (Goddess)',  sutra:'४.१.४१ ऊङुतश्च',           process:'गौर + ङीष् → गौर + ई → गौरी' },
+  'पाठक':   { g:'P', r:'पठ्',   r_en:'to read, to recite',    p:'ण्वुल्',p_en:'agent noun suffix (-aka)',     t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who reads / teacher',        sutra:'३.१.१३३ ण्वुल्तृचौ',       process:'पठ् + ण्वुल् → पठ् + अक → पाठक (वृद्धि)' },
+  'लेखक':   { g:'P', r:'लिख्',  r_en:'to write, to scratch',  p:'ण्वुल्',p_en:'agent noun suffix (-aka)',     t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who writes / scribe',        sutra:'३.१.१३३ ण्वुल्तृचौ',       process:'लिख् + ण्वुल् → लिख् + अक → लेखक (वृद्धि)' },
+  'नायक':   { g:'P', r:'नी',    r_en:'to lead, to carry',     p:'ण्वुल्',p_en:'agent noun suffix (-aka)',     t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'leader, hero',                   sutra:'३.१.१३३ ण्वुल्तृचौ',       process:'नी + ण्वुल् → नी + अक → नायक (गुण+वृद्धि)' },
+  'राजन्':  { g:'P', r:'राज्',  r_en:'to shine, to rule',     p:'अन्',   p_en:'n-stem suffix',                t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'king, one who shines',           sutra:'उणादि ३.१ राजृ + अन्',     process:'राज् + अन् → राजन् (हलन्त)' },
+  'मुनि':   { g:'P', r:'मन्',   r_en:'to think, to contemplate',p:'इ',   p_en:'i-suffix (nominal)',           t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'one who meditates / sage',       sutra:'उणादि इ-प्रत्यय',           process:'मन् + इ → मुनि' },
+  'शान्ति': { g:'S', r:'शम्',   r_en:'to be calm, to cease',  p:'क्तिन्',p_en:'abstract noun suffix',        t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'peace, tranquility',             sutra:'३.३.९४ स्त्रियां क्तिन्',   process:'शम् + क्तिन् → शान्त + इ → शान्ति' },
+  'भक्ति':  { g:'S', r:'भज्',   r_en:'to worship, to serve',  p:'क्तिन्',p_en:'abstract noun suffix',        t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'devotion, worship',              sutra:'३.३.९४ स्त्रियां क्तिन्',   process:'भज् + क्तिन् → भक्त + इ → भक्ति' },
+  'योग':    { g:'P', r:'युज्',  r_en:'to join, to yoke',       p:'घञ्',   p_en:'verbal noun suffix (vṛddhi)', t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'union, concentration',           sutra:'३.३.१८ भावे',               process:'युज् + घञ् → योग (वृद्धि: उ→ओ)' },
+  'ज्ञान':  { g:'N', r:'ज्ञा',  r_en:'to know, to understand', p:'ल्युट्',p_en:'action/result noun suffix',  t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'knowledge, wisdom',              sutra:'३.३.११३ ल्युट् च',          process:'ज्ञा + ल्युट् → ज्ञा + अन → ज्ञान' },
+  'साधु':   { g:'P', r:'साध्',  r_en:'to accomplish, to succeed',p:'उ',  p_en:'u-suffix (nominal)',           t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'virtuous person / well done',    sutra:'उणादि उ-प्रत्यय',           process:'साध् + उ → साधु' },
+  'लता':    { g:'S', r:'लत्',   r_en:'to wind, to creep',      p:'अ + टाप्',p_en:'a-suffix + fem. ā',        t:'stri',    t_sa:'स्त्री प्रत्यय', t_en:'Strī',     meaning:'creeper, vine',                  sutra:'४.१.४ अजाद्यतष्टाप्',      process:'लत् + अ → लत + टाप् → लता' },
+  'देव':    { g:'P', r:'दिव्',  r_en:'to shine, to play',      p:'अच्',   p_en:'primary nominal suffix',      t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'shining one / god',              sutra:'३.१.१३४ अच् प्रत्ययः',     process:'दिव् + अच् → देव (वृद्धि: इ→ए)' },
+  'धर्म':   { g:'P', r:'धृ',    r_en:'to hold, to sustain',    p:'मन्',   p_en:'man-suffix (abstract)',       t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'that which sustains / law',      sutra:'उणादि मन्-प्रत्यय',         process:'धृ + मन् → धर्म (संप्रसारण)' },
+  'कर्म':   { g:'N', r:'कृ',    r_en:'to do, to make',         p:'मन्',   p_en:'man-suffix (abstract)',       t:'krit',    t_sa:'कृदन्त',         t_en:'Krit',     meaning:'action, deed',                   sutra:'उणादि मन्-प्रत्यय',         process:'कृ + मन् → कर्म (संप्रसारण)' },
+};
+
+
+/* ════════ UNICODE ════════ */
+const HALANT='\u094D',ANUSVARA='\u0902',VISARGA='\u0903';
+const MATRA_TO={'\u093E':'आ','\u093F':'इ','\u0940':'ई','\u0941':'उ','\u0942':'ऊ','\u0943':'ऋ','\u0947':'ए','\u0948':'ऐ','\u094B':'ओ','\u094C':'औ'};
+const MATRA_SET=new Set(Object.keys(MATRA_TO));
+const SVAR_SET=new Set(['अ','आ','इ','ई','उ','ऊ','ए','ऐ','ओ','औ','ऋ','ॠ','ऌ']);
+const VRIDDHI=new Set(['आ','ऐ','औ']);
+const GUNA=new Set(['अ','ए','ओ']);
+const IAST_MAP={'क':'k','ख':'kh','ग':'g','घ':'gh','ङ':'ṅ','च':'c','छ':'ch','ज':'j','झ':'jh','ञ':'ñ','ट':'ṭ','ठ':'ṭh','ड':'ḍ','ढ':'ḍh','ण':'ṇ','त':'t','थ':'th','द':'d','ध':'dh','न':'n','प':'p','फ':'ph','ब':'b','भ':'bh','म':'m','य':'y','र':'r','ल':'l','व':'v','श':'ś','ष':'ṣ','स':'s','ह':'h','अ':'a','आ':'ā','इ':'i','ई':'ī','उ':'u','ऊ':'ū','ए':'e','ऐ':'ai','ओ':'o','औ':'au','ऋ':'ṛ','\u093E':'ā','\u093F':'i','\u0940':'ī','\u0941':'u','\u0942':'ū','\u0943':'ṛ','\u0947':'e','\u0948':'ai','\u094B':'o','\u094C':'au',[ANUSVARA]:'ṃ',[VISARGA]:'ḥ',[HALANT]:''};
+const VARGA_MAP={'क':'कवर्ग','ख':'कवर्ग','ग':'कवर्ग','घ':'कवर्ग','ङ':'कवर्ग','च':'चवर्ग','छ':'चवर्ग','ज':'चवर्ग','झ':'चवर्ग','ञ':'चवर्ग','ट':'टवर्ग','ठ':'टवर्ग','ड':'टवर्ग','ढ':'टवर्ग','ण':'टवर्ग','त':'तवर्ग','थ':'तवर्ग','द':'तवर्ग','ध':'तवर्ग','न':'तवर्ग','प':'पवर्ग','फ':'पवर्ग','ब':'पवर्ग','भ':'पवर्ग','म':'पवर्ग'};
+
+function tokenize(word){const toks=[],chars=[...word];const wordEndsHalant=chars.length>0&&chars[chars.length-1]===HALANT;let i=0;while(i<chars.length){const ch=chars[i];if(ch===HALANT){i++;continue;}if(ch===ANUSVARA){toks.push({t:'a',d:'ं',ia:'ṃ',lb:'अनु॰',raw:ch});i++;continue;}if(ch===VISARGA){toks.push({t:'x',d:'ः',ia:'ḥ',lb:'विस॰',raw:ch});i++;continue;}if(SVAR_SET.has(ch)){toks.push({t:'s',d:ch,ia:IAST_MAP[ch]||ch,lb:'स्वर',raw:ch});i++;continue;}if(MATRA_SET.has(ch)){toks.push({t:'s',d:MATRA_TO[ch],ia:IAST_MAP[ch]||''  ,lb:'स्वर',raw:ch});i++;continue;}const ia=IAST_MAP[ch]||ch;const j=i+1;const nextIsHalant=j<chars.length&&chars[j]===HALANT;const nextIsMatra=j<chars.length&&MATRA_SET.has(chars[j]);toks.push({t:'v',d:ch+HALANT,ia:ia,lb:'व्यञ्जन',raw:ch});if(nextIsMatra){toks.push({t:'s',d:MATRA_TO[chars[j]],ia:IAST_MAP[chars[j]]||''  ,lb:'स्वर',raw:chars[j]});i=j+1;}else if(nextIsHalant){i=j;}else{const isWordFinal=chars.slice(j).every(c=>c===ANUSVARA||c===VISARGA);if(!isWordFinal||!wordEndsHalant){toks.push({t:'s',d:'अ',ia:'a',lb:'स्वर',raw:''});}i=j;}}return toks;}
+
+function computeTiUp(toks){let tiIdx=-1;for(let i=toks.length-1;i>=0;i--){if(toks[i].t==='s'){tiIdx=i;break;}}const tiStr=tiIdx>=0?toks.slice(tiIdx).map(t=>t.d).join(''):'';const upIdx=toks.length>=2?toks.length-2:-1;return{tiIdx,tiStr,upIdx,upTok:upIdx>=0?toks[upIdx]:null};}
+function renderVichedHTML(toks,tiIdx,upIdx){const m={v:'tv',s:'ts',a:'ta',x:'tx'};const h=toks.map((t,i)=>`<div class="vtok ${m[t.t]}${i>=tiIdx&&tiIdx>=0?' ti-mark':''}${i===upIdx?' up-mark':''}"><span class="vtok-ch">${t.d}</span><span class="vtok-lb">${t.lb}</span></div>${i<toks.length-1?'<span class="tplus">+</span>':''}`).join('');return`<div class="viched-wrap">${h}</div><div class="viched-iast">IAST: <span>${toks.map(t=>t.ia).join('')}</span></div>`;}
+
+/* ════════ SANDHI ════════ */
+const AC=new Set(['अ','आ','इ','ई','उ','ऊ','ए','ऐ','ओ','औ','ऋ']);
+function vowelSandhi(E,S){const a=new Set(['अ','आ']),iv=new Set(['इ','ई']),uv=new Set(['उ','ऊ']),ev=new Set(['ए','ऐ']),ov=new Set(['ओ','औ']);if(a.has(E)&&a.has(S))return{r:'ा',rule:'अकः सवर्णे दीर्घः (6.1.101)',desc:'a/ā + a/ā → ā'};if(iv.has(E)&&iv.has(S))return{r:'ी',rule:'अकः सवर्णे दीर्घः (6.1.101)',desc:'i/ī + i/ī → ī'};if(uv.has(E)&&uv.has(S))return{r:'ू',rule:'अकः सवर्णे दीर्घः (6.1.101)',desc:'u/ū + u/ū → ū'};if(a.has(E)&&iv.has(S))return{r:'े',rule:'आद्गुणः (6.1.87)',desc:'a/ā + i/ī → e'};if(a.has(E)&&uv.has(S))return{r:'ो',rule:'आद्गुणः (6.1.87)',desc:'a/ā + u/ū → o'};if(a.has(E)&&S==='ऋ')return{r:'र',rule:'आद्गुणः (6.1.87)',desc:'a/ā + ṛ → ar'};if(a.has(E)&&ev.has(S))return{r:'ै',rule:'वृद्धिरेचि (6.1.88)',desc:'a/ā + e/ai → ai'};if(a.has(E)&&ov.has(S))return{r:'ौ',rule:'वृद्धिरेचि (6.1.88)',desc:'a/ā + o/au → au'};if(iv.has(E)&&AC.has(S)&&!iv.has(S))return{r:'य्'+S,rule:'इको यणचि (6.1.77)',desc:'i/ī + vowel → y+vowel'};if(uv.has(E)&&AC.has(S)&&!uv.has(S))return{r:'व्'+S,rule:'इको यणचि (6.1.77)',desc:'u/ū + vowel → v+vowel'};if(E==='ऋ'&&AC.has(S))return{r:'र्'+S,rule:'इको यणचि (6.1.77)',desc:'ṛ + vowel → r+vowel'};return null;}
+function wordFinal(w){const c=[...w];for(let i=c.length-1;i>=0;i--){if(c[i]!==HALANT)return c[i];}return'';}
+const SANDHI_RULES=[{id:'vis-a',test:(e,s)=>e===VISARGA&&s==='अ',desc:'Visarga + अ → avagraha',sutra:'६.१.११३',apply(w1,w2){return{seg1:w1.slice(0,-1)+'अ',seg2:w2.slice(1),joined:w1.slice(0,-1)+'ऽ'+w2.slice(1)};}},{id:'vis-vowel',test:(e,s)=>e===VISARGA&&AC.has(s)&&s!=='अ',desc:'Visarga + vowel → dropped',sutra:'८.३.१७',apply(w1,w2){return{seg1:w1.slice(0,-1),seg2:w2,joined:w1.slice(0,-1)+w2};}},{id:'as-voiced',test:(e,s,w1)=>{const c=[...w1];return e===VISARGA&&c.length>=2&&(c[c.length-2]==='अ'||MATRA_TO[c[c.length-2]]==='अ')&&'गघडजदधबभर'.includes(s);},desc:'-aḥ before voiced → -o',sutra:'६.१.११३',apply(w1,w2){return{seg1:w1.slice(0,-2)+'ो',seg2:w2,joined:w1.slice(0,-2)+'ो'+w2};}},{id:'vis-k',test:(e,s)=>e===VISARGA&&'कखगघ'.includes(s),desc:'Visarga before velar — retained',sutra:'८.३.१५',apply(w1,w2){return{seg1:w1,seg2:w2,joined:w1+' '+w2,note:'Visarga retained'};}},{id:'vis-s',test:(e,s)=>e===VISARGA&&'शषसह'.includes(s),desc:'Visarga before sibilant — retained',sutra:'८.३.१५',apply(w1,w2){return{seg1:w1,seg2:w2,joined:w1+' '+w2,note:'Visarga retained'};}},{id:'vowel-sandhi',test:(e,s)=>AC.has(MATRA_TO[e]||e)&&AC.has(s),desc:'Vowel + vowel sandhi',sutra:'',apply(w1,w2){const E=MATRA_TO[wordFinal(w1)]||wordFinal(w1),S=MATRA_TO[[...w2][0]]||[...w2][0];const res=vowelSandhi(E,S);if(!res)return null;const w1b=[...w1],lc=w1b[w1b.length-1];if(MATRA_SET.has(lc)||SVAR_SET.has(lc))w1b.pop();const w2r=[...w2];if(SVAR_SET.has(w2r[0]))w2r.shift();return{seg1:w1,seg2:w2,joined:w1b.join('')+res.r+w2r.join(''),desc:res.desc,rule:res.rule};}}];
+function computeSandhi(){const w1=currentWord,w2=document.getElementById('sandhiInput2').value.trim();if(!w1||!w2){document.getElementById('sandhiResult').innerHTML=`<div class="sandhi-none">Enter a second word.</div>`;return;}const t1=tokenize(w1),t2=tokenize(w2);const ec=t1[t1.length-1]?.raw||'',sc=t2[0]?.raw||t2[0]?.d||'';let fired=null;for(const rule of SANDHI_RULES){if(rule.test(ec,sc,w1)){const r=rule.apply(w1,w2);if(r){fired={...rule,result:r};break;}}}if(!fired){document.getElementById('sandhiResult').innerHTML=`<div class="sandhi-none">No automatic sandhi rule fired — words remain separate.</div>`;return;}const r=fired.result;document.getElementById('sandhiResult').innerHTML=`<div class="sandhi-row"><span class="sandhi-seg seg-a">${r.seg1}</span><span class="seg-plus">+</span><span class="sandhi-seg seg-b">${r.seg2}</span><span class="seg-arrow">→</span><span class="seg-result">${r.joined}</span><span class="sandhi-rule">${r.desc||fired.desc}</span></div><div style="margin-top:8px;">${fired.sutra?`<span class="sandhi-sutra">${fired.sutra} · </span>`:''}<span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--text-soft);">${r.desc||fired.desc}</span>${r.note?`<br><span style="font-size:.78rem;color:var(--text-faint);font-style:italic;">${r.note}</span>`:''}</div>`;}
+
+/* ════════ SAMJNA ════════ */
+const SAMJNA_DB=[{name:'टि संज्ञा',sutra:'१.१.६४',sutraText:'अचोऽन्त्यादि टि',def:'From last vowel to word-end.',cat:'phon',applies(w,t){const{tiIdx,tiStr}=computeTiUp(t);if(tiIdx<0)return null;return`टि of <span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> = <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${tiStr}</span>`;}},{name:'उपधा संज्ञा',sutra:'१.१.६५',sutraText:'अलोऽन्त्यात् पूर्व उपधा',def:'Phoneme before the final sound.',cat:'phon',applies(w,t){const{upTok}=computeTiUp(t);if(!upTok)return null;return`उपधा = <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${upTok.d}</span>`;}},{name:'वृद्धि संज्ञा',sutra:'१.१.१',sutraText:'वृद्धिरादैच्',def:'आ, ऐ, औ are called vṛddhi.',cat:'phon',applies(w,t){const f=t.filter(x=>x.t==='s'&&VRIDDHI.has(x.d)).map(x=>x.d);if(!f.length)return null;return`Contains: <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${[...new Set(f)].join(', ')}</span>`;}},{name:'गुण संज्ञा',sutra:'१.१.२',sutraText:'अदेङ्गुणः',def:'अ, ए, ओ are called guṇa.',cat:'phon',applies(w,t){const f=t.filter(x=>x.t==='s'&&GUNA.has(x.d)).map(x=>x.d);if(!f.length)return null;return`Contains: <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${[...new Set(f)].join(', ')}</span>`;}},{name:'संयोग संज्ञा',sutra:'१.१.७',sutraText:'हलोऽनन्तराः संयोगः',def:'Consecutive consonants without vowel.',cat:'phon',applies(w,t){const cls=[];let r=[];t.forEach(x=>{if(x.t==='v'){r.push(x.d);}else{if(r.length>=2)cls.push(r.join(''));r=[];}});if(r.length>=2)cls.push(r.join(''));if(!cls.length)return null;return`Saṃyoga: <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${cls.join(', ')}</span>`;}},{name:'अनुनासिक',sutra:'१.१.८',sutraText:'मुखनासिकावचनोऽनुनासिकः',def:'Mouth+nose sounds.',cat:'phon',applies(w,t){const nas=new Set(['न','म','ङ','ञ','ण']);const f=t.filter(x=>x.t==='a'||x.t==='v'&&[...x.raw].some(c=>nas.has(c)));if(!f.length)return null;return`Nasals: <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${f.map(x=>x.d).join(', ')}</span>`;}},{name:'सवर्ण',sutra:'१.१.९',sutraText:'तुल्यास्यप्रयत्नं सवर्णम्',def:'Same place and manner of articulation.',cat:'phon',applies(w,t){const vs=new Set(t.filter(x=>x.t==='v').map(x=>{const b=[...x.raw][0];return VARGA_MAP[b];}).filter(Boolean));if(!vs.size)return null;return`Classes: <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">${[...vs].join(', ')}</span>`;}},{name:'संहिता',sutra:'१.४.१०९',sutraText:'परः सन्निकर्षः संहिता',def:'Close proximity of sounds.',cat:'phon',applies(w,t){return t.length>1?`${t.length} phoneme units in saṃhitā`:null;}},{name:'लोप संज्ञा',sutra:'१.१.६०',sutraText:'अदर्शनं लोपः',def:'Elision of a phoneme.',cat:'phon',applies(w,t,c){return c.kind==='halant'?`Final न् undergoes लोप`:null;}},{name:'इत् संज्ञा',sutra:'१.३.३',sutraText:'हलन्त्यम्',def:'Final consonant of marker = it.',cat:'phon',applies(w){const c=[...w];return c[c.length-1]===HALANT?`हलन्त ending — it-marked`:null;}},{name:'प्रातिपदिक',sutra:'१.२.४५',sutraText:'अर्थवदधातुरप्रत्ययः प्रातिपदिकम्',def:'Meaningful non-root non-suffix.',cat:'nom',applies(w,t,c){return c.kind!=='pronoun'?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> is a प्रातिपदिकम्`:null;}},{name:'पद संज्ञा',sutra:'१.४.१४',sutraText:'सुप्तिङन्तं पदम्',def:'Sup/tiṅ-ending = grammatical word.',cat:'nom',applies(w){return`Forms of <span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> are each a पद`;}},{name:'घि संज्ञा',sutra:'१.४.७',sutraText:'शेषो घ्यसखि',def:'Short-ī and short-ū stems.',cat:'nom',applies(w,t,c){return(c.id==='i_mas'||c.id==='u_mas')?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> is घि`:null;}},{name:'नदी संज्ञा',sutra:'१.४.३',sutraText:'यू स्ट्र्याख्यौ नदी',def:'Long-ī / long-ū feminine stems.',cat:'nom',applies(w){return(w.endsWith('ी')||w.endsWith('ू'))?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> qualifies as नदी`:null;}},{name:'सर्वनाम',sutra:'१.१.२७',sutraText:'सर्वादीनि सर्वनामानि',def:'Pronoun class.',cat:'nom',applies(w,t,c){return c.kind==='pronoun'?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> is सर्वनाम`:null;}},{name:'विसर्जनीय',sutra:'८.३.१५',sutraText:'खरवसानयोर्विसर्जनीयः',def:'Sibilant before hard consonant/pause → visarga.',cat:'sandhi',applies(w,t){return t.some(x=>x.t==='x')?`Visarga present`:null;}},{name:'अनुस्वार',sutra:'८.३.२३',sutraText:'मोऽनुस्वारः',def:'म् before consonant → anusvāra.',cat:'sandhi',applies(w,t){return t.some(x=>x.t==='a')?`Anusvāra present`:null;}},{name:'संयोगान्त-लोप',sutra:'८.२.२३',sutraText:'संयोगान्तस्य लोपः',def:'Final cluster consonant dropped.',cat:'sandhi',applies(w,t,c){return c.kind==='halant'?`न् of <span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> undergoes संयोगान्त-लोप`:null;}},{name:'धातु संज्ञा',sutra:'१.३.१',sutraText:'भूवादयो धातवः',def:'Verbal roots are called dhātu.',cat:'deriv',applies(w){return DERIVATIONS[w]?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> derives from a धातु`:null;}},{name:'ण्वुल् प्रत्यय',sutra:'३.१.१३३',sutraText:'ण्वुल्तृचौ',def:'Suffix ṇvul → agent noun.',cat:'deriv',applies(w){return new Set(['बालक','पाठक','नायक','लेखक','चन्दन']).has(w)?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> ← root + ण्वुल्`:null;}},{name:'घञ् प्रत्यय',sutra:'३.३.१८',sutraText:'भावे',def:'Suffix ghañ forms bhāva nouns.',cat:'deriv',applies(w){return new Set(['राम','योग','काम']).has(w)?`<span style="font-family:'Tiro Devanagari Sanskrit'">${w}</span> ← root + घञ्`:null;}},{name:'सः-आदेश',sutra:'७.२.८६',sutraText:'तस्मात् सोः',def:'tad → saḥ in M nom sg.',cat:'pron',applies(w,t,c){return c._canon==='तद्'?`Prathama eka = <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">सः</span>`:null;}},{name:'अयम्-आदेश',sutra:'७.२.१०५',sutraText:'इदोऽय पुंसि',def:'Idam → ayam in M nom sg.',cat:'pron',applies(w,t,c){return c._canon==='अयम्'?`Prathama eka = <span style="font-family:'Tiro Devanagari Sanskrit';color:var(--gold)">अयम्</span>`:null;}}];
+const SUTRA_DB=[{num:'१.१.६४',sa:'अचोऽन्त्यादि टि',en:'From last vowel to word-end = ṭi',applies(w,t){const{tiIdx,tiStr}=computeTiUp(t);return tiIdx>=0?`टि = <span class="sa">${tiStr}</span>`:null;}},{num:'१.१.६५',sa:'अलोऽन्त्यात् पूर्व उपधा',en:'Sound before last = upadhā',applies(w,t){const{upTok}=computeTiUp(t);return upTok?`उपधा = <span class="sa">${upTok.d}</span>`:null;}},{num:'१.४.१०९',sa:'परः सन्निकर्षः संहिता',en:'Close contact of sounds = saṃhitā',applies(w,t){return t.length>1?`${t.length} phoneme units`:null;}},{num:'१.२.४५',sa:'अर्थवदधातुरप्रत्ययः प्रातिपदिकम्',en:'Non-root non-suffix = prātipadika',applies(w,t,c){return c.kind!=='pronoun'?`<span class="sa">${w}</span> is प्रातिपदिकम्`:null;}},{num:'१.४.१४',sa:'सुप्तिङन्तं पदम्',en:'Sup/tiṅ-ending = grammatical word',applies(w){return`Forms of <span class="sa">${w}</span> are each a पद`;}},{num:'४.१.२',sa:'स्वौजसमौट्…',en:'The 21 sup-suffixes',applies(w,t,c){return c.kind!=='pronoun'?`Applied to stem of <span class="sa">${w}</span>`:null;}},{num:'८.३.१५',sa:'खरवसानयोर्विसर्जनीयः',en:'Sibilant before hard/pause → visarga',applies(w,t){return t.some(x=>x.t==='x')?`Visarga in <span class="sa">${w}</span>`:null;}},{num:'८.२.२३',sa:'संयोगान्तस्य लोपः',en:'Final cluster consonant dropped',applies(w,t,c){return c.kind==='halant'?`न् of <span class="sa">${w}</span>`:null;}},{num:'७.२.८६',sa:'तस्मात् सोः',en:'tad → saḥ (M nom sg)',applies(w,t,c){return c._canon==='तद्'?`<span class="sa">सः</span>`:null;}},{num:'३.१.१३३',sa:'ण्वुल्तृचौ',en:'Suffix ṇvul → agent noun',applies(w){return new Set(['बालक','पाठक','चन्दन']).has(w)?`<span class="sa">${w}</span> ← ण्वुल्`:null;}}];
+
+/* ════════ DERIVATIONS ════════ */
+const DERIVATIONS={'राम':{steps:['रमु','रम् + घञ्','वृद्धि → राम'],final:'राम',dhatu:'रमु',note:'root रमु "to delight"'},'बालक':{steps:['बाल','बाल + क'],final:'बालक',note:'diminutive suffix -ka'},'लता':{steps:['लत्','लत् + अ','+ आ (टाप्)'],final:'लता',dhatu:'लत्',note:'root लत् + fem. ā'},'मुनि':{steps:['मन्','मन् + इन्'],final:'मुनि',dhatu:'मन्',note:'root मन् "to think"'},'साधु':{steps:['साध्','साध् + उ'],final:'साधु',dhatu:'साध्',note:'root साध् + u-suffix'},'राजन्':{steps:['राज्','राज् + अन्'],final:'राजन्',dhatu:'राज्',note:'root राज् + an-suffix'},'फल':{steps:['फल्','फल् + अ'],final:'फल',dhatu:'फल्',note:'root फल्'},'चन्दन':{steps:['चन्दि','चन्द् + अन (ण्वुल्)'],final:'चन्दन',dhatu:'चन्दि',note:'root चन्दि + ṇvul'},'नायक':{steps:['नी','नी + ण्वुल्','नाय + क'],final:'नायक',dhatu:'नी',note:'root नी'},'पाठक':{steps:['पठ्','पठ् + ण्वुल्','पाठ + क'],final:'पाठक',dhatu:'पठ्',note:'root पठ्'},'देव':{steps:['दिव्','दिव् + अच्','वृद्धि → देव'],final:'देव',dhatu:'दिव्',note:'root दिव्'},'शान्ति':{steps:['शम्','शम् + क्तिन्'],final:'शान्ति',dhatu:'शम्',note:'root शम्'},'भक्ति':{steps:['भज्','भज् + क्तिन्'],final:'भक्ति',dhatu:'भज्',note:'root भज्'},'ज्ञान':{steps:['ज्ञा','ज्ञा + ल्युट्'],final:'ज्ञान',dhatu:'ज्ञा',note:'root ज्ञा'},'कर्म':{steps:['कृ','कृ + मन्','संप्रसारण → कर्म'],final:'कर्म',dhatu:'कृ',note:'root कृ + man'},'योग':{steps:['युज्','युज् + घञ्','वृद्धि → योग'],final:'योग',dhatu:'युज्',note:'root युज्'},'धर्म':{steps:['धृ','धृ + मन्'],final:'धर्म',dhatu:'धृ',note:'root धृ'},'पुष्प':{steps:['पुष्','पुष् + प'],final:'पुष्प',dhatu:'पुष्',note:'root पुष्'},'काम':{steps:['कम्','कम् + घञ्'],final:'काम',note:'root कम्'}};
+
+/* ════════ DECLENSION ════════ */
+const VIB=[{n:'1',sa:'प्रथमा',en:'Nominative'},{n:'2',sa:'द्वितीया',en:'Accusative'},{n:'3',sa:'तृतीया',en:'Instrumental'},{n:'4',sa:'चतुर्थी',en:'Dative'},{n:'5',sa:'पञ्चमी',en:'Ablative'},{n:'6',sa:'षष्ठी',en:'Genitive'},{n:'7',sa:'सप्तमी',en:'Locative'},{n:'8',sa:'सम्बोधन',en:'Vocative'}];
+function buildNStem(w){const c=[...w],base=(c[c.length-1]===HALANT&&c[c.length-2]==='न')?c.slice(0,-2).join(''):w;return[[base+'ा',base+'ानौ',base+'ानः'],[base+'ानम्',base+'ानौ',base+'्ञः'],[base+'्ञा',base+'ाभ्याम्',base+'ाभिः'],[base+'्ञे',base+'ाभ्याम्',base+'ाभ्यः'],[base+'्ञः',base+'ाभ्याम्',base+'ाभ्यः'],[base+'्ञः',base+'्ञोः',base+'ाम्'],[base+'्ञि',base+'्ञोः',base+'सु'],[base+'न्',base+'ानौ',base+'ानः']];}
+const PRONOUNS={'अहम्':{typeEn:'1st Person',typeSa:'अस्मद्',badge:'bs',hasGender:false,note:'No gender, no vocative.',forms:[['अहम्','आवाम्','वयम्'],['माम्','आवाम्','अस्मान्'],['मया','आवाभ्याम्','अस्माभिः'],['मह्यम्','आवाभ्याम्','अस्मभ्यम्'],['मत्','आवाभ्याम्','अस्मत्'],['मम','आवयोः','अस्माकम्'],['मयि','आवयोः','अस्मासु'],['—','—','—']]},'त्वम्':{typeEn:'2nd Person',typeSa:'युष्मद्',badge:'bs',hasGender:false,note:'No gender, no vocative.',forms:[['त्वम्','युवाम्','यूयम्'],['त्वाम्','युवाम्','युष्मान्'],['त्वया','युवाभ्याम्','युष्माभिः'],['तुभ्यम्','युवाभ्याम्','युष्मभ्यम्'],['त्वत्','युवाभ्याम्','युष्मत्'],['तव','युवयोः','युष्माकम्'],['त्वयि','युवयोः','युष्मासु'],['—','—','—']]},'तद्':{typeEn:'Pronoun tad',typeSa:'सर्वनाम तद्',badge:'bs',hasGender:true,note:'',genders:{m:{label:'पुं॰ M',typeSa:'तद् पुंलिंग',note:'Prathama eka: सः.',forms:[['सः','तौ','ते'],['तम्','तौ','तान्'],['तेन','ताभ्याम्','तैः'],['तस्मै','ताभ्याम्','तेभ्यः'],['तस्मात्','ताभ्याम्','तेभ्यः'],['तस्य','तयोः','तेषाम्'],['तस्मिन्','तयोः','तेषु'],['—','—','—']]},f:{label:'स्त्री॰ F',typeSa:'तद् स्त्रीलिंग',note:'',forms:[['सा','ते','ताः'],['ताम्','ते','ताः'],['तया','ताभ्याम्','ताभिः'],['तस्यै','ताभ्याम्','ताभ्यः'],['तस्याः','ताभ्याम्','ताभ्यः'],['तस्याः','तयोः','तासाम्'],['तस्याम्','तयोः','तासु'],['—','—','—']]},n:{label:'न॰ Nt',typeSa:'तद् नपुंसकलिंग',note:'',forms:[['तत्','ते','तानि'],['तत्','ते','तानि'],['तेन','ताभ्याम्','तैः'],['तस्मै','ताभ्याम्','तेभ्यः'],['तस्मात्','ताभ्याम्','तेभ्यः'],['तस्य','तयोः','तेषाम्'],['तस्मिन्','तयोः','तेषु'],['—','—','—']]}}},'अयम्':{typeEn:'Pronoun idam',typeSa:'सर्वनाम इदम्',badge:'bs',hasGender:true,note:'',genders:{m:{label:'पुं॰ M',typeSa:'इदम् पुंलिंग',note:'Stems: ay-, im-, an-/en-.',forms:[['अयम्','इमौ','इमे'],['इमम्','इमौ','इमान्'],['अनेन','आभ्याम्','एभिः'],['अस्मै','आभ्याम्','एभ्यः'],['अस्मात्','आभ्याम्','एभ्यः'],['अस्य','अनयोः','एषाम्'],['अस्मिन्','अनयोः','एषु'],['—','—','—']]},f:{label:'स्त्री॰ F',typeSa:'इदम् स्त्रीलिंग',note:'',forms:[['इयम्','इमे','इमाः'],['इमाम्','इमे','इमाः'],['अनया','आभ्याम्','आभिः'],['अस्यै','आभ्याम्','आभ्यः'],['अस्याः','आभ्याम्','आभ्यः'],['अस्याः','अनयोः','आसाम्'],['अस्याम्','अनयोः','आसु'],['—','—','—']]},n:{label:'न॰ Nt',typeSa:'इदम् नपुंसकलिंग',note:'',forms:[['इदम्','इमे','इमानि'],['इदम्','इमे','इमानि'],['अनेन','आभ्याम्','एभिः'],['अस्मै','आभ्याम्','एभ्यः'],['अस्मात्','आभ्याम्','एभ्यः'],['अस्य','अनयोः','एषाम्'],['अस्मिन्','अनयोः','एषु'],['—','—','—']]}}},'सर्व':{typeEn:'Pronoun sarva',typeSa:'सर्वनाम सर्व',badge:'bs',hasGender:true,note:'',genders:{m:{label:'पुं॰ M',typeSa:'सर्व पुंलिंग',note:'',forms:[['सर्वः','सर्वौ','सर्वे'],['सर्वम्','सर्वौ','सर्वान्'],['सर्वेण','सर्वाभ्याम्','सर्वैः'],['सर्वस्मै','सर्वाभ्याम्','सर्वेभ्यः'],['सर्वस्मात्','सर्वाभ्याम्','सर्वेभ्यः'],['सर्वस्य','सर्वयोः','सर्वेषाम्'],['सर्वस्मिन्','सर्वयोः','सर्वेषु'],['—','—','—']]},f:{label:'स्त्री॰ F',typeSa:'सर्व स्त्रीलिंग',note:'',forms:[['सर्वा','सर्वे','सर्वाः'],['सर्वाम्','सर्वे','सर्वाः'],['सर्वया','सर्वाभ्याम्','सर्वाभिः'],['सर्वस्यै','सर्वाभ्याम्','सर्वाभ्यः'],['सर्वस्याः','सर्वाभ्याम्','सर्वाभ्यः'],['सर्वस्याः','सर्वयोः','सर्वासाम्'],['सर्वस्याम्','सर्वयोः','सर्वासु'],['—','—','—']]},n:{label:'न॰ Nt',typeSa:'सर्व नपुंसकलिंग',note:'',forms:[['सर्वम्','सर्वे','सर्वाणि'],['सर्वम्','सर्वे','सर्वाणि'],['सर्वेण','सर्वाभ्याम्','सर्वैः'],['सर्वस्मै','सर्वाभ्याम्','सर्वेभ्यः'],['सर्वस्मात्','सर्वाभ्याम्','सर्वेभ्यः'],['सर्वस्य','सर्वयोः','सर्वेषाम्'],['सर्वस्मिन्','सर्वयोः','सर्वेषु'],['—','—','—']]}}}};
+const NEUTER=new Set(['फल','पुष्प','जल','वन','पत्र','धन','मन','नभ','मुख','वस्त्र','अन्न','क्षेत्र','कर्म','धर्म','ज्ञान','गमन']);
+const SUFFIX_DECLS=[{id:'aa_fem',typeEn:'Ā-stem Feminine',typeSa:'आ-कारान्त स्त्री॰',badge:'baa',detect:w=>w.endsWith('ा'),stem:w=>w.endsWith('ा')?w.slice(0,-1):w,suffixes:[['ा','े','ाः'],['ाम्','े','ाः'],['या','ाभ्याम्','ाभिः'],['ायै','ाभ्याम्','ाभ्यः'],['ायाः','ाभ्याम्','ाभ्यः'],['ायाः','योः','ानाम्'],['ायाम्','योः','ासु'],['े','े','ाः']]},{id:'i_mas',typeEn:'I-stem Masculine',typeSa:'इ-कारान्त पुं॰',badge:'bi',detect:w=>w.endsWith('ि'),stem:w=>w.slice(0,-1),suffixes:[['िः','ी','यः'],['िम्','ी','ीन्'],['िना','िभ्याम्','िभिः'],['ये','िभ्याम्','िभ्यः'],['ेः','िभ्याम्','िभ्यः'],['ेः','्योः','ीनाम्'],['ौ','्योः','िषु'],['े','ी','यः']]},{id:'u_mas',typeEn:'U-stem Masculine',typeSa:'उ-कारान्त पुं॰',badge:'bu',detect:w=>w.endsWith('ु'),stem:w=>w.slice(0,-1),suffixes:[['ुः','ू','वः'],['ुम्','ू','ून्'],['ुना','ुभ्याम्','ुभिः'],['वे','ुभ्याम्','ुभ्यः'],['ोः','ुभ्याम्','ुभ्यः'],['ोः','्वोः','ूनाम्'],['ौ','्वोः','ुषु'],['ो','ू','वः']]},{id:'a_neu',typeEn:'A-stem Neuter',typeSa:'अ-कारान्त न॰',badge:'ba',detect:w=>NEUTER.has(w),stem:w=>w,suffixes:[['म्','े','ानि'],['म्','े','ानि'],['ेन','ाभ्याम्','ैः'],['ाय','ाभ्याम्','ेभ्यः'],['ात्','ाभ्याम्','ेभ्यः'],['स्य','योः','ाणाम्'],['े','योः','ेषु'],['','े','ानि']]},{id:'a_mas',typeEn:'A-stem Masculine',typeSa:'अ-कारान्त पुं॰',badge:'ba',detect:()=>true,stem:w=>w,suffixes:[['ः','ौ','ाः'],['म्','ौ','ान्'],['ेन','ाभ्याम्','ैः'],['ाय','ाभ्याम्','ेभ्यः'],['ात्','ाभ्याम्','ेभ्यः'],['स्य','योः','ाणाम्'],['े','योः','ेषु'],['','ौ','ाः']]}];
+const ALIASES={'तत्':'तद्','सः':'तद्','सा':'तद्','इयम्':'अयम्','इदम्':'अयम्','अस्मद्':'अहम्','युष्मद्':'त्वम्'};
+function isNStem(w){const c=[...w];return c.length>=2&&c[c.length-1]===HALANT&&c[c.length-2]==='न';}
+function detectDecl(w){const canon=ALIASES[w]||w;if(PRONOUNS[canon])return{kind:'pronoun',...PRONOUNS[canon],_canon:canon};if(isNStem(w))return{kind:'halant',typeEn:'N-stem',typeSa:'न-कारान्त हलन्त',badge:'bh',note:'Sandhi forms pre-computed.',forms:buildNStem(w)};if(NEUTER.has(w))return{kind:'suffix',...SUFFIX_DECLS.find(d=>d.id==='a_neu')};return{kind:'suffix',...SUFFIX_DECLS.find(d=>d.detect(w))};}
+
+/* ════════ STATE ════════ */
+let currentConfig=null,currentGender='m',quizMode=false,samjnaCollapsed=false,currentWord='';
+const history=[];
+function updateHistory(w){if(!history.includes(w))history.unshift(w);if(history.length>6)history.pop();const row=document.getElementById('historyRow'),chips=document.getElementById('historyChips');if(history.length){row.style.display='flex';chips.innerHTML=history.map(h=>`<span class="hist-chip" onclick="load('${h}')">${h}</span>`).join('');}}
+const wordInput=document.getElementById('wordInput'),clrBtn=document.getElementById('clrBtn'),resultArea=document.getElementById('resultArea');
+wordInput.addEventListener('input',()=>{clrBtn.style.display=wordInput.value?'block':'none';});
+wordInput.addEventListener('keydown',e=>{if(e.key==='Enter')runEngine();});
+clrBtn.addEventListener('click',()=>{wordInput.value='';clrBtn.style.display='none';wordInput.focus();resultArea.style.display='none';quizMode=false;currentWord='';});
+document.getElementById('sandhiInput2').addEventListener('keydown',e=>{if(e.key==='Enter')computeSandhi();});
+function load(w){wordInput.value=w;clrBtn.style.display='block';runEngine();}
+function toggleSamjna(){samjnaCollapsed=!samjnaCollapsed;document.getElementById('samjnaGrid').classList.toggle('collapsed',samjnaCollapsed);document.getElementById('samjnaArr').classList.toggle('open',!samjnaCollapsed);}
+function printSheet(){document.getElementById('printTitle').textContent=`${currentWord} — Declension & Analysis`;window.print();}
+
+
+function renderPrakriya(word){
+  const el=document.getElementById('ppContent');
+  const e=PRAKRIYA_DB[word];
+  if(!e){
+    el.innerHTML=`<div class="pp-not-found">
+      <span class="pp-sa">इस शब्द का प्रकृति-प्रत्यय विवरण अभी हमारे स्थानीय शब्दकोश में उपलब्ध नहीं है।</span>
+      This word's etymological details are not yet in our local dictionary. The database currently covers ${Object.keys(PRAKRIYA_DB).length} words.
+    </div>`;
+    return;
+  }
+  const BADGE_CLASS={krit:'pp-krit',taddhit:'pp-taddhit',stri:'pp-stri',samas:'pp-samas',other:'pp-other'};
+  const bc=BADGE_CLASS[e.t]||'pp-other';
+  el.innerHTML=`<div class="pp-found">
+    <!-- Formula result bar -->
+    <div class="pp-result">
+      <span class="pp-result-word">${word}</span>
+      <span class="pp-result-eq">=</span>
+      <span class="pp-formula">
+        <span class="pp-root">${e.r}</span>
+        <span class="pp-plus">+</span>
+        <span class="pp-suf">${e.p}</span>
+      </span>
+      <span class="pp-badge ${bc}">${e.t_sa} · ${e.t_en}</span>
+    </div>
+    <!-- Blocks row -->
+    <div class="pp-row">
+      <div class="pp-block">
+        <span class="pp-block-lbl">प्रकृति · Root</span>
+        <span class="pp-block-sa">${e.r}</span>
+        <span class="pp-block-en">${e.r_en}</span>
+      </div>
+      <div class="pp-arrow">→</div>
+      <div class="pp-block">
+        <span class="pp-block-lbl">प्रत्यय · Suffix</span>
+        <span class="pp-block-sa">${e.p}</span>
+        <span class="pp-block-en">${e.p_en}</span>
+      </div>
+      <div class="pp-arrow">→</div>
+      <div class="pp-block" style="border-left:3px solid var(--gold-dim);">
+        <span class="pp-block-lbl">अर्थ · Meaning</span>
+        <span class="pp-block-sa" style="color:var(--gold-lt);">${word}</span>
+        <span class="pp-block-en">${e.meaning}</span>
+      </div>
+    </div>
+    <!-- Process & Sutra -->
+    <div class="pp-sutra-row">
+      ${e.sutra?`<span class="pp-sutra-tag"><b>सूत्र:</b> ${e.sutra}</span>`:''}
+      ${e.process?`<span class="pp-sutra-tag"><b>प्रक्रिया:</b> ${e.process}</span>`:''}
+    </div>
+  </div>`;
+}
+
+/* switchGender: re-run analysis with a specific gender selected */
+function switchGender(word, linga){
+  document.getElementById('lingaSelect').value=linga;
+  document.getElementById('wordInput').value=word;
+  runEngine();
+}
+function runEngine(){
+  const raw=wordInput.value.trim();if(!raw)return;
+  quizMode=false;currentGender='m';currentWord=raw;
+  currentConfig=detectDecl(raw);
+  updateHistory(raw);
+  document.getElementById('sandhiWord1').textContent=raw;
+  document.getElementById('sandhiResult').innerHTML='';
+  document.getElementById('sandhiInput2').value='';
+
+  // ── Read vacana selection ──
+  const vacanaSel=document.getElementById('vacanaSelect').value;
+  const LINGA_LABELS={auto:'स्वयं निर्धारित',P:'पुंलिङ्ग',S:'स्त्रीलिङ्ग',N:'नपुंसकलिङ्ग',A:'उभयलिङ्ग'};
+  const VACANA_LABELS={all:'सर्वाणि',0:'एकवचन',1:'द्विवचन',2:'बहुवचन'};
+
+  // ── Auto-detect linga: PRAKRIYA_DB first, then SHABDA_DB, then user selection ──
+  const ppEntry=(typeof PRAKRIYA_DB!=='undefined')?PRAKRIYA_DB[raw]:null;
+  const dbEntryForLinga=(typeof SHABDA_DB!=='undefined')?SHABDA_DB[raw]:null;
+  let autoLinga=null;
+  if(ppEntry&&ppEntry.g){
+    // PRAKRIYA_DB has explicit gender — use it (highest priority)
+    autoLinga=ppEntry.g;
+  } else if(dbEntryForLinga&&dbEntryForLinga.l){
+    // SHABDA_DB has linga from the word list
+    autoLinga=dbEntryForLinga.l;
+  }
+  // Apply auto-detected linga to dropdown if found, else keep user's choice
+  // For multi-gender DB words, also consider if dropdown is 'auto'
+  if(autoLinga){
+    document.getElementById('lingaSelect').value=autoLinga;
+  }
+  const lingaSel=document.getElementById('lingaSelect').value;
+
+  // Show linga-vacana bar
+  const lvBar=document.getElementById('lvBar');
+  lvBar.style.display='flex';
+  const variantHint=dbVariants&&dbVariants.length>1?`<span style="font-size:.6rem;color:var(--gold-dim);margin-left:4px;">(${dbVariants.length} variants)</span>`:(autoLinga?'<span style="font-size:.6rem;color:var(--gold-dim);margin-left:4px;">(auto)</span>':'');
+  document.getElementById('lvLinga').innerHTML=(LINGA_LABELS[lingaSel]||lingaSel)+variantHint;
+  document.getElementById('lvVacana').textContent=VACANA_LABELS[vacanaSel]||vacanaSel;
+  document.getElementById('lvWord').textContent=raw;
+
+  // If linga is manually set and DB entry has matching gender forms, prefer that gender
+  // (used later in table rendering)
+  const manualLinga=(lingaSel!=='auto')?lingaSel:null;
+
+  const toks=tokenize(raw);
+  const{tiIdx,tiStr,upIdx,upTok}=computeTiUp(toks);
+
+  document.getElementById('rootDisp').textContent=raw;
+
+  // ── Check SHABDA_DB: handles single {l,f} AND multi-gender [{l,f},{l,f}] ──
+  const dbRaw=(typeof SHABDA_DB!=='undefined')?SHABDA_DB[raw]:null;
+  const LINGA_LABEL={P:'पुंलिंग · Masc',S:'स्त्रीलिंग · Fem',N:'नपुंसकलिंग · Neut',A:'उभयलिंग'};
+  const LINGA_CLASS={P:'lb-p',S:'lb-s',N:'lb-n',A:'lb-a'};
+
+  // Normalise to array of variants always
+  let dbVariants=null;
+  if(dbRaw){
+    dbVariants=Array.isArray(dbRaw)?dbRaw:[dbRaw];
+  }
+
+  // Pick the variant that matches current lingaSelect
+  // Priority: exact linga match → first variant
+  let dbEntry=null;
+  if(dbVariants){
+    const userLinga=document.getElementById('lingaSelect').value;
+    if(userLinga!=='auto'){
+      dbEntry=dbVariants.find(v=>v.l===userLinga)||dbVariants[0];
+    } else {
+      // auto: prefer variant matching autoLinga (from PRAKRIYA_DB), else first
+      dbEntry=dbVariants.find(v=>v.l===autoLinga)||dbVariants[0];
+    }
+  }
+
+  if(dbEntry){
+    // Show meaning tile
+    const mt=document.getElementById('meaningTile');
+    const md=document.getElementById('meaningDisp');
+    const vd=document.getElementById('vyutpattiDisp');
+    mt.style.display='block';
+    let mhtml='';
+    if(dbEntry.e)mhtml+=`<span class="meaning-en">${dbEntry.e}</span>`;
+    if(dbEntry.h)mhtml+=`<span class="meaning-hin">${dbEntry.h}</span>`;
+    // Show ALL available genders as clickable badges
+    if(dbVariants.length>1){
+      mhtml+=` <span style="font-size:.68rem;color:var(--text-soft);font-family:'Libre Baskerville',serif;font-style:italic;margin-left:4px;">Available in:</span>`;
+      dbVariants.forEach(v=>{
+        const isActive=v.l===dbEntry.l;
+        mhtml+=`<span class="linga-badge ${LINGA_CLASS[v.l]||'lb-p'}" style="cursor:pointer;${isActive?'':'opacity:.5;'}" onclick="switchGender('${raw}','${v.l}')" title="Click to see ${LINGA_LABEL[v.l]} forms">${LINGA_LABEL[v.l]||v.l}</span>`;
+      });
+    } else {
+      if(dbEntry.l)mhtml+=`<span class="linga-badge ${LINGA_CLASS[dbEntry.l]||'lb-p'}">${LINGA_LABEL[dbEntry.l]||dbEntry.l}</span>`;
+    }
+    md.innerHTML=mhtml;
+    let vhtml='';
+    if(dbEntry.v)vhtml+=`<span style="color:var(--text-soft);font-style:italic;">${dbEntry.v}</span>`;
+    vhtml+=`<span class="db-source">शब्दपाठ-सूची · Pre-stored correct forms${dbVariants.length>1?' · '+dbVariants.length+' gender variants':''}</span>`;
+    vd.innerHTML=vhtml;
+    document.getElementById('rootSub').textContent='';
+  } else {
+    document.getElementById('meaningTile').style.display='none';
+    document.getElementById('rootSub').textContent=DERIVATIONS[raw]?.note||'';
+  }
+
+  document.getElementById('vichedDisp').innerHTML=renderVichedHTML(toks,tiIdx,upIdx);
+  let tu='';
+  if(tiIdx>=0)tu+=`<span style="color:var(--gold-lt)">●</span> <b style="color:var(--gold)">टि</b> = <span style="font-family:'Tiro Devanagari Sanskrit'">${tiStr}</span>&nbsp;&nbsp;`;
+  if(upTok)tu+=`<span style="color:#C090F0">●</span> <b style="color:#B080E0">उपधा</b> = <span style="font-family:'Tiro Devanagari Sanskrit'">${upTok.d}</span>`;
+  document.getElementById('tiUpDisp').innerHTML=tu;
+
+  let stemHtml;
+  if(currentConfig.kind==='suffix'){const s=currentConfig.stem(raw);stemHtml=`<span style="color:var(--blue-root);font-weight:600">${s||'—'}</span><span style="font-size:.75rem;color:var(--text-soft);font-style:italic;margin-left:7px;">(${currentConfig.typeSa})</span>`;}
+  else if(currentConfig.kind==='halant'){const b=[...raw].slice(0,-2).join('');stemHtml=`<span style="color:var(--gold-lt);font-weight:600">${b}</span><span style="font-size:.75rem;color:var(--text-soft);font-style:italic;margin-left:7px;">strong: ${b}ान् / weak: ${b}्ञ</span>`;}
+  else stemHtml=`<span style="font-size:.82rem;color:var(--text-soft);font-style:italic;">Suppletive</span>`;
+  document.getElementById('stemDisp').innerHTML=stemHtml;
+
+  const deriv=DERIVATIONS[raw],ds=document.getElementById('derivSection');
+  if(deriv&&!dbEntry){ds.style.display='block';const stepsHtml=deriv.steps.map(s=>'<span class="dc-step">'+s+'</span><span class="dc-arrow">→</span>').join('');document.getElementById('derivChain').innerHTML='<div class="deriv-chain">'+stepsHtml+'<span class="dc-final">'+deriv.final+'</span></div>';const dl=document.getElementById('dhatuLink');if(deriv.dhatu&&DHATU_BY_ROOT[deriv.dhatu]){const d=DHATU_BY_ROOT[deriv.dhatu];dl.innerHTML='<span style="color:var(--gold-dim)">धातु:</span> '+d.root+' ('+d.iast+') · '+ganaLabel(d.gana)+' · '+d.meaning;}else dl.innerHTML='';}else ds.style.display='none';
+
+  const fired=SAMJNA_DB.map(s=>{const r=s.applies(raw,toks,currentConfig);return r?{...s,result:r}:null;}).filter(Boolean);
+  document.getElementById('samjnaCount').textContent=`${fired.length} applicable`;
+  const catLabel={phon:'Phonological',nom:'Nominal',sandhi:'Sandhi',pron:'Pronoun',deriv:'Derivational'};
+  document.getElementById('samjnaGrid').innerHTML=fired.map(s=>`<div class="sc ${s.cat}"><span class="sc-cat">${catLabel[s.cat]}</span><span class="sc-name">${s.name}</span><span class="sc-sutra">${s.sutra} · ${s.sutraText}</span><span class="sc-def">${s.def}</span><span class="sc-val">${s.result}</span></div>`).join('')||`<div style="font-style:italic;color:var(--text-soft);">No saṃjñās tagged.</div>`;
+
+  const sutFired=SUTRA_DB.map(s=>{const r=s.applies(raw,toks,currentConfig);return r?{...s,result:r}:null;}).filter(Boolean);
+  document.getElementById('sutraPanel').innerHTML=sutFired.map(s=>`<div class="sutra-entry"><div class="sutra-num">${s.num}</div><div><span class="sutra-text">${s.sa}</span><span class="sutra-en">${s.en}</span><span class="sutra-apply">${s.result}</span></div></div>`).join('')||`<div style="font-style:italic;color:var(--text-soft);">No sūtras fired.</div>`;
+
+  document.getElementById('detRow').innerHTML=`<span class="det-w">${raw}</span><span class="det-arr">→</span><span class="det-badge ${currentConfig.badge}">${currentConfig.typeEn}</span><span class="det-meta">${currentConfig.typeSa}</span>`;
+
+  const gRow=document.getElementById('genderRow');
+  if(currentConfig.kind==='pronoun'&&currentConfig.hasGender){gRow.style.display='flex';['m','f','n'].forEach(g=>document.getElementById('gen'+g.toUpperCase()).classList.toggle('active',g==='m'));}
+  else gRow.style.display='none';
+
+  const la=document.getElementById('legendArea'),fn=document.getElementById('fixedNote');
+
+  // ── Render declension table(s) — all genders simultaneously ──
+  document.getElementById('quizBtn').classList.remove('active');
+  document.getElementById('quizControls').style.display='none';
+  document.getElementById('quizScore').textContent='';
+
+  const LINGA_META={
+    P:{cls:'gh-masc',sa:'पुंलिङ्ग',   en:'Masculine'},
+    S:{cls:'gh-fem', sa:'स्त्रीलिङ्ग',en:'Feminine'},
+    N:{cls:'gh-neut',sa:'नपुंसकलिङ्ग',en:'Neuter'},
+    A:{cls:'gh-ubi', sa:'उभयलिङ्ग',   en:'Common Gender'},
+  };
+
+  function buildTableRows(forms24, vacana){
+    let rows='';
+    VIB.forEach((v,i)=>{
+      const isVoc=i===7;
+      const e=forms24[i*3]||'—',d=forms24[i*3+1]||'—',b=forms24[i*3+2]||'—';
+      let cells;
+      if(vacana==='all'){
+        cells=`<td><span class="form ff">${e}</span></td><td><span class="form ff">${d}</span></td><td><span class="form ff">${b}</span></td>`;
+      } else {
+        const dim='style="opacity:.35;"';
+        cells=vacana==='0'
+          ?`<td><span class="form ff">${e}</span></td><td ${dim}><span class="form ff">${d}</span></td><td ${dim}><span class="form ff">${b}</span></td>`
+          :vacana==='1'
+          ?`<td ${dim}><span class="form ff">${e}</span></td><td><span class="form ff">${d}</span></td><td ${dim}><span class="form ff">${b}</span></td>`
+          :`<td ${dim}><span class="form ff">${e}</span></td><td ${dim}><span class="form ff">${d}</span></td><td><span class="form ff">${b}</span></td>`;
+      }
+      rows+=`<tr class="${isVoc?'voc':''}"><td><span class="vnum">${v.n}</span><span class="vsa">${v.sa}</span><span class="ven">${v.en}</span></td>${cells}</tr>`;
+    });
+    return rows;
+  }
+
+  function buildGenderSection(variant,vacana){
+    const m=LINGA_META[variant.l]||LINGA_META['P'];
+    const rows=buildTableRows(variant.f,vacana);
+    return `<div class="gender-section"><div class="gender-header ${m.cls}"><span class="gh-sa">${m.sa}</span><span class="gh-en">&nbsp;·&nbsp;${m.en}</span></div><table><thead><tr><th style="text-align:left;">Vibhakti · विभक्ति</th><th>एकवचन</th><th>द्विवचन</th><th>बहुवचन</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+
+  const tableWrap=document.getElementById('tableBody');
+  const mainTable=document.getElementById('mainTable');
+
+  if(dbVariants&&dbVariants.length>0){
+    la.style.display='none';fn.style.display='none';
+    if(dbVariants.length>1){
+      mainTable.style.display='none';
+      let multiHTML=`<div class="multi-gender-note">यह शब्द ${dbVariants.length} लिङ्गों में प्रयुक्त होता है · This word appears in ${dbVariants.length} genders — all forms shown below</div>`;
+      dbVariants.forEach(v=>{if(v.f&&v.f.length===24)multiHTML+=buildGenderSection(v,vacanaSel);});
+      let cont=document.getElementById('multiGenderCont');
+      if(!cont){cont=document.createElement('div');cont.id='multiGenderCont';mainTable.parentNode.insertBefore(cont,mainTable);}
+      cont.innerHTML=multiHTML;cont.style.display='block';
+    } else {
+      mainTable.style.display='';
+      const cont=document.getElementById('multiGenderCont');
+      if(cont)cont.style.display='none';
+      const forms=dbVariants[0].f;
+      if(forms&&forms.length===24){
+        tableWrap.innerHTML=buildTableRows(forms,vacanaSel);
+      }
+    }
+  } else {
+    mainTable.style.display='';
+    const cont=document.getElementById('multiGenderCont');
+    if(cont)cont.style.display='none';
+    if(currentConfig.kind==='suffix'){
+      la.style.display='flex';
+      la.innerHTML=`<div class="leg-item"><div class="leg-sw lsr"></div><span class="leg-lbl">Stem</span></div><div class="leg-item"><div class="leg-sw lss"></div><span class="leg-lbl">Suffix</span></div>`;
+      fn.style.display='none';
+    }else{
+      la.style.display='none';
+      const note=currentConfig.kind==='pronoun'&&currentConfig.hasGender?currentConfig.genders['m'].note||currentConfig.note:currentConfig.note;
+      fn.style.display=note?'block':'none';fn.textContent=note||'';
+    }
+    renderDeclTable(raw);
+  }
+
+    renderPrakriya(raw);
+  resultArea.style.display='block';resultArea.style.animation='none';resultArea.offsetHeight;resultArea.style.animation='';
+  resultArea.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  // ── Highlight selected vacana column ──
+  if(vacanaSel!=='all'){
+    const colIdx=parseInt(vacanaSel);  // 0=eka, 1=dvi, 2=bahu
+    document.querySelectorAll('#mainTable tbody tr').forEach(tr=>{
+      [...tr.querySelectorAll('td')].forEach((td,i)=>{
+        // col 0=vibhakti label, 1=eka, 2=dvi, 3=bahu
+        if(i===colIdx+1){
+          td.style.background='rgba(200,144,0,.1)';
+          td.style.borderLeft='2px solid var(--gold-dim)';
+        } else if(i>0){
+          td.style.opacity='0.45';
+        }
+      });
+    });
+  }
+}
+
+function setGender(g){currentGender=g;['m','f','n'].forEach(x=>document.getElementById('gen'+x.toUpperCase()).classList.toggle('active',x===g));const cfg=currentConfig;if(cfg?.kind==='pronoun'&&cfg.hasGender){const gd=cfg.genders[g];const fn=document.getElementById('fixedNote');fn.style.display=gd.note?'block':'none';fn.textContent=gd.note||'';document.getElementById('detRow').querySelector('.det-meta').textContent=gd.typeSa||cfg.typeSa;}quizMode?renderQuizTable(wordInput.value.trim()):renderDeclTable(wordInput.value.trim());}
+function getRows(cfg,raw){if(cfg.kind==='pronoun'&&cfg.hasGender)return{mode:'fixed',rows:cfg.genders[currentGender].forms};if(cfg.kind==='pronoun')return{mode:'fixed',rows:cfg.forms};if(cfg.kind==='halant')return{mode:'fixed',rows:cfg.forms};return{mode:'suffix',stem:cfg.stem(raw),suffixes:cfg.suffixes};}
+function renderDeclTable(raw){const cfg=currentConfig,{mode,rows,stem,suffixes}=getRows(cfg,raw);let html='';VIB.forEach((v,i)=>{const isVoc=i===7;let cells;if(mode==='suffix'){const[e,d,b]=suffixes[i];const c=s=>`<span class="form"><span class="rt">${stem}</span><span class="sf">${s}</span></span>`;cells=`<td>${isVoc?'<span class="voc-he">हे </span>':''}${c(e)}</td><td>${c(d)}</td><td>${c(b)}</td>`;}else{const[e,d,b]=rows[i];cells=[e,d,b].map(f=>`<td><span class="form ff">${f}</span></td>`).join('');}html+=`<tr class="${isVoc?'voc':''}"><td><span class="vnum">${v.n}</span><span class="vsa">${v.sa}</span><span class="ven">${v.en}</span></td>${cells}</tr>`;});document.getElementById('tableBody').innerHTML=html;}
+function renderQuizTable(raw){const cfg=currentConfig,{mode,rows,stem,suffixes}=getRows(cfg,raw);let html='';VIB.forEach((v,i)=>{const isVoc=i===7;let cells;if(mode==='suffix'){const[e,d,b]=suffixes[i];cells=[stem+e,stem+d,stem+b].map(ans=>`<td class="qc"><input class="quiz-input" data-answer="${ans}" placeholder="…"></td>`).join('');}else{const[e,d,b]=rows[i];cells=[e,d,b].map(ans=>`<td class="qc"><input class="quiz-input" data-answer="${ans}" placeholder="…"${ans==='—'?` value="—" readonly`:''} ></td>`).join('');}html+=`<tr class="${isVoc?'voc':''}"><td><span class="vnum">${v.n}</span><span class="vsa">${v.sa}</span><span class="ven">${v.en}</span></td>${cells}</tr>`;});document.getElementById('tableBody').innerHTML=html;}
+function toggleQuiz(){quizMode=!quizMode;document.getElementById('quizBtn').classList.toggle('active',quizMode);document.getElementById('quizControls').style.display=quizMode?'flex':'none';document.getElementById('quizScore').textContent='';if(quizMode)renderQuizTable(wordInput.value.trim());else renderDeclTable(wordInput.value.trim());}
+function checkQuiz(){const ins=[...document.querySelectorAll('#mainTable .quiz-input:not([readonly])')];let ok=0;ins.forEach(i=>{if(i.value.trim()===i.dataset.answer){i.classList.add('correct');i.classList.remove('wrong');ok++;}else{i.classList.add('wrong');i.classList.remove('correct');}});document.getElementById('quizScore').innerHTML=`Score: <b>${ok} / ${ins.length}</b>`;}
+function revealQuiz(){document.querySelectorAll('#mainTable .quiz-input:not([readonly])').forEach(i=>{i.value=i.dataset.answer;i.classList.add('correct');i.classList.remove('wrong');});const n=document.querySelectorAll('#mainTable .quiz-input:not([readonly])').length;document.getElementById('quizScore').innerHTML=`Score: <b>${n} / ${n}</b>`;}
+function copyTable(){const rows=document.querySelectorAll('#mainTable tbody tr');let t='Vibhakti\tEkavachana\tDvivachana\tBahuvachana\n';rows.forEach((r,i)=>{const cells=[...r.querySelectorAll('td')];const vib=VIB[i].sa+' ('+VIB[i].en+')';const cols=cells.slice(1).map(c=>{const inp=c.querySelector('input');return inp?inp.dataset.answer||inp.value:c.textContent.replace(/\s+/g,' ').trim();});t+=vib+'\t'+cols.join('\t')+'\n';});navigator.clipboard.writeText(t).then(()=>{const b=document.getElementById('copyBtn');b.classList.add('copy-ok');b.textContent='✓ Copied!';setTimeout(()=>{b.classList.remove('copy-ok');b.textContent='⎘ Copy Table';},2000);});}
+
+
+</script>
+</body>
+</html>
