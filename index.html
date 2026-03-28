@@ -14,21 +14,54 @@
 
 <style>
 :root{
-  --bg:#090703;--bg2:#110E07;--bg3:#171309;--panel:#1B1709;
-  --border:#2C260E;--border2:#3E3618;
-  --text:#F0E6CC;--text-mid:#C8B880;--text-soft:#887848;--text-faint:#564830;
-  --gold:#C89000;--gold-dim:#785600;--gold-lt:#E0B040;
-  --crimson:#8A1010;--saffron:#B84000;
-  --blue-root:#4A8ACA;--red-suf:#C05040;
-  --glow:rgba(200,144,0,.1);
-  --c-phon:#4A7AAA;--c-nom:#4A9A6A;--c-sandhi:#9A6ACA;--c-pron:#C06050;--c-deriv:#8A8A3A;
+  /* ══ Warm Parchment · Gold Accent · Light Theme ══
+     Cream/ivory manuscript paper with classic gold ink.
+     All colours carefully chosen for WCAG AA contrast
+     on bright parchment backgrounds.                  */
+
+  /* Backgrounds — layered warm ivory */
+  --bg:       #FAF4E8;   /* outer page — lightest parchment   */
+  --bg2:      #F3EAD5;   /* inset areas — mid parchment       */
+  --bg3:      #EBE0C5;   /* deep inset — rich parchment       */
+  --panel:    #FFFDF6;   /* card surface — warm near-white    */
+
+  /* Borders — warm tan, not grey */
+  --border:   #D4BC88;   /* main border                       */
+  --border2:  #BEA468;   /* strong border                     */
+
+  /* Text — dark walnut browns for maximum readability */
+  --text:      #1E1408;  /* near-black brown — body text      */
+  --text-mid:  #3C2808;  /* heading-level brown               */
+  --text-soft: #6B4E1E;  /* secondary / label text            */
+  --text-faint:#9A7A3A;  /* placeholder / disabled text       */
+
+  /* Gold accent palette — kept as requested */
+  --gold:     #9A6800;   /* classic dark gold                 */
+  --gold-dim: #7A5000;   /* deep gold — borders, sutra nums   */
+  --gold-lt:  #C48A00;   /* bright gold — highlights          */
+  --glow:     rgba(154,104,0,.12);
+
+  /* Functional colours */
+  --crimson:  #8A1010;   /* brand header — unchanged          */
+  --saffron:  #A84800;   /* warm saffron-orange               */
+
+  /* Morphology colours — stem & suffix */
+  --blue-root:#1A4E8A;   /* stem highlight — ink blue         */
+  --red-suf:  #922020;   /* suffix highlight — manuscript red */
+
+  /* Category accent colours */
+  --c-phon:   #1E5C8A;   /* Phonological — ink blue           */
+  --c-nom:    #1A6B3A;   /* Nominal — forest green            */
+  --c-sandhi: #6A1E7A;   /* Sandhi — royal purple             */
+  --c-pron:   #8A2A18;   /* Pronoun — deep red                */
+  --c-deriv:  #5A5A10;   /* Derivational — olive              */
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scrollbar-width:thin;scrollbar-color:var(--border) var(--bg);}
-body{background:var(--bg);background-image:radial-gradient(ellipse at 15% 0%,rgba(200,144,0,.07) 0%,transparent 55%),radial-gradient(ellipse at 85% 100%,rgba(138,16,16,.05) 0%,transparent 50%);min-height:100vh;font-family:'Cormorant Garamond',Georgia,serif;color:var(--text);display:flex;flex-direction:column;align-items:center;}
+body{background:var(--bg);background-image:radial-gradient(ellipse at 20% -10%,rgba(220,180,80,.18) 0%,transparent 45%),radial-gradient(ellipse at 80% 110%,rgba(138,16,16,.06) 0%,transparent 40%);min-height:100vh;font-family:'Cormorant Garamond',Georgia,serif;color:var(--text);display:flex;flex-direction:column;align-items:center;}
 
 /* ── BRAND HEADER ── */
-.brand-header{width:100%;background:linear-gradient(135deg,rgba(138,16,16,.92),rgba(80,8,8,.96));border-bottom:1px solid rgba(200,144,0,.3);padding:14px 24px;display:flex;align-items:center;gap:18px;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(0,0,0,.5);}
+.brand-header{width:100%;background:linear-gradient(135deg,rgba(138,16,16,.92),rgba(80,8,8,.96));border-bottom:1px solid rgba(200,144,0,.3);padding:14px 24px;display:flex;align-items:center;gap:18px;position:sticky;top:0;z-index:100;box-shadow:0 3px 16px rgba(60,20,5,.25);}
 .brand-logo{width:56px;height:56px;border-radius:8px;border:2px solid rgba(200,144,0,.5);object-fit:cover;}
 .brand-logo-fb{width:56px;height:56px;border-radius:8px;border:2px solid rgba(200,144,0,.5);background:rgba(200,144,0,.1);display:flex;align-items:center;justify-content:center;font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.5rem;color:var(--gold);}
 .brand-text{flex:1;}
@@ -44,22 +77,22 @@ body{background:var(--bg);background-image:radial-gradient(ellipse at 15% 0%,rgb
 h1{font-family:'Tiro Devanagari Sanskrit',serif;font-size:2.5rem;font-weight:400;color:var(--text);line-height:1.1;}
 .mast-sub{font-family:'Libre Baskerville',serif;font-style:italic;font-size:.8rem;color:var(--text-soft);margin-top:5px;}
 .mast-rule{display:flex;align-items:center;gap:10px;margin:14px auto 0;max-width:380px;}
-.mrl{flex:1;height:1px;background:var(--border2);}.mrd{width:5px;height:5px;transform:rotate(45deg);background:var(--gold);}
+.mrl{flex:1;height:1px;background:var(--border2);}.mrd{width:5px;height:5px;transform:rotate(45deg);background:var(--gold);opacity:.7;}
 
 /* ── CARDS ── */
-.card{background:var(--panel);border:1px solid var(--border);border-radius:2px;padding:22px 26px;margin-bottom:14px;box-shadow:0 4px 24px rgba(0,0,0,.6);}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:2px;padding:22px 26px;margin-bottom:14px;box-shadow:0 2px 12px rgba(60,35,8,.1),0 1px 3px rgba(60,35,8,.06);}
 .sec-lbl{font-family:'Libre Baskerville',serif;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-soft);display:flex;align-items:center;gap:10px;margin-bottom:14px;}
 .sec-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
 
 /* ── INPUT ── */
 .input-row{display:flex;gap:10px;align-items:stretch;}
 .iw{flex:1;position:relative;}
-input[type=text]{width:100%;padding:12px 40px 12px 14px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.4rem;color:var(--text);background:var(--bg2);border:1px solid var(--border);border-radius:2px;outline:none;line-height:1.4;transition:border-color .2s,box-shadow .2s;}
+input[type=text]{width:100%;padding:12px 40px 12px 14px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.4rem;color:var(--text);background:#FFFFFE;border:1px solid var(--border);border-radius:2px;outline:none;line-height:1.4;transition:border-color .2s,box-shadow .2s;}
 input[type=text]::placeholder{color:var(--text-faint);font-style:italic;font-size:1rem;}
-input[type=text]:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--glow);}
+input[type=text]:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--glow);}
 .clr-btn{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-faint);font-size:.85rem;padding:4px;display:none;}
 .clr-btn:hover{color:var(--saffron);}
-.go-btn{padding:12px 24px;background:var(--crimson);color:#fff;border:none;border-radius:2px;font-family:'Libre Baskerville',serif;font-size:.88rem;font-style:italic;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 3px 12px rgba(138,16,16,.5);transition:background .2s,transform .1s;}
+.go-btn{padding:12px 24px;background:var(--crimson);color:#fff;border:none;border-radius:2px;font-family:'Libre Baskerville',serif;font-size:.88rem;font-style:italic;font-weight:700;cursor:pointer;white-space:nowrap;box-shadow:0 3px 14px rgba(120,14,14,.35);transition:background .2s,transform .1s;}
 .go-btn:hover{background:#6A0808;}.go-btn:active{transform:translateY(1px);}
 
 /* ── PILLS ── */
@@ -68,10 +101,10 @@ input[type=text]:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--g
 .pill-sep{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint);font-family:'Libre Baskerville',serif;}
 .pill{padding:3px 11px;border-radius:999px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:.9rem;cursor:pointer;border:1px solid;transition:opacity .15s,transform .1s;line-height:1.7;}
 .pill:hover{opacity:.65;transform:translateY(-1px);}
-.pa{background:rgba(74,154,106,.1);border-color:rgba(74,154,106,.3);color:#5ACA7A;}
-.paa{background:rgba(184,68,8,.1);border-color:rgba(184,68,8,.3);color:#E07040;}
-.pn{background:rgba(74,122,170,.1);border-color:rgba(74,122,170,.3);color:#80B0E0;}
-.hist-chip{padding:3px 11px;border-radius:999px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:.88rem;cursor:pointer;border:1px solid var(--border2);background:rgba(200,144,0,.06);color:var(--text-mid);transition:opacity .15s,transform .1s;line-height:1.7;}
+.pa{background:rgba(20,90,48,.08);border-color:rgba(20,90,48,.3);color:#145A30;}
+.paa{background:rgba(168,72,0,.08);border-color:rgba(168,72,0,.3);color:#A84800;}
+.pn{background:rgba(26,62,122,.08);border-color:rgba(26,62,122,.3);color:#1A3E7A;}
+.hist-chip{padding:3px 11px;border-radius:999px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:.88rem;cursor:pointer;border:1px solid var(--border);background:rgba(154,104,0,.07);color:var(--text-mid);transition:opacity .15s,transform .1s;line-height:1.7;}
 .hist-chip:hover{opacity:.7;transform:translateY(-1px);}
 
 /* ── SELECTORS ── */
@@ -79,7 +112,7 @@ input[type=text]:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--g
 .selector-group{display:flex;flex-direction:column;gap:4px;flex:1;min-width:155px;}
 .selector-lbl{font-family:'Libre Baskerville',serif;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-soft);}
 .selector-lbl span{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.82rem;letter-spacing:0;text-transform:none;color:var(--text-mid);margin-left:4px;}
-.elegant-select{width:100%;padding:9px 30px 9px 13px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:.98rem;color:var(--text);background:var(--bg2);border:1px solid var(--border2);border-radius:2px;outline:none;cursor:pointer;line-height:1.5;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23785600'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;transition:border-color .2s;}
+.elegant-select{width:100%;padding:9px 30px 9px 13px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:.98rem;color:var(--text);background:#FFFFFE;border:1px solid var(--border2);border-radius:2px;outline:none;cursor:pointer;line-height:1.5;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23785600'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;transition:border-color .2s;}
 .elegant-select:focus{border-color:var(--gold-dim);}
 .elegant-select option{background:var(--bg2);color:var(--text);}
 
@@ -88,7 +121,7 @@ input[type=text]:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--g
 .db-dot{width:7px;height:7px;border-radius:50%;background:var(--border2);display:inline-block;flex-shrink:0;transition:background .5s;}
 
 /* ── LV BAR ── */
-.lv-bar{display:flex;gap:12px;flex-wrap:wrap;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:2px;margin-bottom:14px;align-items:center;}
+.lv-bar{display:flex;gap:12px;flex-wrap:wrap;padding:10px 14px;background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--border);border-radius:2px;margin-bottom:14px;align-items:center;}
 .lv-item{display:flex;flex-direction:column;gap:2px;}
 .lv-key{font-family:'Libre Baskerville',serif;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-faint);}
 .lv-val{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.05rem;color:var(--gold-lt);}
@@ -97,7 +130,7 @@ input[type=text]:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--g
 /* ── AGRID ── */
 .agrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:14px;}
 @media(max-width:540px){.agrid{grid-template-columns:1fr;}}
-.atile{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--gold-dim);border-radius:2px;padding:12px 14px;}
+.atile{background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--border);border-left:3px solid var(--gold-dim);border-radius:2px;padding:12px 14px;}
 .atile-lbl{font-family:'Libre Baskerville',serif;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-soft);margin-bottom:5px;}
 .atile-val{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;color:var(--text);line-height:1.6;}
 .atile-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.8rem;color:var(--text-soft);margin-top:3px;}
@@ -107,10 +140,10 @@ input[type=text]:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--g
 .vtok{display:inline-flex;flex-direction:column;align-items:center;gap:2px;}
 .vtok-ch{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.25rem;line-height:1.3;padding:4px 8px;border-radius:3px;min-width:34px;text-align:center;border:1px solid;}
 .vtok-lb{font-family:'Cormorant Garamond',serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;}
-.tv .vtok-ch{color:#5ACA7A;border-color:rgba(74,154,106,.3);background:rgba(74,154,106,.07);}.tv .vtok-lb{color:#3A8A4A;}
-.ts .vtok-ch{color:var(--gold-lt);border-color:rgba(200,144,0,.3);background:rgba(200,144,0,.07);}.ts .vtok-lb{color:var(--gold-dim);}
-.ta .vtok-ch{color:#C090F0;border-color:rgba(154,106,202,.3);background:rgba(154,106,202,.07);}.ta .vtok-lb{color:#7A5AAA;}
-.tx .vtok-ch{color:#80B0E0;border-color:rgba(74,122,170,.3);background:rgba(74,122,170,.07);}.tx .vtok-lb{color:#4A6A9A;}
+.tv .vtok-ch{color:#145A30;border-color:rgba(20,90,48,.35);background:rgba(20,90,48,.09);}.tv .vtok-lb{color:#145A30;}
+.ts .vtok-ch{color:var(--gold);border-color:rgba(154,104,0,.35);background:rgba(154,104,0,.09);}.ts .vtok-lb{color:var(--gold);}
+.ta .vtok-ch{color:#5A1A7A;border-color:rgba(90,26,122,.35);background:rgba(90,26,122,.09);}.ta .vtok-lb{color:#5A1A7A;}
+.tx .vtok-ch{color:#1A3E7A;border-color:rgba(26,62,122,.35);background:rgba(26,62,122,.09);}.tx .vtok-lb{color:#1A3E7A;}
 .vtok.ti-mark .vtok-ch{outline:2px solid var(--gold);outline-offset:2px;}
 .vtok.up-mark .vtok-ch{outline:2px solid #C090F0;outline-offset:2px;}
 .tplus{font-size:.9rem;color:var(--text-faint);padding:0 2px;align-self:center;margin-bottom:18px;}
@@ -120,12 +153,12 @@ input[type=text]:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--g
 /* ── MEANING TILE ── */
 .meaning-en{font-family:'Cormorant Garamond',serif;font-size:.98rem;color:var(--text-mid);}
 .meaning-hin{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.92rem;color:var(--text-soft);margin-top:3px;display:block;}
-.db-source{font-size:.62rem;color:var(--gold-dim);font-family:'Libre Baskerville',serif;margin-top:5px;display:block;font-style:italic;}
+.db-source{font-size:.62rem;color:var(--gold);font-family:'Libre Baskerville',serif;margin-top:5px;display:block;font-style:italic;}
 .linga-badge{display:inline-block;padding:3px 10px;border-radius:999px;font-family:'Libre Baskerville',serif;font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-left:6px;cursor:pointer;transition:opacity .15s;}
 .linga-badge:hover{opacity:.7;}
-.lb-p{background:rgba(74,154,106,.15);color:#5ACA7A;border:1px solid rgba(74,154,106,.3);}
-.lb-s{background:rgba(192,80,80,.15);color:#E09090;border:1px solid rgba(192,80,80,.3);}
-.lb-n{background:rgba(74,122,170,.15);color:#80B0E0;border:1px solid rgba(74,122,170,.3);}
+.lb-p{background:rgba(20,90,48,.1);color:#145A30;border:1px solid rgba(20,90,48,.4);}
+.lb-s{background:rgba(146,32,32,.1);color:#922020;border:1px solid rgba(146,32,32,.4);}
+.lb-n{background:rgba(26,62,122,.1);color:#1A3E7A;border:1px solid rgba(26,62,122,.4);}
 .lb-a{background:rgba(200,148,8,.15);color:#E0B040;border:1px solid rgba(200,148,8,.3);}
 
 /* ── SAMJNA ── */
@@ -139,26 +172,26 @@ input[type=text]:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--g
 .cat-legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
 .cl-item{display:flex;align-items:center;gap:5px;font-size:.7rem;font-family:'Libre Baskerville',serif;color:var(--text-soft);}
 .cl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
-.sc{background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:12px 14px;border-left:3px solid;}
+.sc{background:linear-gradient(135deg,var(--panel),var(--bg2));border:1px solid var(--border);border-radius:2px;padding:12px 14px;border-left:3px solid;}
 .sc.phon{border-left-color:var(--c-phon);}.sc.nom{border-left-color:var(--c-nom);}.sc.sandhi{border-left-color:var(--c-sandhi);}.sc.pron{border-left-color:var(--c-pron);}.sc.deriv{border-left-color:var(--c-deriv);}
 .sc-cat{font-family:'Libre Baskerville',serif;font-size:.55rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:4px;}
 .sc.phon .sc-cat{color:var(--c-phon);}.sc.nom .sc-cat{color:var(--c-nom);}.sc.sandhi .sc-cat{color:var(--c-sandhi);}.sc.pron .sc-cat{color:var(--c-pron);}.sc.deriv .sc-cat{color:var(--c-deriv);}
 .sc-name{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.02rem;color:var(--text);display:block;line-height:1.4;margin-bottom:2px;}
 .sc-sutra{font-family:'Libre Baskerville',serif;font-size:.66rem;color:var(--gold-dim);display:block;margin-bottom:5px;}
 .sc-def{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--text-soft);display:block;margin-bottom:6px;line-height:1.4;}
-.sc-val{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.92rem;background:rgba(200,144,0,.08);border:1px solid rgba(200,144,0,.2);border-radius:2px;padding:4px 8px;color:var(--gold-lt);display:block;line-height:1.5;}
+.sc-val{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.92rem;background:rgba(154,104,0,.08);border:1px solid rgba(154,104,0,.25);border-radius:2px;padding:4px 8px;color:var(--gold);display:block;line-height:1.5;}
 
 /* ── SUTRA ── */
-.sutra-entry{display:grid;grid-template-columns:auto 1fr;gap:0 14px;padding:10px 0;border-bottom:1px solid rgba(80,70,30,.5);align-items:start;}
+.sutra-entry{display:grid;grid-template-columns:auto 1fr;gap:0 14px;padding:10px 0;border-bottom:1px solid rgba(120,96,48,.25);align-items:start;}
 .sutra-entry:last-child{border-bottom:none;padding-bottom:0;}
-.sutra-num{font-family:'Libre Baskerville',serif;font-size:.73rem;font-weight:700;letter-spacing:.04em;color:#D4A840;white-space:nowrap;padding-top:2px;min-width:66px;}
-.sutra-text{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.98rem;color:var(--text-mid);line-height:1.4;display:block;margin-bottom:2px;}
+.sutra-num{font-family:'Libre Baskerville',serif;font-size:.73rem;font-weight:700;letter-spacing:.04em;color:var(--gold);white-space:nowrap;padding-top:2px;min-width:66px;}
+.sutra-text{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.98rem;color:var(--text);line-height:1.4;display:block;margin-bottom:2px;}
 .sutra-en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.8rem;color:var(--text-soft);display:block;margin-bottom:3px;}
 .sutra-apply{font-family:'Cormorant Garamond',serif;font-size:.84rem;color:var(--gold-lt);display:block;}
 
 /* ── PRAKRITI-PRATYAYA ── */
 .pp-found{display:flex;flex-direction:column;gap:14px;}
-.pp-result{background:rgba(200,144,0,.08);border:1px solid rgba(200,144,0,.25);border-radius:2px;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.pp-result{background:rgba(154,104,0,.07);border:1px solid rgba(154,104,0,.3);border-radius:2px;padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 .pp-result-word{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.6rem;color:var(--gold-lt);}
 .pp-result-eq{color:var(--text-faint);}
 .pp-root{color:#5ACA7A;font-weight:600;font-family:'Tiro Devanagari Sanskrit',serif;}
@@ -169,13 +202,13 @@ input[type=text]:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px var(--g
 .pp-taddhit{background:rgba(74,122,170,.15);color:#80B0E0;border:1px solid rgba(74,122,170,.3);}
 .pp-stri{background:rgba(192,80,80,.15);color:#E09090;border:1px solid rgba(192,80,80,.3);}
 .pp-row{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;}
-.pp-block{flex:1;min-width:130px;background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:12px 14px;}
+.pp-block{flex:1;min-width:130px;background:var(--panel);border:1px solid var(--border);border-radius:2px;padding:12px 14px;}
 .pp-block-lbl{font-family:'Libre Baskerville',serif;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-soft);margin-bottom:6px;display:block;}
 .pp-block-sa{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.15rem;color:var(--text);display:block;line-height:1.4;}
 .pp-block-en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.8rem;color:var(--text-soft);display:block;margin-top:2px;}
 .pp-arrow{font-size:1.3rem;color:var(--text-faint);align-self:center;flex-shrink:0;}
 .pp-sutra-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
-.pp-sutra-tag{font-family:'Libre Baskerville',serif;font-size:.68rem;padding:3px 10px;border-radius:2px;background:var(--bg3);border:1px solid var(--border2);color:var(--text-soft);font-style:italic;}
+.pp-sutra-tag{font-family:'Libre Baskerville',serif;font-size:.68rem;padding:3px 10px;border-radius:2px;background:#FFFFFE;border:1px solid var(--border2);color:var(--text-soft);font-style:italic;}
 .pp-sutra-tag b{font-style:normal;color:var(--gold-dim);}
 .pp-not-found{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.94rem;color:var(--text-soft);padding:8px 0;line-height:1.7;}
 .pp-not-found .pp-sa{font-family:'Tiro Devanagari Sanskrit',serif;font-style:normal;color:var(--text-mid);display:block;margin-bottom:4px;font-size:1rem;}
@@ -192,9 +225,9 @@ table{width:100%;border-collapse:collapse;}
 thead tr{border-bottom:1px solid var(--border2);}
 th{padding:9px;font-family:'Libre Baskerville',serif;font-size:.62rem;font-weight:400;font-style:italic;letter-spacing:.1em;text-transform:uppercase;color:var(--text-soft);text-align:center;}
 th:first-child{text-align:left;}
-tbody tr{border-bottom:1px solid rgba(80,70,30,.35);transition:background .15s;}
+tbody tr{border-bottom:1px solid rgba(160,128,64,.25);transition:background .15s;}
 tbody tr:last-child{border-bottom:none;}
-tbody tr:hover{background:rgba(200,144,0,.04);}
+tbody tr:hover{background:rgba(180,96,0,.06);}
 tbody tr.voc{opacity:.75;}
 td{padding:9px;text-align:center;vertical-align:middle;}
 td:first-child{text-align:left;padding-left:0;}
@@ -202,32 +235,32 @@ td:first-child{text-align:left;padding-left:0;}
 .vsa{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;color:var(--text);display:block;line-height:1.5;}
 .ven{font-size:.65rem;color:var(--text-faint);font-style:italic;display:block;}
 .form{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.08rem;line-height:1.5;white-space:nowrap;}
-.rt{color:var(--blue-root);background:rgba(74,138,202,.08);padding:1px 0;border-radius:2px;}
-.sf{color:var(--red-suf);background:rgba(192,80,64,.08);padding:1px 0;border-radius:2px;}
-.ff{color:var(--text);}
+.rt{color:var(--blue-root);background:rgba(26,78,138,.09);padding:1px 3px;border-radius:2px;}
+.sf{color:var(--red-suf);background:rgba(146,32,32,.09);padding:1px 3px;border-radius:2px;}
+.ff{color:var(--text);font-weight:500;}
 .voc-he{font-size:.64rem;color:var(--text-faint);}
 
 /* ── CLICKABLE TABLE CELLS ── */
 .form.clickable{cursor:pointer;border-radius:3px;padding:2px 4px;transition:color .15s,background .15s;}
-.form.clickable:hover{color:var(--gold-lt)!important;background:rgba(200,144,0,.14)!important;}
-.form.clickable.active{color:var(--gold-lt)!important;background:rgba(200,144,0,.18)!important;outline:1px solid rgba(200,144,0,.45);}
+.form.clickable:hover{color:var(--gold)!important;background:rgba(154,104,0,.1)!important;}
+.form.clickable.active{color:var(--gold)!important;background:rgba(154,104,0,.12)!important;outline:1px solid rgba(154,104,0,.5);}
 
 /* ── MULTI-GENDER STACKED TABLES ── */
-.gender-section{margin-bottom:16px;border:1px solid var(--border);border-radius:2px;overflow:hidden;}
+.gender-section{margin-bottom:16px;border:1px solid var(--border);border-radius:2px;overflow:hidden;background:var(--panel);}
 .gender-section:last-child{margin-bottom:0;}
 .gender-header{display:flex;align-items:center;gap:10px;padding:10px 14px;font-family:'Libre Baskerville',serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
 .gh-sa{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.98rem;letter-spacing:0;text-transform:none;font-weight:400;}
 .gh-en{font-style:italic;font-weight:400;opacity:.7;font-size:.66rem;}
-.gh-masc{background:rgba(74,154,106,.12);color:#5ACA7A;border-bottom:1px solid rgba(74,154,106,.25);}
-.gh-fem{background:rgba(192,80,80,.12);color:#E09090;border-bottom:1px solid rgba(192,80,80,.25);}
-.gh-neut{background:rgba(74,122,170,.12);color:#80B0E0;border-bottom:1px solid rgba(74,122,170,.25);}
+.gh-masc{background:rgba(20,90,48,.1);color:#145A30;border-bottom:1px solid rgba(20,90,48,.3);}
+.gh-fem{background:rgba(146,32,32,.08);color:#922020;border-bottom:1px solid rgba(146,32,32,.28);}
+.gh-neut{background:rgba(26,62,122,.08);color:#1A3E7A;border-bottom:1px solid rgba(26,62,122,.28);}
 .gh-ubi{background:rgba(200,148,8,.12);color:#E0B040;border-bottom:1px solid rgba(200,148,8,.25);}
-.multi-gender-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.84rem;color:var(--text-soft);margin-bottom:12px;padding:8px 12px;background:var(--bg2);border-left:3px solid var(--gold-dim);border-radius:0 2px 2px 0;}
+.multi-gender-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.84rem;color:var(--text-soft);margin-bottom:12px;padding:8px 12px;background:var(--bg2);border-left:3px solid var(--gold);border-radius:0 2px 2px 0;}
 
 /* ── प्रक्रिया PANEL ── */
-.prakriya-panel{background:var(--bg2);border:1px solid var(--gold-dim);border-radius:2px;margin-top:16px;overflow:hidden;display:none;animation:rUp .25s ease both;}
+.prakriya-panel{background:var(--panel);border:1px solid var(--gold-dim);border-radius:2px;margin-top:16px;overflow:hidden;display:none;animation:rUp .25s ease both;}
 .prakriya-panel.visible{display:block;}
-.prakriya-hd{background:linear-gradient(90deg,rgba(200,144,0,.12),transparent);border-bottom:1px solid rgba(200,144,0,.2);padding:12px 18px;display:flex;align-items:center;gap:12px;}
+.prakriya-hd{background:linear-gradient(90deg,rgba(154,104,0,.1),transparent);border-bottom:1px solid rgba(200,144,0,.2);padding:12px 18px;display:flex;align-items:center;gap:12px;}
 .prakriya-hd-title{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.05rem;color:var(--gold-lt);flex:1;}
 .prakriya-hd-sub{font-family:'Libre Baskerville',serif;font-style:italic;font-size:.68rem;color:var(--text-soft);}
 .prakriya-close{background:none;border:none;cursor:pointer;color:var(--text-faint);font-size:1rem;padding:4px 8px;border-radius:2px;transition:color .15s,background .15s;}
@@ -237,7 +270,7 @@ td:first-child{text-align:left;padding-left:0;}
 .prakriya-word-meta{font-family:'Libre Baskerville',serif;font-size:.72rem;color:var(--text-soft);font-style:italic;}
 .prakriya-steps{padding:16px 18px;display:flex;flex-direction:column;gap:10px;}
 .p-step{display:grid;grid-template-columns:28px 1fr;gap:0 12px;align-items:start;}
-.p-step-num{width:28px;height:28px;border-radius:50%;background:rgba(200,144,0,.15);border:1px solid rgba(200,144,0,.3);display:flex;align-items:center;justify-content:center;font-family:'Libre Baskerville',serif;font-size:.7rem;font-weight:700;color:var(--gold);flex-shrink:0;margin-top:2px;}
+.p-step-num{width:28px;height:28px;border-radius:50%;background:rgba(154,104,0,.12);border:1px solid rgba(154,104,0,.4);display:flex;align-items:center;justify-content:center;font-family:'Libre Baskerville',serif;font-size:.7rem;font-weight:700;color:var(--gold);flex-shrink:0;margin-top:2px;}
 .p-step-content{display:flex;flex-direction:column;gap:3px;}
 .p-step-rule{font-family:'Libre Baskerville',serif;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-soft);}
 .p-step-form{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.1rem;color:var(--text);line-height:1.5;}
@@ -246,7 +279,7 @@ td:first-child{text-align:left;padding-left:0;}
 .p-step-form .ch{color:var(--gold-lt);background:rgba(200,144,0,.1);padding:1px 3px;border-radius:2px;}
 .p-step-sutra{font-family:'Libre Baskerville',serif;font-style:italic;font-size:.68rem;color:var(--gold-dim);}
 .p-step-divider{grid-column:1;justify-self:center;color:var(--text-faint);font-size:.75rem;padding:2px 0;}
-.prakriya-none{padding:16px 18px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;color:var(--text-soft);font-style:italic;text-align:center;line-height:1.7;}
+.prakriya-none{padding:16px 18px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;color:var(--text-soft);font-style:italic;text-align:center;line-height:1.7;background:rgba(180,96,0,.04);border-radius:0 0 2px 2px;}
 .prakriya-none span{color:var(--text-mid);font-style:normal;display:block;font-size:1.05rem;margin-bottom:4px;}
 
 /* ── TOOLBAR ── */
@@ -257,17 +290,17 @@ td:first-child{text-align:left;padding-left:0;}
 
 /* ── DERIV CHAIN ── */
 .deriv-chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:.98rem;margin-top:8px;}
-.dc-step{padding:3px 10px;border:1px solid var(--border2);border-radius:2px;background:var(--bg3);color:var(--text-mid);}
+.dc-step{padding:3px 10px;border:1px solid var(--border);border-radius:2px;background:var(--bg2);color:var(--text-mid);}
 .dc-arrow{color:var(--text-faint);font-size:.85rem;}
-.dc-final{padding:3px 10px;border:1px solid var(--gold-dim);border-radius:2px;background:rgba(200,144,0,.1);color:var(--gold-lt);font-weight:600;}
+.dc-final{padding:3px 10px;border:1px solid var(--gold);border-radius:2px;background:rgba(154,104,0,.1);color:var(--gold);font-weight:700;}
 
 /* ── RESULT ── */
 .result{display:none;animation:rUp .3s ease both;}
 @keyframes rUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
 /* ── FOOTER ── */
-.brand-footer{width:100%;margin-top:16px;padding:18px 24px;border-top:1px solid rgba(200,144,0,.2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:rgba(138,16,16,.07);}
-.brand-footer-left{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.08rem;color:var(--gold);opacity:.85;}
+.brand-footer{width:100%;margin-top:16px;padding:18px 24px;border-top:1px solid rgba(154,104,0,.25);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:rgba(154,104,0,.04);}
+.brand-footer-left{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.08rem;color:var(--gold);}
 .brand-footer-right{font-family:'Libre Baskerville',serif;font-size:.72rem;color:var(--text-faint);text-align:right;line-height:1.6;}
 .brand-footer-right b{color:var(--text-soft);}
 @media(max-width:520px){.card{padding:14px 13px;}h1{font-size:2rem;}.form{font-size:.98rem;}}
@@ -278,9 +311,9 @@ td:first-child{text-align:left;padding-left:0;}
     .gender-tabs{display:flex;gap:0;border-bottom:1px solid var(--border2);flex-wrap:wrap;margin-bottom:14px;}
     .gender-tab{padding:8px 18px;font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;cursor:pointer;border:none;background:transparent;color:var(--text-soft);border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .18s,border-color .18s;line-height:1.6;white-space:nowrap;}
     .gender-tab:hover{color:var(--text-mid);}
-    .gender-tab.tab-m{color:#5ACA7A;border-bottom-color:#5ACA7A;}
-    .gender-tab.tab-s{color:#E09090;border-bottom-color:#E09090;}
-    .gender-tab.tab-n{color:#80B0E0;border-bottom-color:#80B0E0;}
+    .gender-tab.tab-m{color:#145A30;border-bottom-color:#1A6A3A;}
+    .gender-tab.tab-s{color:#922020;border-bottom-color:#A02020;}
+    .gender-tab.tab-n{color:#1A3E7A;border-bottom-color:#1A4A8A;}
     .gender-tab.tab-a{color:#E0B040;border-bottom-color:#E0B040;}
 
     /* ── TTS / Audio buttons ── */
@@ -294,7 +327,7 @@ td:first-child{text-align:left;padding-left:0;}
       border-radius:2px;
     }
     .tts-btn:hover{opacity:1!important;color:var(--gold);transform:scale(1.25);}
-    .tts-btn.speaking{opacity:1!important;color:var(--gold-lt);
+    .tts-btn.speaking{opacity:1!important;color:var(--gold);
       animation:tts-pulse .55s ease infinite alternate;}
     @keyframes tts-pulse{
       from{opacity:.5;transform:scale(.95);}
@@ -309,7 +342,7 @@ td:first-child{text-align:left;padding-left:0;}
     .quiz-input{
       font-family:'Tiro Devanagari Sanskrit',serif;
       font-size:1rem;width:100%;padding:5px 8px;
-      background:var(--bg3);border:1px solid var(--border2);
+      background:#FFFFFE;border:1px solid var(--border2);
       border-radius:2px;color:var(--text);outline:none;
       text-align:center;transition:border-color .2s,background .2s;
     }
@@ -321,6 +354,83 @@ td:first-child{text-align:left;padding-left:0;}
     .quiz-score{font-family:'Libre Baskerville',serif;font-size:.83rem;color:var(--text-soft);}
     .quiz-score b{color:var(--gold-lt);}
     .tool-btn.active{background:rgba(184,68,0,.12);border-color:rgba(184,68,0,.4);color:#E07040;}
+
+
+    /* ── Dynamic Prakriya Panel ── */
+    .prakriya-source-row{
+      padding:10px 18px 6px;
+      display:flex;align-items:center;gap:8px;
+    }
+    .pk-badge{
+      display:inline-block;padding:3px 12px;border-radius:999px;
+      font-family:'Libre Baskerville',serif;font-size:.66rem;
+      font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    }
+    .pk-badge-dyn{
+      background:rgba(154,104,0,.12);color:var(--gold);
+      border:1px solid rgba(154,104,0,.35);
+    }
+    .pk-badge-man{
+      background:rgba(26,78,138,.1);color:var(--blue-root);
+      border:1px solid rgba(26,78,138,.3);
+    }
+    .prakriya-ol{
+      list-style:none;counter-reset:pk-counter;
+      padding:6px 18px 18px;
+      display:flex;flex-direction:column;gap:0;
+    }
+    .pk-li{
+      counter-increment:pk-counter;
+      display:grid;
+      grid-template-columns:36px 1fr;
+      gap:0 10px;
+      align-items:start;
+      padding:10px 0;
+      border-bottom:1px solid var(--border);
+      position:relative;
+    }
+    .pk-li:last-child{border-bottom:none;padding-bottom:0;}
+    .pk-li::before{
+      content:counter(pk-counter);
+      grid-row:1/4;
+      width:28px;height:28px;border-radius:50%;
+      background:rgba(154,104,0,.12);
+      border:1px solid rgba(154,104,0,.4);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Libre Baskerville',serif;font-size:.7rem;
+      font-weight:700;color:var(--gold);
+      margin-top:3px;flex-shrink:0;
+    }
+    /* Connector line between steps */
+    .pk-li:not(:last-child)::after{
+      content:'';
+      position:absolute;
+      left:13px;top:44px;bottom:-10px;
+      width:2px;background:rgba(154,104,0,.15);
+    }
+    .pk-rule{
+      font-family:'Libre Baskerville',serif;
+      font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;
+      color:var(--text-soft);margin-bottom:3px;line-height:1.4;
+    }
+    .pk-sutra{
+      font-family:'Libre Baskerville',serif;font-style:italic;
+      font-size:.72rem;color:var(--gold);
+      margin-bottom:4px;line-height:1.4;
+    }
+    .pk-form{
+      font-family:'Tiro Devanagari Sanskrit',serif;
+      font-size:1.08rem;color:var(--text);line-height:1.6;
+    }
+    /* Inline span colours inside pk-form */
+    .pk-base{color:var(--blue-root);font-weight:600;}
+    .pk-suf {color:var(--red-suf); font-weight:600;}
+    .pk-result{
+      color:var(--gold);font-weight:700;
+      background:rgba(154,104,0,.08);
+      padding:1px 6px;border-radius:3px;
+      border:1px solid rgba(154,104,0,.25);
+    }
 
 </style>
 </head>
@@ -554,6 +664,265 @@ var PRAKRIYA_DB = {
              4=Panchami 5=Shashthi 6=Saptami 7=Sambodhan
    Vacana: 0=Ekavachana 1=Dvivachana 2=Bahuvachana
    ────────────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   DYNAMIC PRAKRIYA TEMPLATE DATABASE
+   Structure:
+     prakriyaTemplates[category][vibhakti_0to7][vacana_0to2]
+     = array of { rule, sutra, form }
+   {base} is replaced at display-time with the actual word stem.
+   Categories defined so far:
+     'a_karanta_pumlinga'  — अ-कारान्त पुंलिङ्ग (e.g. राम, बालक, चन्दन)
+   ══════════════════════════════════════════════════════════════ */
+var prakriyaTemplates = {
+
+  /* ── अ-कारान्त पुंलिङ्ग ──────────────────────────────────── */
+  a_karanta_pumlinga: {
+
+    /* ━━ विभक्ति 0 : प्रथमा ━━ */
+    0: {
+      /* एकवचन  → {base}ः */
+      0: [
+        { rule:"प्रातिपदिक संज्ञा",
+          sutra:"१.२.४५ अर्थवदधातुरप्रत्ययः प्रातिपदिकम् / १.२.४६ कृत्तद्धितसमासाश्च",
+          form:"<b class='pk-base'>{base}</b> — प्रातिपदिक संज्ञा सिद्ध हुई।" },
+        { rule:"सु-प्रत्यय योजन",
+          sutra:"४.१.२ स्वौजसमौट्छष्टाभ्याम्…",
+          form:"प्रथमा एकवचन की विवक्षा → <b class='pk-base'>{base}</b> + <b class='pk-suf'>सु</b>" },
+        { rule:"उ की इत् संज्ञा व लोप",
+          sutra:"१.३.२ उपदेशेऽजनुनासिक इत् · १.३.९ तस्य लोपः",
+          form:"'सु' के 'उ' की इत् संज्ञा → <b class='pk-base'>{base}</b> + <b class='pk-suf'>स्</b>" },
+        { rule:"स् → रु आदेश",
+          sutra:"८.२.६६ ससजुषो रुः",
+          form:"पदान्त 'स्' → 'रु' → <b class='pk-base'>{base}</b> + <b class='pk-suf'>रु</b>" },
+        { rule:"रु के उ की इत् संज्ञा → र्",
+          sutra:"१.३.२ · १.३.९",
+          form:"'रु' के 'उ' इत् → <b class='pk-base'>{base}</b> + <b class='pk-suf'>र्</b>" },
+        { rule:"र् → विसर्ग",
+          sutra:"१.४.११० विराम अवसानम् · ८.३.१५ खरवसानयोर्विसर्जनीयः",
+          form:"'र्' को विसर्ग → <b class='pk-result'>{base}ः</b> ✓" }
+      ],
+      /* द्विवचन  → {base}ौ */
+      1: [
+        { rule:"प्रातिपदिक संज्ञा",
+          sutra:"१.२.४५ · १.२.४६",
+          form:"<b class='pk-base'>{base}</b> — प्रातिपदिक संज्ञा।" },
+        { rule:"औ-प्रत्यय योजन",
+          sutra:"४.१.२ स्वौजसमौट्…",
+          form:"प्रथमा द्विवचन → <b class='pk-base'>{base}</b> + <b class='pk-suf'>औ</b>" },
+        { rule:"पूर्वसवर्ण दीर्घ का निषेध",
+          sutra:"६.१.१०२ प्रथमयोः पूर्वसवर्णः · ६.१.१०४ नादिचि",
+          form:"'नादिचि' से 'प्रथमयोः पूर्वसवर्णः' का निषेध — दीर्घ नहीं हुआ।" },
+        { rule:"वृद्धि एकादेश",
+          sutra:"६.१.८८ वृद्धिरेचि",
+          form:"अ + औ → वृद्धि एकादेश (औ) = <b class='pk-result'>{base}ौ</b> ✓" }
+      ],
+      /* बहुवचन  → {base}ाः */
+      2: [
+        { rule:"प्रातिपदिक संज्ञा",
+          sutra:"१.२.४५ · १.२.४६",
+          form:"<b class='pk-base'>{base}</b> — प्रातिपदिक संज्ञा।" },
+        { rule:"जस्-प्रत्यय योजन",
+          sutra:"४.१.२ स्वौजसमौट्…",
+          form:"प्रथमा बहुवचन → <b class='pk-base'>{base}</b> + <b class='pk-suf'>जस्</b>" },
+        { rule:"ज् की इत् संज्ञा व लोप",
+          sutra:"१.३.७ चुटू · १.३.९ तस्य लोपः",
+          form:"'जस्' के 'ज्' इत् → <b class='pk-base'>{base}</b> + <b class='pk-suf'>अस्</b>" },
+        { rule:"पूर्वसवर्ण दीर्घ",
+          sutra:"६.१.१०२ प्रथमयोः पूर्वसवर्णः",
+          form:"अ + अस् → आ (दीर्घ) = <b class='pk-base'>{base}ा</b> + <b class='pk-suf'>स्</b>" },
+        { rule:"स् → रु → र्",
+          sutra:"८.२.६६ ससजुषो रुः",
+          form:"पदान्त स् → रु → <b class='pk-base'>{base}ा</b> + <b class='pk-suf'>र्</b>" },
+        { rule:"र् → विसर्ग",
+          sutra:"८.३.१५ खरवसानयोर्विसर्जनीयः",
+          form:"'र्' को विसर्ग = <b class='pk-result'>{base}ाः</b> ✓" }
+      ]
+    },
+
+    /* ━━ विभक्ति 1 : द्वितीया ━━ */
+    1: {
+      0: [ /* {base}म् */
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"अम्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>अम्</b>" },
+        { rule:"सिद्ध रूप", sutra:"—", form:"<b class='pk-result'>{base}म्</b> ✓" }
+      ],
+      1: [ /* {base}ौ */
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"औट्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>औ</b>" },
+        { rule:"वृद्धि एकादेश", sutra:"६.१.८८", form:"<b class='pk-result'>{base}ौ</b> ✓" }
+      ],
+      2: [ /* {base}ान् */
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"शस्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>शस्</b>" },
+        { rule:"श् इत् लोप", sutra:"१.३.६ · १.३.९", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>अस्</b>" },
+        { rule:"नुम् आगम व दीर्घ", sutra:"७.१.५४ · ६.१.१०२", form:"<b class='pk-result'>{base}ान्</b> ✓" }
+      ]
+    },
+
+    /* ━━ विभक्ति 2 : तृतीया ━━ */
+    2: {
+      0: [ /* {base}ेण */
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"टा-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>टा</b>" },
+        { rule:"इन-आदेश", sutra:"७.१.११ अदभ्यस्तात्", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>इन</b>" },
+        { rule:"गुण (अ+इ→ए)", sutra:"७.३.१०२ सुपि च", form:"<b class='pk-result'>{base}ेण</b> ✓" }
+      ],
+      1: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"भ्याम्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-result'>{base}ाभ्याम्</b> ✓" }
+      ],
+      2: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"भिस्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>भिस्</b>" },
+        { rule:"ऐस्-आदेश व गुण", sutra:"७.३.१०२", form:"<b class='pk-result'>{base}ैः</b> ✓" }
+      ]
+    },
+
+    /* ━━ विभक्ति 3 : चतुर्थी ━━ */
+    3: {
+      0: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"ङे-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>ङे</b>" },
+        { rule:"ङे→आय आदेश", sutra:"७.३.१०२ सुपि च", form:"<b class='pk-result'>{base}ाय</b> ✓" }
+      ],
+      1: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"भ्याम्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-result'>{base}ाभ्याम्</b> ✓" }
+      ],
+      2: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"भ्यस्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>भ्यस्</b>" },
+        { rule:"गुण व एत्व", sutra:"७.३.१०३", form:"<b class='pk-result'>{base}ेभ्यः</b> ✓" }
+      ]
+    },
+
+    /* ━━ विभक्ति 4 : पञ्चमी ━━ */
+    4: {
+      0: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"ङसि-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>ङसि</b>" },
+        { rule:"ङसि→आत् आदेश", sutra:"७.३.१०२", form:"<b class='pk-result'>{base}ात्</b> ✓" }
+      ],
+      1: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"भ्याम्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-result'>{base}ाभ्याम्</b> ✓" }
+      ],
+      2: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"भ्यस्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>भ्यस्</b>" },
+        { rule:"गुण व एत्व", sutra:"७.३.१०३ · ८.३.१५", form:"<b class='pk-result'>{base}ेभ्यः</b> ✓" }
+      ]
+    },
+
+    /* ━━ विभक्ति 5 : षष्ठी ━━ */
+    5: {
+      0: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"ङस्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>ङस्</b>" },
+        { rule:"ङस्→स्य आदेश", sutra:"७.१.१२ टाङसिङसामिनात्स्याः", form:"<b class='pk-result'>{base}स्य</b> ✓" }
+      ],
+      1: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"ओस्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>ओस्</b>" },
+        { rule:"गुण", sutra:"७.३.१०२", form:"<b class='pk-result'>{base}योः</b> ✓" }
+      ],
+      2: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"आम्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>आम्</b>" },
+        { rule:"नुम् आगम व दीर्घ", sutra:"७.१.५४ · ६.१.१०२", form:"<b class='pk-result'>{base}ाणाम्</b> ✓" }
+      ]
+    },
+
+    /* ━━ विभक्ति 6 : सप्तमी ━━ */
+    6: {
+      0: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"ङि-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>ङि</b>" },
+        { rule:"ङि→ए आदेश", sutra:"७.३.१०२ सुपि च", form:"<b class='pk-result'>{base}े</b> ✓" }
+      ],
+      1: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"ओस्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>ओस्</b>" },
+        { rule:"गुण", sutra:"७.३.१०२", form:"<b class='pk-result'>{base}योः</b> ✓" }
+      ],
+      2: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"सुप्-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>सु</b>" },
+        { rule:"गुण व एत्व", sutra:"७.३.१०२", form:"<b class='pk-result'>{base}ेषु</b> ✓" }
+      ]
+    },
+
+    /* ━━ विभक्ति 7 : सम्बोधन ━━ */
+    7: {
+      0: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"सु-प्रत्यय (सम्बोधन)", sutra:"२.३.४८ आमन्त्रितम्", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>सु</b>" },
+        { rule:"एकवचन लोप", sutra:"७.२.१०७ सुट् कात्पूर्वस्य", form:"सु का लोप → <b class='pk-base'>{base}</b>" },
+        { rule:"हे-उपसर्ग", sutra:"८.२.८", form:"<b class='pk-result'>हे {base}</b> ✓" }
+      ],
+      1: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"औ-प्रत्यय", sutra:"४.१.२", form:"<b class='pk-base'>{base}</b> + <b class='pk-suf'>औ</b>" },
+        { rule:"वृद्धि", sutra:"६.१.८८", form:"<b class='pk-result'>हे {base}ौ</b> ✓" }
+      ],
+      2: [
+        { rule:"प्रातिपदिक संज्ञा", sutra:"१.२.४५", form:"<b class='pk-base'>{base}</b>" },
+        { rule:"जस् → अस् → दीर्घ → विसर्ग", sutra:"४.१.२ · ६.१.१०२ · ८.३.१५", form:"<b class='pk-result'>हे {base}ाः</b> ✓" }
+      ]
+    }
+  }
+
+  /* ── Add more categories here ──
+     aa_karanta_strilinga: { ... },
+     i_karanta_pumlinga:   { ... },
+     etc.                              */
+};
+
+/* ── getPrakriyaSteps ────────────────────────────────────────
+   Returns array of step objects for (word, vibhakti, vacana).
+   Priority:
+     1. SHABDA_PRAKRIYA[word][vib][vac]  — manual detailed data
+     2. prakriyaTemplates[category][vib][vac] — dynamic template
+        with {base} replaced by the word's stem.
+   Returns null if nothing found.
+   ─────────────────────────────────────────────────────────── */
+function getPrakriyaSteps(word, vibIdx, vacIdx) {
+  /* 1. Manual data first */
+  var manual = SHABDA_PRAKRIYA[word];
+  if (manual && manual[vibIdx] && manual[vibIdx][vacIdx]) {
+    return { steps: manual[vibIdx][vacIdx], base: null, dynamic: false };
+  }
+
+  /* 2. Resolve category */
+  var _DB = (typeof window.SHABDA_DB !== 'undefined' ? window.SHABDA_DB
+             : (typeof SHABDA_DB !== 'undefined' ? SHABDA_DB : {}));
+  var dbRaw = _DB[word];
+
+  /* Try PRAKRIYA_DB for category */
+  var cat = null;
+  if (PRAKRIYA_DB[word] && PRAKRIYA_DB[word].cat) {
+    cat = PRAKRIYA_DB[word].cat;
+  } else if (dbRaw) {
+    /* Infer category from linga + stem shape */
+    var entry = Array.isArray(dbRaw) ? dbRaw[0] : dbRaw;
+    if (entry && entry.l === 'P' && !word.endsWith('\u093E') && !word.endsWith('\u093F') && !word.endsWith('\u0941')) {
+      cat = 'a_karanta_pumlinga';   /* अ-कारान्त पुंलिङ्ग (default) */
+    }
+  }
+
+  if (!cat || !prakriyaTemplates[cat]) return null;
+  var tpl = prakriyaTemplates[cat];
+  if (!tpl[vibIdx] || !tpl[vibIdx][vacIdx]) return null;
+
+  /* Resolve {base}: use stem from PRAKRIYA_DB or the word itself */
+  var base = word;
+  if (PRAKRIYA_DB[word] && PRAKRIYA_DB[word].stem) {
+    base = PRAKRIYA_DB[word].stem;
+  }
+
+  return { steps: tpl[vibIdx][vacIdx], base: base, dynamic: true };
+}
+
 var SHABDA_PRAKRIYA = {
   "राम": {
     0: {
@@ -851,36 +1220,70 @@ function showPrakriya(word, vibIdx, vacIdx, cellEl){
   document.querySelectorAll('.form.clickable').forEach(function(el){el.classList.remove('active');});
   if(cellEl) cellEl.classList.add('active');
 
-  var panel=document.getElementById('prakriyaPanel');
-  var wordRow=document.getElementById('prakriyaWordRow');
-  var body=document.getElementById('prakriyaBody');
+  var panel   = document.getElementById('prakriyaPanel');
+  var wordRow = document.getElementById('prakriyaWordRow');
+  var body    = document.getElementById('prakriyaBody');
 
   panel.classList.add('visible');
-  setTimeout(function(){panel.scrollIntoView({behavior:'smooth',block:'nearest'});},50);
+  setTimeout(function(){ panel.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 50);
 
-  var wordText=cellEl?cellEl.textContent.trim():word;
-  wordRow.innerHTML='<span class="prakriya-word-big">'+wordText+'</span>'+ttsBtn(wordText)
-    +'<span class="prakriya-word-meta">'+VIB_NAMES[vibIdx]+' ('+VIB_EN[vibIdx]+') · '+VAC_NAMES[vacIdx]+' ('+VAC_EN[vacIdx]+')</span>';
+  var wordText = cellEl ? cellEl.textContent.trim() : word;
+  wordRow.innerHTML =
+    '<span class="prakriya-word-big">'+wordText+'</span>' + ttsBtn(wordText)
+    + '<span class="prakriya-word-meta">'
+    + VIB_NAMES[vibIdx]+' ('+VIB_EN[vibIdx]+') · '
+    + VAC_NAMES[vacIdx]+' ('+VAC_EN[vacIdx]+')'
+    + '</span>';
 
-  var wordData=SHABDA_PRAKRIYA[word];
-  if(!wordData||!wordData[vibIdx]||!wordData[vibIdx][vacIdx]){
-    body.innerHTML='<div class="prakriya-none"><span>प्रक्रिया शीघ्रमेव अद्यतनं भविष्यति</span>Step-by-step derivation for this form will be added soon. Detailed prakriyā is currently available for selected forms of राम.</div>';
+  /* ── Get steps (manual or dynamic template) ── */
+  var result = getPrakriyaSteps(word, vibIdx, vacIdx);
+
+  if (!result) {
+    body.innerHTML =
+      '<div class="prakriya-none">'
+      + '<span>प्रक्रिया शीघ्रमेव अद्यतनं भविष्यति</span>'
+      + 'Detailed derivation for <b>'+wordText+'</b> will be added soon.'
+      + '</div>';
     return;
   }
 
-  var steps=wordData[vibIdx][vacIdx];
-  var html='<div class="prakriya-steps">';
-  steps.forEach(function(step,i){
-    html+='<div class="p-step"><div class="p-step-num">'+(i+1)+'</div><div class="p-step-content">'
-      +'<div class="p-step-rule">'+step.rule+'</div>'
-      +'<div class="p-step-form">'+step.form+'</div>'
-      +(step.sutra&&step.sutra!=='—'?'<div class="p-step-sutra">सूत्र '+step.sutra+(step.note?' · '+step.note:'')+'</div>':(step.note?'<div class="p-step-sutra">'+step.note+'</div>':''))
-      +'</div></div>';
-    if(i<steps.length-1) html+='<div class="p-step"><div class="p-step-divider">↓</div><div></div></div>';
+  var steps = result.steps;
+  var base  = result.base;   /* null if manual data (no substitution needed) */
+  var isDyn = result.dynamic;
+
+  /* ── Source badge ── */
+  var badge = isDyn
+    ? '<span class="pk-badge pk-badge-dyn">Dynamic · '+word+'</span>'
+    : '<span class="pk-badge pk-badge-man">Manual · '+word+'</span>';
+
+  /* ── Render numbered steps ── */
+  var h = '<div class="prakriya-source-row">' + badge + '</div>'
+        + '<ol class="prakriya-ol">';
+
+  steps.forEach(function(step) {
+    /* Replace {base} placeholder if this is a dynamic template */
+    var formHtml = step.form;
+    var ruleText = step.rule;
+    var sutraText = step.sutra || '';
+    if (base !== null) {
+      formHtml  = formHtml.replace(/\{base\}/g, base);
+      ruleText  = ruleText.replace(/\{base\}/g, base);
+      sutraText = sutraText.replace(/\{base\}/g, base);
+    }
+
+    h += '<li class="pk-li">'
+      + '<div class="pk-rule">'+ruleText+'</div>'
+      + (sutraText && sutraText !== '—'
+          ? '<div class="pk-sutra">'+sutraText+'</div>'
+          : '')
+      + '<div class="pk-form">'+formHtml+'</div>'
+      + '</li>';
   });
-  html+='</div>';
-  body.innerHTML=html;
+
+  h += '</ol>';
+  body.innerHTML = h;
 }
+
 
 function closePrakriya(){
   document.getElementById('prakriyaPanel').classList.remove('visible');
