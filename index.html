@@ -944,6 +944,100 @@
       color:var(--text-faint,#9A7A3A);
     }
 
+
+    /* ══ AMARAKOSHA Rich Entry Display ════════════════════════ */
+    .amr-entry{
+      padding:14px 16px;
+      border-bottom:1px solid rgba(154,104,0,.12);
+    }
+    .amr-entry:last-child{ border-bottom:none; }
+
+    /* Header: mainWord (gender) » context */
+    .amr-head{
+      display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .amr-main-word{
+      font-family:'Tiro Devanagari Sanskrit',serif;
+      font-size:1.08rem;font-weight:700;
+      color:var(--crimson,#8A1010);
+      cursor:pointer;
+      border-bottom:1px dotted rgba(138,16,16,.3);
+      transition:color .15s;
+    }
+    .amr-main-word:hover{ color:#C01818; border-bottom-color:rgba(138,16,16,.7); }
+    .amr-gender{
+      font-family:'Libre Baskerville',serif;font-size:.72rem;
+      color:var(--text-soft,#6B4E1E);font-style:italic;
+      padding:1px 8px;border-radius:999px;
+      border:1px solid rgba(154,104,0,.25);
+      background:rgba(154,104,0,.06);
+      white-space:nowrap;
+    }
+    .amr-chevron{
+      font-size:.85rem;color:var(--text-faint,#9A7A3A);font-weight:300;
+    }
+    .amr-context{
+      font-family:'Tiro Devanagari Sanskrit',serif;
+      font-size:1rem;font-weight:700;
+      color:var(--text,#1E1408);
+    }
+    .amr-siddhi-btn{
+      margin-left:auto;padding:3px 10px;
+      font-family:'Tiro Devanagari Sanskrit',serif;font-size:.8rem;
+      background:transparent;border:1px solid var(--gold,#9A6800);
+      border-radius:3px;color:var(--gold,#9A6800);cursor:pointer;
+      white-space:nowrap;transition:background .15s;flex-shrink:0;
+    }
+    .amr-siddhi-btn:hover{ background:rgba(154,104,0,.1); }
+
+    /* Row: मूलम् / समानार्थकाः */
+    .amr-row{
+      display:flex;align-items:flex-start;gap:10px;
+      margin-bottom:6px;line-height:1.7;
+    }
+    .amr-row:last-child{ margin-bottom:0; }
+    .amr-badge{
+      font-family:'Libre Baskerville',serif;font-size:.65rem;
+      font-weight:700;letter-spacing:.05em;
+      padding:2px 10px;border-radius:999px;white-space:nowrap;flex-shrink:0;
+      margin-top:3px;
+      background:rgba(60,40,8,.07);border:1px solid rgba(154,104,0,.2);
+      color:var(--text-soft,#6B4E1E);
+    }
+    .amr-text{
+      font-family:'Tiro Devanagari Sanskrit',serif;
+      font-size:.92rem;color:var(--text-mid,#3C2808);
+      flex:1;
+    }
+    .amr-ref{
+      font-family:'Libre Baskerville',serif;font-size:.72rem;
+      color:var(--text-faint,#9A7A3A);font-style:italic;margin-left:6px;
+    }
+
+    /* Synonym chips — CLICKABLE */
+    .amr-syn-list{
+      display:flex;flex-wrap:wrap;gap:5px;align-items:center;
+    }
+    .amr-syn{
+      font-family:'Tiro Devanagari Sanskrit',serif;font-size:.88rem;
+      color:var(--blue-root,#1A4E8A);
+      cursor:pointer;
+      border-bottom:1px solid rgba(26,78,138,.3);
+      transition:color .12s, border-color .12s;
+      white-space:nowrap;
+    }
+    .amr-syn:hover{
+      color:#0D3A6A;border-bottom-color:rgba(13,58,106,.7);
+    }
+    .amr-syn-sep{
+      color:var(--border2,#BEA468);font-size:.7rem;
+    }
+    mark{
+      background:rgba(154,104,0,.18);color:var(--gold-dim,#7A5000);
+      border-radius:2px;padding:0 1px;
+    }
+
 </style></head>
 <body>
 
@@ -1271,6 +1365,8 @@ var koshaDB=[{"w":"अ","l":"A","a":"निषेधः","s":"अमर"},{"w":"
 
 
 
+
+
 /* ══════════════════════════════════════════════════════════
    COMPLETE ENGINE — All features from v11 preserved verbatim
    Only branding/colour changes applied above
@@ -1578,32 +1674,58 @@ function runEngine(){
     A:{cls:'gh-ubi', sa:'उभयलिङ्ग',   en:'Common Gender'},
   };
 
-  function buildTableRows(forms24, vacana){
-    let rows='';
-    VIB.forEach((v,i)=>{
-      const isVoc=i===7;
-      const e=forms24[i*3]||'—',d=forms24[i*3+1]||'—',b=forms24[i*3+2]||'—';
-      let cells;
-      if(vacana==='all'){
-        cells=`<td><span class="form ff">${e}</span></td><td><span class="form ff">${d}</span></td><td><span class="form ff">${b}</span></td>`;
-      } else {
-        const dim='style="opacity:.35;"';
-        cells=vacana==='0'
-          ?`<td><span class="form ff">${e}</span></td><td ${dim}><span class="form ff">${d}</span></td><td ${dim}><span class="form ff">${b}</span></td>`
-          :vacana==='1'
-          ?`<td ${dim}><span class="form ff">${e}</span></td><td><span class="form ff">${d}</span></td><td ${dim}><span class="form ff">${b}</span></td>`
-          :`<td ${dim}><span class="form ff">${e}</span></td><td ${dim}><span class="form ff">${d}</span></td><td><span class="form ff">${b}</span></td>`;
-      }
-      rows+=`<tr class="${isVoc?'voc':''}"><td><span class="vnum">${v.n}</span><span class="vsa">${v.sa}</span><span class="ven">${v.en}</span></td>${cells}</tr>`;
-    });
-    return rows;
-  }
-
+  function buildTableRows(forms24, vacana, word){
+      var rows='';
+      var w=word||(typeof currentWord!=='undefined'?currentWord:'');
+      var hasPrak=w&&(typeof hasPrakriyaAvailable==='function')&&hasPrakriyaAvailable(w);
+      VIB.forEach(function(v,i){
+        var isVoc=(i===7);
+        var fE=forms24[i*3]||'—', fD=forms24[i*3+1]||'—', fB=forms24[i*3+2]||'—';
+        function mkCell(f, vacIdx, dimAttr){
+          var isDash=(f==='—'||f==='');
+          var clickCls=hasPrak&&!isDash?' clickable':'';
+          var safeF=f.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+          var safeW=w.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+          var oc=hasPrak&&!isDash?' onclick="showPrakriya(\''+safeW+'\','+i+','+vacIdx+',this)"':'';
+          var tts=!isDash?'<button class="tts-btn" onclick="playAudio(\''+safeF+'\',this)" title="उच्चारण">🔊</button>':'';
+          var dim=dimAttr?' '+dimAttr:'';
+          return '<td'+dim+'>'
+            +'<span class="form ff'+clickCls+'"'+oc+'>'+f+'</span>'
+            +tts+'</td>';
+        }
+        var cells;
+        if(vacana==='all'){
+          cells=mkCell(fE,0,'')+mkCell(fD,1,'')+mkCell(fB,2,'');
+        } else {
+          var dim='style="opacity:.35;"';
+          cells=vacana==='0'
+            ?mkCell(fE,0,'')+mkCell(fD,1,dim)+mkCell(fB,2,dim)
+            :vacana==='1'
+            ?mkCell(fE,0,dim)+mkCell(fD,1,'')+mkCell(fB,2,dim)
+            :mkCell(fE,0,dim)+mkCell(fD,1,dim)+mkCell(fB,2,'');
+        }
+        rows+='<tr class="'+(isVoc?'voc':'')+'"><td>'
+          +'<span class="vnum">'+v.n+'</span>'
+          +'<span class="vsa">'+v.sa+'</span>'
+          +'<span class="ven">'+v.en+'</span>'
+          +'</td>'+cells+'</tr>';
+      });
+      return rows;
+    }
   function buildGenderSection(variant,vacana){
-    const m=LINGA_META[variant.l]||LINGA_META['P'];
-    const rows=buildTableRows(variant.f,vacana);
-    return `<div class="gender-section"><div class="gender-header ${m.cls}"><span class="gh-sa">${m.sa}</span><span class="gh-en">&nbsp;·&nbsp;${m.en}</span></div><table><thead><tr><th style="text-align:left;">Vibhakti · विभक्ति</th><th>एकवचन</th><th>द्विवचन</th><th>बहुवचन</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-  }
+      var m=LINGA_META[variant.l]||LINGA_META['P'];
+      var w=(typeof currentWord!=='undefined')?currentWord:'';
+      var rows=buildTableRows(variant.f,vacana,w);
+      return '<div class="gender-section">'
+        +'<div class="gender-header '+m.cls+'">'
+        +'<span class="gh-sa">'+m.sa+'</span>'
+        +'<span class="gh-en">&nbsp;·&nbsp;'+m.en+'</span>'
+        +'</div>'
+        +'<table><thead><tr>'
+        +'<th style="text-align:left;">Vibhakti · विभक्ति</th>'
+        +'<th>एकवचन</th><th>द्विवचन</th><th>बहुवचन</th>'
+        +'</tr></thead><tbody>'+rows+'</tbody></table></div>';
+    }
 
   const tableWrap=document.getElementById('tableBody');
   const mainTable=document.getElementById('mainTable');
@@ -1623,7 +1745,7 @@ function runEngine(){
       if(cont)cont.style.display='none';
       const forms=dbVariants[0].f;
       if(forms&&forms.length===24){
-        tableWrap.innerHTML=buildTableRows(forms,vacanaSel);
+        tableWrap.innerHTML=buildTableRows(forms,vacanaSel,raw);
       }
     }
   } else {
@@ -1665,7 +1787,53 @@ function runEngine(){
 
 function setGender(g){currentGender=g;['m','f','n'].forEach(x=>document.getElementById('gen'+x.toUpperCase()).classList.toggle('active',x===g));const cfg=currentConfig;if(cfg?.kind==='pronoun'&&cfg.hasGender){const gd=cfg.genders[g];const fn=document.getElementById('fixedNote');fn.style.display=gd.note?'block':'none';fn.textContent=gd.note||'';document.getElementById('detRow').querySelector('.det-meta').textContent=gd.typeSa||cfg.typeSa;}quizMode?renderQuizTable(wordInput.value.trim()):renderDeclTable(wordInput.value.trim());}
 function getRows(cfg,raw){if(cfg.kind==='pronoun'&&cfg.hasGender)return{mode:'fixed',rows:cfg.genders[currentGender].forms};if(cfg.kind==='pronoun')return{mode:'fixed',rows:cfg.forms};if(cfg.kind==='halant')return{mode:'fixed',rows:cfg.forms};return{mode:'suffix',stem:cfg.stem(raw),suffixes:cfg.suffixes};}
-function renderDeclTable(raw){const cfg=currentConfig,{mode,rows,stem,suffixes}=getRows(cfg,raw);let html='';VIB.forEach((v,i)=>{const isVoc=i===7;let cells;if(mode==='suffix'){const[e,d,b]=suffixes[i];const c=s=>`<span class="form"><span class="rt">${stem}</span><span class="sf">${s}</span></span>`;cells=`<td>${isVoc?'<span class="voc-he">हे </span>':''}${c(e)}</td><td>${c(d)}</td><td>${c(b)}</td>`;}else{const[e,d,b]=rows[i];cells=[e,d,b].map(f=>`<td><span class="form ff">${f}</span></td>`).join('');}html+=`<tr class="${isVoc?'voc':''}"><td><span class="vnum">${v.n}</span><span class="vsa">${v.sa}</span><span class="ven">${v.en}</span></td>${cells}</tr>`;});document.getElementById('tableBody').innerHTML=html;}
+function renderDeclTable(raw){
+    var cfg=currentConfig;
+    var gr=getRows(cfg,raw);
+    var mode=gr.mode, rows=gr.rows, stem=gr.stem, suffixes=gr.suffixes;
+    var hasPrak=(typeof hasPrakriyaAvailable==='function')&&hasPrakriyaAvailable(raw);
+    var html='';
+    VIB.forEach(function(v,i){
+      var isVoc=(i===7);
+      var cells;
+      if(mode==='suffix'){
+        var fE=suffixes[i][0], fD=suffixes[i][1], fB=suffixes[i][2];
+        function mkS(s,vi){
+          var isDash=(s==='—'||s==='');
+          var cls=hasPrak&&!isDash?' clickable':'';
+          var safeR=raw.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+          var combined=(stem+s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+          var oc=hasPrak&&!isDash?' onclick="showPrakriya(\''+safeR+'\','+i+','+vi+',this)"':'';
+          var tts=!isDash?'<button class="tts-btn" onclick="playAudio(\''+combined+'\',this)" title="उच्चारण">🔊</button>':'';
+          return '<span class="form'+cls+'"'+oc+'>'
+            +'<span class="rt">'+stem+'</span>'
+            +'<span class="sf">'+s+'</span>'
+            +'</span>'+tts;
+        }
+        cells='<td>'+(isVoc?'<span class="voc-he">हे </span>':'')+mkS(fE,0)+'</td>'
+          +'<td>'+mkS(fD,1)+'</td><td>'+mkS(fB,2)+'</td>';
+      } else {
+        var fE=rows[i][0], fD=rows[i][1], fB=rows[i][2];
+        function mkC(f,vi){
+          var isDash=(f==='—'||f==='');
+          var cls=hasPrak&&!isDash?' clickable':'';
+          var safeR=raw.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+          var safeF=f.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+          var oc=hasPrak&&!isDash?' onclick="showPrakriya(\''+safeR+'\','+i+','+vi+',this)"':'';
+          var tts=!isDash?'<button class="tts-btn" onclick="playAudio(\''+safeF+'\',this)" title="'+f+' उच्चारण">🔊</button>':'';
+          return '<td><span class="form ff'+cls+'"'+oc+'>'+f+'</span>'+tts+'</td>';
+        }
+        cells=mkC(fE,0)+mkC(fD,1)+mkC(fB,2);
+      }
+      html+='<tr class="'+(isVoc?'voc':'')+'"><td>'
+        +'<span class="vnum">'+v.n+'</span>'
+        +'<span class="vsa">'+v.sa+'</span>'
+        +'<span class="ven">'+v.en+'</span>'
+        +'</td>'+cells+'</tr>';
+    });
+    document.getElementById('tableBody').innerHTML=html;
+  }
+
 function renderQuizTable(raw){const cfg=currentConfig,{mode,rows,stem,suffixes}=getRows(cfg,raw);let html='';VIB.forEach((v,i)=>{const isVoc=i===7;let cells;if(mode==='suffix'){const[e,d,b]=suffixes[i];cells=[stem+e,stem+d,stem+b].map(ans=>`<td class="qc"><input class="quiz-input" data-answer="${ans}" placeholder="…"></td>`).join('');}else{const[e,d,b]=rows[i];cells=[e,d,b].map(ans=>`<td class="qc"><input class="quiz-input" data-answer="${ans}" placeholder="…"${ans==='—'?` value="—" readonly`:''} ></td>`).join('');}html+=`<tr class="${isVoc?'voc':''}"><td><span class="vnum">${v.n}</span><span class="vsa">${v.sa}</span><span class="ven">${v.en}</span></td>${cells}</tr>`;});document.getElementById('tableBody').innerHTML=html;}
 function toggleQuiz(){quizMode=!quizMode;document.getElementById('quizBtn').classList.toggle('active',quizMode);document.getElementById('quizControls').style.display=quizMode?'flex':'none';document.getElementById('quizScore').textContent='';if(quizMode)renderQuizTable(wordInput.value.trim());else renderDeclTable(wordInput.value.trim());}
 function checkQuiz(){const ins=[...document.querySelectorAll('#mainTable .quiz-input:not([readonly])')];let ok=0;ins.forEach(i=>{if(i.value.trim()===i.dataset.answer){i.classList.add('correct');i.classList.remove('wrong');ok++;}else{i.classList.add('wrong');i.classList.remove('correct');}});document.getElementById('quizScore').innerHTML=`Score: <b>${ok} / ${ins.length}</b>`;}
@@ -2327,107 +2495,202 @@ function koshaSearch(q){
 }
 
 /* ── Actual search (called after debounce delay) ── */
+
+/* ════ AMARAKOSHA — Rich Interactive Renderer ═════════════════
+   amaraIdx: {word → {c:context, l:linga, sy:[synonyms]}}
+   Built from koshaDB at load time for instant lookup.
+   ══════════════════════════════════════════════════════════ */
+var amaraIdx = null;   /* lazy-built on first Amara search */
+
+/* ── Build amara synonym index from koshaDB ── */
+function _buildAmaraIdx(){
+  if(amaraIdx) return;
+  try{
+    amaraIdx = {};
+    var db=(typeof koshaDB!=='undefined')?koshaDB:[];
+    /* Step 1: group words by context (words sharing same 'a' are synonyms) */
+    var ctxMap={};
+    db.forEach(function(e){
+      if(e.s!=='अमर') return;
+      if(!ctxMap[e.a]) ctxMap[e.a]=[];
+      ctxMap[e.a].push({w:e.w, l:e.l});
+    });
+    /* Step 2: for each word build its index entry */
+    db.forEach(function(e){
+      if(e.s!=='अमर') return;
+      var group=ctxMap[e.a]||[];
+      var syns=group.filter(function(x){return x.w!==e.w;}).map(function(x){return x.w;});
+      amaraIdx[e.w]={c:e.a, l:e.l, sy:syns};
+    });
+    console.log('AmaraIdx built:',Object.keys(amaraIdx).length,'entries');
+  } catch(err){ console.warn('_buildAmaraIdx:',err); amaraIdx={}; }
+}
+
+/* ── Linga full form map ── */
+var LF_FULL={P:'पुंलिङ्गः',S:'स्त्रीलिङ्गः',N:'नपुंसकलिङ्गम्',A:'उभयलिङ्गः'};
+var LF_SHORT={P:'पुं॰',S:'स्त्री॰',N:'न॰',A:'अव्यय'};
+
+/* ── Highlight query term ── */
+function _amrHl(text, q){
+  try{
+    var s=(text||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    if(!q) return s;
+    var re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+    return s.replace(re,'<mark>$1</mark>');
+  } catch(e){ return (text||''); }
+}
+
+/* ── Render ONE Amarakosha entry with full rich UI ── */
+function _renderAmaraEntry(it, qRaw){
+  try{
+    var word = it.word||'';
+    var sw   = word.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+
+    /* Look up in amaraIdx for context and synonyms */
+    var idx  = amaraIdx && amaraIdx[word];
+    var ctx  = idx ? idx.c  : (it.data||'');   /* context / artha */
+    var linga= idx ? idx.l  : (it.linga||'');
+    var syns = idx ? idx.sy : [];
+
+    var genderFull = LF_FULL[linga] || LF_SHORT[linga] || linga;
+    var wordHl     = _amrHl(word, qRaw);
+    var ctxHl      = _amrHl(ctx, qRaw);
+
+    /* ── Header row ── */
+    var head = '<div class="amr-head">'
+      +'<span class="amr-main-word" onclick="triggerSiddhiFromMahakosha(\''+sw+'\')">'+wordHl+'</span>'
+      +(genderFull?'<span class="amr-gender">'+genderFull+'</span>':'')
+      +'<span class="amr-chevron">»</span>'
+      +'<span class="amr-context">'+ctxHl+'</span>'
+      +'<button class="amr-siddhi-btn" onclick="triggerSiddhiFromMahakosha(\''+sw+'\')">सिद्धि →</button>'
+      +'</div>';
+
+    /* ── मूलम् row ── */
+    /* We don't have the full shloka — show artha/context as the core meaning */
+    var moolam = '<div class="amr-row">'
+      +'<span class="amr-badge">मूलम्</span>'
+      +'<span class="amr-text">'
+      + '— '+ctxHl
+      +'</span>'
+      +'</div>';
+
+    /* ── समानार्थकाः row (clickable synonyms) ── */
+    var synsHtml = '';
+    if(syns && syns.length > 0){
+      var chips = syns.map(function(s, i){
+        var ss = s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+        var sHl= _amrHl(s, qRaw);
+        return '<span class="amr-syn" onclick="triggerSiddhiFromMahakosha(\''+ss+'\')" title="'+s+' का विश्लेषण करें">'+sHl+'</span>'
+          +(i < syns.length-1 ? '<span class="amr-syn-sep">·</span>' : '');
+      }).join('');
+      synsHtml = '<div class="amr-row">'
+        +'<span class="amr-badge">समानार्थकाः</span>'
+        +'<span class="amr-text"><span class="amr-syn-list">'+chips+'</span></span>'
+        +'</div>';
+    }
+
+    return '<div class="amr-entry">'+head+moolam+synsHtml+'</div>';
+  } catch(err){
+    console.warn('_renderAmaraEntry:',err);
+    return '<div class="amr-entry"><div class="amr-text">'+(it.word||'')+'</div></div>';
+  }
+}
+
+/* ── triggerSiddhiFromMahakosha: click synonym → analyze tab ── */
+function triggerSiddhiFromMahakosha(word){
+  try{
+    /* 1. Fill the analyze input */
+    var inp=document.getElementById('wordInput');
+    if(inp){ inp.value=word; inp.dispatchEvent(new Event('input')); }
+    var btn=document.getElementById('clrBtn');
+    if(btn) btn.style.display='block';
+
+    /* 2. Switch to Analyze tab */
+    switchTab('analyze');
+
+    /* 3. Run the Prakriya engine after a short delay (tab transition) */
+    setTimeout(function(){
+      try{ if(typeof runEngine==='function') runEngine(); }
+      catch(e){ console.warn('triggerSiddhiFromMahakosha runEngine:',e); }
+    }, 150);
+  } catch(err){ console.warn('triggerSiddhiFromMahakosha:',err); }
+}
+
 function koshaSearchNow(q){
   try{
     if(!_mkLoaded) _mkBuildFromKosha();
+    if(!amaraIdx) _buildAmaraIdx();
     var stats=document.getElementById('koshaStats');
     var res  =document.getElementById('koshaResults');
-
     if(!q||!q.trim()){
       if(stats) stats.classList.remove('show');
       if(res) res.innerHTML='<div class="mk2-empty">शब्द टाइप करें — सभी कोशों में खोजा जाएगा<br><small style="opacity:.65">Type to search across all loaded sources</small></div>';
       return;
     }
-
     var qRaw=q.trim();
     var qLow=qRaw.toLowerCase();
-
     var matched=[];
     var entries=Object.values(mahakoshaDB);
     for(var i=0;i<entries.length;i++){
       try{
         var ent=entries[i];
         var hit=(ent.w||'').toLowerCase().indexOf(qLow)!==-1;
+        if(!hit&&amaraIdx){
+          var aidx=amaraIdx[ent.w];
+          if(aidx&&((aidx.c||'').toLowerCase().indexOf(qLow)!==-1||(aidx.sy&&aidx.sy.some(function(s){return s.toLowerCase().indexOf(qLow)!==-1;})))) hit=true;
+        }
         if(!hit&&ent.srcs){
           for(var j=0;j<ent.srcs.length;j++){
             var src=ent.srcs[j];
-            if((_mk2ActiveSource==='all'||src.id===_mk2ActiveSource)
-               &&(src.data||'').toLowerCase().indexOf(qLow)!==-1){
-              hit=true; break;
-            }
+            if((_mk2ActiveSource==='all'||src.id===_mk2ActiveSource)&&(src.data||'').toLowerCase().indexOf(qLow)!==-1){hit=true;break;}
           }
         }
         if(hit){
-          if(_mk2ActiveSource!=='all'){
-            var hasSrc=ent.srcs&&ent.srcs.some(function(s){return s.id===_mk2ActiveSource;});
-            if(!hasSrc) continue;
-          }
+          if(_mk2ActiveSource!=='all'){var hasSrc=ent.srcs&&ent.srcs.some(function(s){return s.id===_mk2ActiveSource;});if(!hasSrc)continue;}
           matched.push(ent);
         }
-      } catch(entErr){ /* skip bad entry */ }
+      } catch(entErr){}
       if(matched.length>=200) break;
     }
-
     var total=matched.length;
-    if(stats){
-      stats.classList.add('show');
-      document.getElementById('koshaStatsTxt').textContent=
-        total+' शब्द मिले'+(total>=200?' (पहले 200)':'');
-    }
-
-    if(!total){
-      if(res) res.innerHTML='<div class="mk2-empty">कोई परिणाम नहीं · No results for "'+qRaw.replace(/</g,'&lt;')+'"</div>';
-      return;
-    }
-
-    /* Group by source */
+    if(stats){stats.classList.add('show');document.getElementById('koshaStatsTxt').textContent=total+' शब्द मिले'+(total>=200?' (पहले 200)':'');}
+    if(!total){if(res)res.innerHTML='<div class="mk2-empty">कोई परिणाम नहीं · No results for "'+qRaw.replace(/</g,'&lt;')+'"</div>';return;}
     var bySource={};
-    MK2_PANELS.forEach(function(p){ bySource[p.id]=[]; });
+    MK2_PANELS.forEach(function(p){bySource[p.id]=[];});
     matched.forEach(function(ent){
-      var srcsToShow=_mk2ActiveSource==='all'?ent.srcs
-        :ent.srcs.filter(function(s){return s.id===_mk2ActiveSource;});
-      (srcsToShow||[]).forEach(function(src){
-        if(bySource[src.id]) bySource[src.id].push({word:ent.w,linga:ent.l,data:src.data});
-      });
+      var srcsToShow=_mk2ActiveSource==='all'?ent.srcs:ent.srcs.filter(function(s){return s.id===_mk2ActiveSource;});
+      (srcsToShow||[]).forEach(function(src){if(bySource[src.id])bySource[src.id].push({word:ent.w,linga:ent.l,data:src.data});});
     });
-
-    var LF={P:'पुं॰',S:'स्त्री॰',N:'न॰',A:'अव्यय','क्रिया':'क्रिया'};
+    var LF={P:'पुं॰',S:'स्त्री॰',N:'न॰',A:'अव्यय'};
     var panelHtml='';
     MK2_PANELS.forEach(function(p){
       var items=bySource[p.id]||[];
       if(!items.length) return;
       var isFirst=(panelHtml==='');
-      var oh=isFirst?' mk2-open':'', ob=isFirst?' mk2-open':'';
-      var entries_html=items.slice(0,60).map(function(it){
-        var wD=mk2SafeHtml(it.word,qRaw);
-        var sw=(it.word||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-        var l=LF[it.linga]||it.linga||'';
-        var dD=mk2SafeHtml(it.data||'',qRaw);
-        return '<div class="mk2-entry">'
-          +'<div class="mk2-entry-word">'+wD
-          +(l?'<span class="mk2-entry-linga">'+l+'</span>':'')
-          +'<button class="mk2-entry-siddhi" onclick="koshaGoAnalyze(\''+sw+'\')">सिद्धि →</button>'
-          +'</div><div class="mk2-entry-text">'+dD+'</div></div>';
-      }).join('');
+      var oh=isFirst?' mk2-open':'',ob=isFirst?' mk2-open':'';
+      var entries_html='';
+      if(p.id==='amr'){
+        entries_html=items.slice(0,60).map(function(it){return _renderAmaraEntry(it,qRaw);}).join('');
+      } else {
+        entries_html=items.slice(0,60).map(function(it){
+          var wD=mk2SafeHtml(it.word,qRaw);
+          var sw=(it.word||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+          var l=LF[it.linga]||it.linga||'';
+          var dD=mk2SafeHtml(it.data||'',qRaw);
+          return '<div class="mk2-entry"><div class="mk2-entry-word">'+wD+(l?'<span class="mk2-entry-linga">'+l+'</span>':'')+'<button class="mk2-entry-siddhi" onclick="koshaGoAnalyze(\''+sw+'\')">सिद्धि →</button></div><div class="mk2-entry-text">'+dD+'</div></div>';
+        }).join('');
+      }
       var extra=items.length>60?'<div class="mk2-no-result">… और '+(items.length-60)+' परिणाम</div>':'';
-      panelHtml+='<div class="mk2-source-panel '+p.pcls+'">'
-        +'<div class="mk2-panel-head'+oh+'" onclick="mk2TogglePanel(this)">'
-        +'<span class="mk2-panel-badge '+p.bcls+'">'+p.label+'</span>'
-        +'<span class="mk2-panel-fullname">'+p.full+'</span>'
-        +'<span class="mk2-panel-count">'+items.length+'</span>'
-        +'<span class="mk2-panel-arrow">▼</span>'
-        +'</div>'
-        +'<div class="mk2-panel-body'+ob+'">'+entries_html+extra+'</div>'
-        +'</div>';
+      panelHtml+='<div class="mk2-source-panel '+p.pcls+'"><div class="mk2-panel-head'+oh+'" onclick="mk2TogglePanel(this)"><span class="mk2-panel-badge '+p.bcls+'">'+p.label+'</span><span class="mk2-panel-fullname">'+p.full+'</span><span class="mk2-panel-count">'+items.length+'</span><span class="mk2-panel-arrow">▼</span></div><div class="mk2-panel-body'+ob+'">'+entries_html+extra+'</div></div>';
     });
-
-    if(res) res.innerHTML=panelHtml||'<div class="mk2-empty">कोई परिणाम नहीं</div>';
+    if(res)res.innerHTML=panelHtml||'<div class="mk2-empty">कोई परिणाम नहीं</div>';
   } catch(err){
-    console.warn('koshaSearchNow error:', err);
+    console.warn('koshaSearchNow error:',err);
     var res2=document.getElementById('koshaResults');
-    if(res2) res2.innerHTML='<div class="mk2-empty">खोज में त्रुटि हुई · Search error: '+err.message+'</div>';
+    if(res2)res2.innerHTML='<div class="mk2-empty">खोज में त्रुटि हुई · '+err.message+'</div>';
   }
 }
+
 
 function koshaReset(){
   var inp=document.getElementById('koshaInput');
@@ -2464,6 +2727,8 @@ function onKoshaTabOpen(){
   var inp=document.getElementById('koshaInput');
   if(inp && inp.value.trim()) koshaSearch(inp.value);
 }
+
+
 
 
 
